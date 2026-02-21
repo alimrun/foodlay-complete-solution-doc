@@ -39,10 +39,19 @@
         <a href="#overview">Overview</a>
         <a href="#requirements">Requirements</a>
         <a href="#setup">Setup</a>
+        <a href="#quick-start">Quick Start</a>
         <a href="#env">Environment</a>
+        <a href="#android-ios-config">Android &amp; iOS Config</a>
+        <a href="#localization-rtl">Localization &amp; RTL</a>
+        <a href="#theme-branding">Theme &amp; Branding</a>
+        <a href="#maps-api">Maps API Keys</a>
+        <a href="#mock-data-api">Mock Data &amp; API</a>
         <a href="#structure">Project Structure</a>
+        <a href="#widget-copy-flow">Widget Copy Flow</a>
+        <a href="#screen-copy-flow">Screen Copy Flow</a>
         <a href="#run">Run and Debug</a>
         <a href="#build">Build and Release</a>
+        <a href="#signing-release">Signing &amp; Release</a>
         <a href="#api">API Usage</a>
         <a href="#testing">Testing</a>
         <a href="#troubleshooting">Troubleshooting</a>
@@ -53,10 +62,27 @@
     <section class="content">
       <h2 id="overview">Overview</h2>
       <div class="section">
+        <p><strong>Foodlay Deliveryman App</strong> is a dedicated companion app for delivery partners, built with Flutter for Android and iOS.</p>
+        <h3>Highlights</h3>
         <div class="list">
-          <div>Second Flutter application integrated with Laravel backend</div>
-          <div>Distinct feature set and UI components</div>
-          <div>Separate flavors and configuration</div>
+          <div>Clean logistics-oriented UI</div>
+          <div>Dark &amp; Light theme, multi-language with RTL</div>
+          <div>Google Maps navigation support</div>
+          <div>Responsive layouts for phones and tablets</div>
+        </div>
+        <h3>Key Features</h3>
+        <div class="list">
+          <div>Real-time order assignment with detailed task view</div>
+          <div>Map-based navigation to restaurant and customer</div>
+          <div>Status updates: accepted, picked up, on the way, delivered</div>
+          <div>Earnings, payout summary, and delivery history</div>
+        </div>
+        <h3>Basic Usage</h3>
+        <div class="list">
+          <div>Sign in and switch to online mode</div>
+          <div>Accept incoming delivery requests</div>
+          <div>Navigate to pickup, update status, deliver order</div>
+          <div>Review completed orders and earnings</div>
         </div>
       </div>
 
@@ -76,6 +102,21 @@
         <pre class="code">flutter pub get</pre>
         <h3>Generate code</h3>
         <pre class="code">flutter pub run build_runner build --delete-conflicting-outputs</pre>
+        <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
+        <img src="../assets/images/upload/pub-get-command.png" alt="Pub get command" class="doc-img">
+      </div>
+
+      <h2 id="quick-start">Quick Start</h2>
+      <div class="section">
+        <div class="list">
+          <div>Open the project in Android Studio or VS Code</div>
+          <div>Install dependencies with flutter pub get</div>
+          <div>Prepare emulator/device and sign in</div>
+          <div>Launch delivery flow with the desired flavor</div>
+        </div>
+        <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
+        <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
+        <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
       <h2 id="env">Environment</h2>
@@ -96,6 +137,68 @@ FLAVOR=dev|staging|prod</pre>
   main_prod.dart</pre>
           </div>
         </div>
+        <h3>Maps API Key</h3>
+        <div class="list">
+          <div>AndroidManifest.xml:</div>
+        </div>
+        <pre class="code">&lt;application&gt;
+  &lt;meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="YOUR_ANDROID_API_KEY"/&gt;
+&lt;/application&gt;</pre>
+        <div class="list">
+          <div>iOS Info.plist:</div>
+        </div>
+        <pre class="code">&lt;key&gt;GMSApiKey&lt;/key&gt;
+&lt;string&gt;YOUR_IOS_API_KEY&lt;/string&gt;</pre>
+      </div>
+
+      <h2 id="android-ios-config">Android &amp; iOS Config</h2>
+      <div class="section">
+        <div class="list">
+          <div>Set application name and ID for release</div>
+          <div>Configure Android signing and iOS capabilities</div>
+          <div>Align minimum and target SDKs with platform requirements</div>
+        </div>
+        <img src="../assets/images/upload/application-name.png" alt="Application name" class="doc-img">
+        <img src="../assets/images/upload/application-id-2.png" alt="Application ID" class="doc-img">
+        <img src="../assets/images/upload/ios-config-1.png" alt="iOS config 1" class="doc-img">
+        <img src="../assets/images/upload/ios-config-2.png" alt="iOS config 2" class="doc-img">
+      </div>
+
+      <h2 id="localization-rtl">Localization &amp; RTL</h2>
+      <div class="section">
+        <div class="list">
+          <div>AppLocalizations setup in main.dart</div>
+          <div>ARB files in lib/l10n/arb</div>
+          <div>Use context.l10n and directional widgets for RTL</div>
+        </div>
+      </div>
+
+      <h2 id="theme-branding">Theme &amp; Branding</h2>
+      <div class="section">
+        <div class="list">
+          <div>Customize ThemeData (light/dark) under lib/config/theme</div>
+          <div>Manage palette via CustomThemeColors</div>
+          <div>Declare fonts in pubspec.yaml and reference in theme</div>
+        </div>
+      </div>
+
+      <h2 id="maps-api">Maps API Keys</h2>
+      <div class="section">
+        <div class="list">
+          <div>Restrict keys by package/bundle identifiers</div>
+          <div>Enable required Maps SDKs and set usage limits</div>
+        </div>
+      </div>
+
+      <h2 id="mock-data-api">Mock Data &amp; API Integration</h2>
+      <div class="section">
+        <div class="list">
+          <div>Use mock server with latency for UI development</div>
+          <div>Switch base URL when integrating backend</div>
+          <div>Follow Repository → Service → Bloc pattern with DI</div>
+        </div>
       </div>
 
       <h2 id="structure">Project Structure</h2>
@@ -113,6 +216,8 @@ FLAVOR=dev|staging|prod</pre>
         <pre class="code">flutter run --flavor dev -t lib/main_dev.dart</pre>
         <pre class="code">flutter run --flavor staging -t lib/main_staging.dart</pre>
         <pre class="code">flutter run --flavor prod -t lib/main_prod.dart</pre>
+        <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
+        <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
       <h2 id="build">Build and Release</h2>
@@ -121,6 +226,16 @@ FLAVOR=dev|staging|prod</pre>
         <pre class="code">flutter build apk --flavor prod -t lib/main_prod.dart</pre>
         <h3>iOS</h3>
         <pre class="code">flutter build ipa --flavor prod -t lib/main_prod.dart</pre>
+      </div>
+
+      <h2 id="signing-release">Signing &amp; Release</h2>
+      <div class="section">
+        <div class="list">
+          <div>Android: configure keystore, release signing, and proguard rules</div>
+          <div>Android: validate release checklist before publishing</div>
+          <div>iOS: set signing identities, capabilities, and entitlements</div>
+          <div>iOS: verify App Store release checklist</div>
+        </div>
       </div>
 
       <h2 id="api">API Usage</h2>
@@ -140,11 +255,15 @@ FLAVOR=dev|staging|prod</pre>
       <h2 id="troubleshooting">Troubleshooting</h2>
       <div class="section">
         <div class="list">
-          <div>Check device logs and network requests</div>
-          <div>Verify API base URL and flavor configuration</div>
-          <div>Clear caches and reinstall app if needed</div>
+          <div>Gradle build failed: align plugin &amp; wrapper versions</div>
+          <div>Flutter SDK path not found: verify PATH includes flutter/bin</div>
+          <div>Dependency resolution failed: flutter clean then pub get</div>
+          <div>iOS deployment target: update Podfile and Xcode settings</div>
+          <div>No matching Firebase client: correct bundle identifier</div>
+          <div>Generated files missing: run build_runner with delete-conflicting-outputs</div>
         </div>
       </div>
+
 
       <h2 id="links">Links</h2>
       <div class="section">
