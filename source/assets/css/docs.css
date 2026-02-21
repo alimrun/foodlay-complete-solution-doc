@@ -94,6 +94,8 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 12px;
+  color: var(--text);
+  text-decoration: none;
 }
 
 .brand .logo {
@@ -107,6 +109,10 @@ a:hover {
 .brand .title {
   font-weight: 700;
   letter-spacing: 0.2px;
+}
+
+.brand:hover {
+  text-decoration: none;
 }
 
 .nav-links {
