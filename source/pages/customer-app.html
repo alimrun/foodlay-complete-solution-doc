@@ -64,30 +64,37 @@
       <div class="section">
         <p><strong>Foodlay Customer App</strong> is a complete, production-ready food ordering application built with
           Flutter for Android and iOS.</p>
-        <div class="list">
-          <div>A full customer app with authentication, ordering, and tracking</div>
-          <div>GoRouter-based navigation with bottom tab dashboard</div>
-          <div>Localization, theming, and DI built-in</div>
-          <div>Google Maps, Firebase Messaging/Analytics/Crashlytics</div>
-        </div>
+        <ul class="list">
+          <li>A full customer app with authentication, ordering, and tracking</li>
+          <li>GoRouter-based navigation with bottom tab dashboard</li>
+          <li>Localization, theming, and DI built-in</li>
+          <li>Google Maps, Firebase Messaging/Analytics/Crashlytics</li>
+        </ul>
         <h3>Basic Usage</h3>
-        <div class="list">
-          <div>Launch the app and sign in</div>
-          <div>Choose location, browse restaurants, open a page</div>
-          <div>Add items to cart, review quantities, checkout</div>
-          <div>Select address &amp; payment, confirm order</div>
-          <div>Track order status until delivery completes</div>
-        </div>
+        <ul class="list">
+          <li>Launch the app and sign in</li>
+          <li>Choose location, browse restaurants, open a page</li>
+          <li>Add items to cart, review quantities, checkout</li>
+          <li>Select address &amp; payment, confirm order</li>
+          <li>Track order status until delivery completes</li>
+        </ul>
       </div>
 
       <h2 id="requirements">Requirements</h2>
       <div class="section">
-        <div class="list">
-          <div>Flutter 3+</div>
-          <div>Dart 3+</div>
-          <div>Android Studio or Xcode</div>
-          <div>Devices or emulators</div>
-        </div>
+        <ul class="list">
+          <li>Flutter 3+</li>
+          <li>Dart 3+</li>
+          <li>Android Studio or Xcode</li>
+          <li>Devices or emulators</li>
+        </ul>
+        <h3>Backend Requirements</h3>
+        <ul class="list">
+          <li>PHP ≥ 8.2</li>
+          <li>Composer ≥ 2.5</li>
+          <li>Node.js ≥ 18.x</li>
+          <li>MySQL 8.0+ or MariaDB 10.5+</li>
+        </ul>
       </div>
 
       <h2 id="setup">Setup</h2>
@@ -102,12 +109,12 @@
 
       <h2 id="quick-start">Quick Start</h2>
       <div class="section">
-        <div class="list">
-          <div>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span></div>
-          <div>Install dependencies: <span class="cmd">flutter pub get</span></div>
-          <div>Start an emulator or connect a device</div>
-          <div>Run the app: <span class="cmd">flutter run</span></div>
-        </div>
+        <ul class="list">
+          <li>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span></li>
+          <li>Install dependencies: <span class="cmd">flutter pub get</span></li>
+          <li>Start an emulator or connect a device</li>
+          <li>Run the app: <span class="cmd">flutter run</span></li>
+        </ul>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
@@ -118,42 +125,42 @@
         <h3>Firebase</h3>
         <div class="alert alert-warning">These configuration files contain sensitive credentials. Do not commit them to
           source control.</div>
-        <div class="list">
-          <div>Android: android/app/google-services.json</div>
-          <div>iOS: ios/Runner/GoogleService-Info.plist</div>
-          <div>Generate lib/firebase_options.dart via FlutterFire CLI</div>
-        </div>
+        <ul class="list">
+          <li>Android: android/app/google-services.json</li>
+          <li>iOS: ios/Runner/GoogleService-Info.plist</li>
+          <li>Generate lib/firebase_options.dart via FlutterFire CLI</li>
+        </ul>
         <pre class="code">dart pub global activate flutterfire_cli
 firebase login
 flutterfire configure</pre>
         <h3>Android Secrets</h3>
-        <div class="list">
-          <div>Create android/app/src/main/res/values/secrets.xml</div>
-          <div>Keys: google_maps_api_key, facebook_app_id, facebook_client_token</div>
-        </div>
+        <ul class="list">
+          <li>Create android/app/src/main/res/values/secrets.xml</li>
+          <li>Keys: google_maps_api_key, facebook_app_id, facebook_client_token</li>
+        </ul>
         <pre class="code">&lt;resources&gt;
   &lt;string name="google_maps_api_key"&gt;YOUR_KEY&lt;/string&gt;
   &lt;string name="facebook_app_id"&gt;YOUR_APP_ID&lt;/string&gt;
   &lt;string name="facebook_client_token"&gt;YOUR_TOKEN&lt;/string&gt;
 &lt;/resources&gt;</pre>
         <h3>Server API Base URL</h3>
-        <div class="list">
-          <div>Set the server API base URL used to fetch data (root of your Laravel backend)</div>
-          <div>Edit lib/config/util/app_constants.dart and set baseUrl to your backend domain</div>
-          <div>No trailing slash; endpoints are appended (e.g., /api/v1/...)</div>
-          <div>Local development hosts:</div>
-          <div>Android emulator → http://10.0.2.2:8000 (or your backend port)</div>
-          <div>iOS simulator → http://localhost:8000 (or http://localhost:8888 for MAMP)</div>
-          <div>Ensure your backend allows CORS for the app’s origin during development</div>
-        </div>
+        <ul class="list">
+          <li>Set the server API base URL used to fetch data (root of your Laravel backend)</li>
+          <li>Edit lib/config/util/app_constants.dart and set baseUrl to your backend domain</li>
+          <li>No trailing slash; endpoints are appended (e.g., /api/v1/...)</li>
+          <li>Local development hosts:</li>
+          <li>Android emulator → http://10.0.2.2:8000 (or your backend port)</li>
+          <li>iOS simulator → http://localhost:8000 (or http://localhost:8888 for MAMP)</li>
+          <li>Ensure your backend allows CORS for the app’s origin during development</li>
+        </ul>
         <pre class="code">lib/config/util/app_constants.dart
 static const String baseUrl = 'https://example.com';</pre>
-        <div class="list">
-          <div>HTTP client composes requests as baseUrl + endpoint path</div>
-          <div>See lib/core/data/api/api_client.dart (Uri.parse(appBaseUrl + uri))</div>
-          <div>Optional per-environment base URL:</div>
-          <div>Edit lib/core/dependency_injection/dependency_module.dart and switch env in lib/main.dart</div>
-        </div>
+        <ul class="list">
+          <li>HTTP client composes requests as baseUrl + endpoint path</li>
+          <li>See lib/core/data/api/api_client.dart (Uri.parse(appBaseUrl + uri))</li>
+          <li>Optional per-environment base URL:</li>
+          <li>Edit lib/core/dependency_injection/dependency_module.dart and switch env in lib/main.dart</li>
+        </ul>
         <pre class="code">lib/core/dependency_injection/dependency_module.dart
 @Named('appBaseUrl') @dev  String get devBaseUrl  =&gt; 'https://dev.example.com';
 @Named('appBaseUrl') @prod String get prodBaseUrl =&gt; 'https://api.example.com';
@@ -162,28 +169,28 @@ lib/main.dart
 await configureDependencies(env: Environment.prod);</pre>
         <h3>Maps API Key</h3>
         <div class="alert alert-info">Restrict keys to your package/bundle and enable required Maps SDKs.</div>
-        <div class="list">
-          <div>AndroidManifest.xml:</div>
-        </div>
+        <ul class="list">
+          <li>AndroidManifest.xml:</li>
+        </ul>
         <pre class="code">&lt;application&gt;
   &lt;meta-data
       android:name="com.google.android.geo.API_KEY"
       android:value="@string/google_maps_api_key"/&gt;
 &lt;/application&gt;</pre>
-        <div class="list">
-          <div>iOS Info.plist:</div>
-        </div>
+        <ul class="list">
+          <li>iOS Info.plist:</li>
+        </ul>
         <pre class="code">&lt;key&gt;GMSApiKey&lt;/key&gt;
 &lt;string&gt;YOUR_IOS_API_KEY&lt;/string&gt;</pre>
       </div>
 
       <h2 id="android-ios-config">Android &amp; iOS Config</h2>
       <div class="section">
-        <div class="list">
-          <div>Set application name and ID in project settings</div>
-          <div>Configure signing for Android and capabilities for iOS</div>
-          <div>Align deployment targets with SDK versions</div>
-        </div>
+        <ul class="list">
+          <li>Set application name and ID in project settings</li>
+          <li>Configure signing for Android and capabilities for iOS</li>
+          <li>Align deployment targets with SDK versions</li>
+        </ul>
         <img src="../assets/images/upload/application-name.png" alt="Application name" class="doc-img">
         <img src="../assets/images/upload/application-id-2.png" alt="Application ID" class="doc-img">
         <img src="../assets/images/upload/ios-config-1.png" alt="iOS config 1" class="doc-img">
@@ -192,118 +199,118 @@ await configureDependencies(env: Environment.prod);</pre>
 
       <h2 id="localization-rtl">Localization &amp; RTL</h2>
       <div class="section">
-        <div class="list">
-          <div>Localizations wired via AppLocalizations in main.dart</div>
-          <div>ARB files under lib/l10n/arb (en, ar, bn, es, hi)</div>
-          <div>Access strings using context.l10n helpers</div>
-          <div>RTL supported; prefer directional-aware widgets</div>
-        </div>
+        <ul class="list">
+          <li>Localizations wired via AppLocalizations in main.dart</li>
+          <li>ARB files under lib/l10n/arb (en, ar, bn, es, hi)</li>
+          <li>Access strings using context.l10n helpers</li>
+          <li>RTL supported; prefer directional-aware widgets</li>
+        </ul>
       </div>
 
       <h2 id="theme-branding">Theme &amp; Branding</h2>
       <div class="section">
-        <div class="list">
-          <div>Edit ThemeData in lib/config/theme/light_theme.dart and dark_theme.dart</div>
-          <div>Use CustomThemeColors for global palette</div>
-          <div>Declare fonts in pubspec.yaml and reference via theme</div>
-          <div>Replace assets under assets/ and configure app icons</div>
-        </div>
+        <ul class="list">
+          <li>Edit ThemeData in lib/config/theme/light_theme.dart and dark_theme.dart</li>
+          <li>Use CustomThemeColors for global palette</li>
+          <li>Declare fonts in pubspec.yaml and reference via theme</li>
+          <li>Replace assets under assets/ and configure app icons</li>
+        </ul>
       </div>
 
       <h2 id="maps-api">Maps API Keys</h2>
       <div class="section">
-        <div class="list">
-          <div>Restrict Android key by package name and SHA-1</div>
-          <div>Restrict iOS key by bundle identifier</div>
-          <div>Enable required Maps SDK APIs in Google Cloud Console</div>
-        </div>
+        <ul class="list">
+          <li>Restrict Android key by package name and SHA-1</li>
+          <li>Restrict iOS key by bundle identifier</li>
+          <li>Enable required Maps SDK APIs in Google Cloud Console</li>
+        </ul>
       </div>
 
       <h2 id="features">Core Features</h2>
       <div class="section">
-        <div class="list">
-          <div>Dashboard tabs: Home, Menu, Cart, Offers, Account</div>
-          <div>Onboarding, Splash, Search with filters</div>
-          <div>Authentication: password, OTP verification, setup password</div>
-          <div>Profile and settings, wishlist</div>
-          <div>Address selection and delivery info with Maps</div>
-          <div>Checkout and payment (webview-based flows)</div>
-          <div>Orders, details, tracking, confirmation</div>
-          <div>Wallet, loyalty points, referral</div>
-          <div>Notifications (Firebase) and local notifications</div>
-          <div>Chat and conversations</div>
-          <div>File viewer (images/videos), About/Terms/Privacy/Refund</div>
-        </div>
+        <ul class="list">
+          <li>Dashboard tabs: Home, Menu, Cart, Offers, Account</li>
+          <li>Onboarding, Splash, Search with filters</li>
+          <li>Authentication: password, OTP verification, setup password</li>
+          <li>Profile and settings, wishlist</li>
+          <li>Address selection and delivery info with Maps</li>
+          <li>Checkout and payment (webview-based flows)</li>
+          <li>Orders, details, tracking, confirmation</li>
+          <li>Wallet, loyalty points, referral</li>
+          <li>Notifications (Firebase) and local notifications</li>
+          <li>Chat and conversations</li>
+          <li>File viewer (images/videos), About/Terms/Privacy/Refund</li>
+        </ul>
       </div>
 
       <h2 id="architecture">Architecture</h2>
       <div class="section">
-        <div class="list">
-          <div>Routing with GoRouter and custom transitions</div>
-          <div>State with Bloc/HydratedBloc; DI via get_it + injectable</div>
-          <div>ThemeLocalizationWrapper and GlobalOverlayWrapper</div>
-          <div>Firebase initialized in main with NotificationHelper</div>
-          <div>Error handling via Catcher2 (debug/release configs)</div>
-        </div>
+        <ul class="list">
+          <li>Routing with GoRouter and custom transitions</li>
+          <li>State with Bloc/HydratedBloc; DI via get_it + injectable</li>
+          <li>ThemeLocalizationWrapper and GlobalOverlayWrapper</li>
+          <li>Firebase initialized in main with NotificationHelper</li>
+          <li>Error handling via Catcher2 (debug/release configs)</li>
+        </ul>
       </div>
 
       <h2 id="routes">Routes</h2>
       <div class="section">
-        <div class="list">
-          <div>Shell: Dashboard</div>
-          <div>Home: /home</div>
-          <div>Menu: /menu</div>
-          <div>Cart: /cart</div>
-          <div>Offers: /offers?tab=0..n</div>
-          <div>Account: /account</div>
-          <div>Splash: /splash</div>
-          <div>Onboarding: /onboarding_screen</div>
-          <div>Search Result: /search_result?filters=&amp;query=</div>
-          <div>Login: /login</div>
-          <div>Forget Password Login: /forget_login</div>
-          <div>Set Up Password: /set_up_password?uniqueIdentifier=&amp;otp=</div>
-          <div>Verification: /verification?uniqueIdentifier=&amp;isFromOtp=</div>
-          <div>Edit Profile: /edit_profile</div>
-          <div>Contact Us: /contact_us</div>
-          <div>Terms &amp; Condition: /terms_and_condition</div>
-          <div>Privacy Policy: /privacy_policy</div>
-          <div>Refund Policy: /refund_policy</div>
-          <div>FAQ: /faq</div>
-          <div>Settings: /settings</div>
-          <div>Settings → Setup Password: /settings/settings_setup_password?isUpdated=</div>
-          <div>Notification: /notification</div>
-          <div>Wishlist: /wishlist</div>
-          <div>Wallet: /wallet</div>
-          <div>Loyalty Point: /loyalty_point</div>
-          <div>Referral: /referral</div>
-          <div>Checkout: /checkout</div>
-          <div>Checkout → Update Delivery Info: /checkout/update_delivery_info</div>
-          <div>Checkout → Address: /checkout/checkout_address?address=&amp;showDeliveryArea=</div>
-          <div>Checkout → Personal Info: /checkout/personal_info</div>
-          <div>Payment: /payment?amount=</div>
-          <div>My Orders: /my_orders</div>
-          <div>My Orders → Details: /my_orders/order_details?data=&amp;orderId=&amp;isTrack=</div>
-          <div>Order Confirmation: /order_confirmation?orderId=&amp;readableId=&amp;phone=&amp;countryDialCode=</div>
-          <div>Chat: /chat</div>
-          <div>Chat → Conversation: /chat/conversation?chatName=&amp;chatId=&amp;imageUrl=&amp;isBusiness=</div>
-          <div>File Viewer: /file_viewer?data=&amp;initialIndex=</div>
-          <div>About Us: /about_us</div>
-          <div>Select Location: /select_location</div>
-          <div>Recommended View All: /recommended_view_all</div>
-          <div>WebView: /webview?data=</div>
-        </div>
+        <ul class="list">
+          <li>Shell: Dashboard</li>
+          <li>Home: /home</li>
+          <li>Menu: /menu</li>
+          <li>Cart: /cart</li>
+          <li>Offers: /offers?tab=0..n</li>
+          <li>Account: /account</li>
+          <li>Splash: /splash</li>
+          <li>Onboarding: /onboarding_screen</li>
+          <li>Search Result: /search_result?filters=&amp;query=</li>
+          <li>Login: /login</li>
+          <li>Forget Password Login: /forget_login</li>
+          <li>Set Up Password: /set_up_password?uniqueIdentifier=&amp;otp=</li>
+          <li>Verification: /verification?uniqueIdentifier=&amp;isFromOtp=</li>
+          <li>Edit Profile: /edit_profile</li>
+          <li>Contact Us: /contact_us</li>
+          <li>Terms &amp; Condition: /terms_and_condition</li>
+          <li>Privacy Policy: /privacy_policy</li>
+          <li>Refund Policy: /refund_policy</li>
+          <li>FAQ: /faq</li>
+          <li>Settings: /settings</li>
+          <li>Settings → Setup Password: /settings/settings_setup_password?isUpdated=</li>
+          <li>Notification: /notification</li>
+          <li>Wishlist: /wishlist</li>
+          <li>Wallet: /wallet</li>
+          <li>Loyalty Point: /loyalty_point</li>
+          <li>Referral: /referral</li>
+          <li>Checkout: /checkout</li>
+          <li>Checkout → Update Delivery Info: /checkout/update_delivery_info</li>
+          <li>Checkout → Address: /checkout/checkout_address?address=&amp;showDeliveryArea=</li>
+          <li>Checkout → Personal Info: /checkout/personal_info</li>
+          <li>Payment: /payment?amount=</li>
+          <li>My Orders: /my_orders</li>
+          <li>My Orders → Details: /my_orders/order_details?data=&amp;orderId=&amp;isTrack=</li>
+          <li>Order Confirmation: /order_confirmation?orderId=&amp;readableId=&amp;phone=&amp;countryDialCode=</li>
+          <li>Chat: /chat</li>
+          <li>Chat → Conversation: /chat/conversation?chatName=&amp;chatId=&amp;imageUrl=&amp;isBusiness=</li>
+          <li>File Viewer: /file_viewer?data=&amp;initialIndex=</li>
+          <li>About Us: /about_us</li>
+          <li>Select Location: /select_location</li>
+          <li>Recommended View All: /recommended_view_all</li>
+          <li>WebView: /webview?data=</li>
+        </ul>
       </div>
 
       <h2 id="structure">Project Structure</h2>
       <div class="section">
-        <div class="list">
-          <div>lib/config/route: route_config.dart</div>
-          <div>lib/config/theme: light_theme.dart, dark_theme.dart, custom_theme_colors.dart</div>
-          <div>lib/config/util: assets.gen.dart, fonts.gen.dart, styles.dart, constants</div>
-          <div>lib/core: helpers, DI, notifications, overlays</div>
-          <div>lib/features: screens for home, menu, cart, checkout, orders, etc.</div>
-          <div>lib/l10n/arb: app_en.arb, app_ar.arb, app_bn.arb, app_es.arb, app_hi.arb</div>
-        </div>
+        <ul class="list">
+          <li>lib/config/route: route_config.dart</li>
+          <li>lib/config/theme: light_theme.dart, dark_theme.dart, custom_theme_colors.dart</li>
+          <li>lib/config/util: assets.gen.dart, fonts.gen.dart, styles.dart, constants</li>
+          <li>lib/core: helpers, DI, notifications, overlays</li>
+          <li>lib/features: screens for home, menu, cart, checkout, orders, etc.</li>
+          <li>lib/l10n/arb: app_en.arb, app_ar.arb, app_bn.arb, app_es.arb, app_hi.arb</li>
+        </ul>
       </div>
 
       <h2 id="run">Run and Debug</h2>
@@ -323,21 +330,21 @@ await configureDependencies(env: Environment.prod);</pre>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
       <div class="section">
-        <div class="list">
-          <div>Android: configure keystore and release signing</div>
-          <div>Android: complete release checklist before publishing</div>
-          <div>iOS: set signing identities and capabilities</div>
-          <div>iOS: verify release checklist in Xcode</div>
-        </div>
+        <ul class="list">
+          <li>Android: configure keystore and release signing</li>
+          <li>Android: complete release checklist before publishing</li>
+          <li>iOS: set signing identities and capabilities</li>
+          <li>iOS: verify release checklist in Xcode</li>
+        </ul>
       </div>
 
       <h2 id="api">API Usage</h2>
       <div class="section">
-        <div class="list">
-          <div>Use token-based authentication</div>
-          <div>Handle pagination for lists</div>
-          <div>Use secure storage for sensitive data</div>
-        </div>
+        <ul class="list">
+          <li>Use token-based authentication</li>
+          <li>Handle pagination for lists</li>
+          <li>Use secure storage for sensitive data</li>
+        </ul>
       </div>
 
       <h2 id="testing">Testing</h2>
@@ -347,25 +354,25 @@ await configureDependencies(env: Environment.prod);</pre>
 
       <h2 id="troubleshooting">Troubleshooting</h2>
       <div class="section">
-        <div class="list">
-          <div>Gradle build failed: match Gradle/Android plugin versions</div>
-          <div>Flutter SDK path not found: check flutter/bin in PATH</div>
-          <div>Dependency resolution failed: run flutter clean then pub get</div>
-          <div>iOS deployment target: align Podfile and Xcode target versions</div>
-          <div>No matching Firebase client: use correct bundle identifier</div>
-          <div>Generated files missing: run build_runner with delete-conflicting-outputs</div>
-          <div>google-services.json not found: place at android/app/google-services.json</div>
-          <div>Maps key missing: create secrets.xml and add google_maps_api_key</div>
-        </div>
+        <ul class="list">
+          <li>Gradle build failed: match Gradle/Android plugin versions</li>
+          <li>Flutter SDK path not found: check flutter/bin in PATH</li>
+          <li>Dependency resolution failed: run flutter clean then pub get</li>
+          <li>iOS deployment target: align Podfile and Xcode target versions</li>
+          <li>No matching Firebase client: use correct bundle identifier</li>
+          <li>Generated files missing: run build_runner with delete-conflicting-outputs</li>
+          <li>google-services.json not found: place at android/app/google-services.json</li>
+          <li>Maps key missing: create secrets.xml and add google_maps_api_key</li>
+        </ul>
       </div>
 
 
       <h2 id="links">Links</h2>
       <div class="section">
-        <div class="list">
-          <div><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></div>
-          <div><a href="https://pub.dev" target="_blank" rel="noopener">pub.dev</a></div>
-        </div>
+        <ul class="list">
+          <li><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></li>
+          <li><a href="https://pub.dev" target="_blank" rel="noopener">pub.dev</a></li>
+        </ul>
       </div>
     </section>
   </main>
