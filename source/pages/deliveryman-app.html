@@ -40,15 +40,14 @@
         <a href="#requirements">Requirements</a>
         <a href="#setup">Setup</a>
         <a href="#quick-start">Quick Start</a>
-        <a href="#env">Environment</a>
+        <a href="#configuration">Configuration</a>
         <a href="#android-ios-config">Android &amp; iOS Config</a>
         <a href="#localization-rtl">Localization &amp; RTL</a>
         <a href="#theme-branding">Theme &amp; Branding</a>
         <a href="#maps-api">Maps API Keys</a>
-        <a href="#mock-data-api">Mock Data &amp; API</a>
+        <a href="#features">Core Features</a>
+        <a href="#architecture">Architecture</a>
         <a href="#structure">Project Structure</a>
-        <a href="#widget-copy-flow">Widget Copy Flow</a>
-        <a href="#screen-copy-flow">Screen Copy Flow</a>
         <a href="#run">Run and Debug</a>
         <a href="#build">Build and Release</a>
         <a href="#signing-release">Signing &amp; Release</a>
@@ -62,21 +61,12 @@
     <section class="content">
       <h2 id="overview">Overview</h2>
       <div class="section">
-        <p><strong>Foodlay Deliveryman App</strong> is a dedicated companion app for delivery partners, built with
-          Flutter for Android and iOS.</p>
-        <h3>Highlights</h3>
+        <p><strong>Foodlay Deliveryman App</strong> is a complete, production-ready application for delivery partners
+          built with Flutter for Android and iOS.</p>
         <div class="list">
-          <div>Clean logistics-oriented UI</div>
-          <div>Dark &amp; Light theme, multi-language with RTL</div>
-          <div>Google Maps navigation support</div>
-          <div>Responsive layouts for phones and tablets</div>
-        </div>
-        <h3>Key Features</h3>
-        <div class="list">
-          <div>Real-time order assignment with detailed task view</div>
-          <div>Map-based navigation to restaurant and customer</div>
-          <div>Status updates: accepted, picked up, on the way, delivered</div>
-          <div>Earnings, payout summary, and delivery history</div>
+          <div>Not a UI kit — a full delivery app with login, orders, maps, and chat</div>
+          <div>GoRouter-based navigation with a dashboard (Home, Orders, Account)</div>
+          <div>Localization, theming, DI, and Firebase messaging integrated</div>
         </div>
         <h3>Basic Usage</h3>
         <div class="list">
@@ -113,31 +103,34 @@
           <div>Open the project in Android Studio or VS Code</div>
           <div>Install dependencies with flutter pub get</div>
           <div>Prepare emulator/device and sign in</div>
-          <div>Launch delivery flow with the desired flavor</div>
+          <div>Run the app with: flutter run</div>
         </div>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
-      <h2 id="env">Environment</h2>
+      <h2 id="configuration">Configuration</h2>
       <div class="section">
-        <div class="row">
-          <div>
-            <h3>Config file</h3>
-            <pre class="code">API_BASE_URL=
-API_KEY=
-SENTRY_DSN=
-FLAVOR=dev|staging|prod</pre>
-          </div>
-          <div>
-            <h3>Flavors</h3>
-            <pre class="code">lib/
-  main_dev.dart
-  main_staging.dart
-  main_prod.dart</pre>
-          </div>
+        <h3>Firebase</h3>
+        <div class="list">
+          <div>Android: android/app/google-services.json</div>
+          <div>iOS: ios/Runner/GoogleService-Info.plist</div>
+          <div>Generate lib/firebase_options.dart via FlutterFire CLI</div>
         </div>
+        <pre class="code">dart pub global activate flutterfire_cli
+firebase login
+flutterfire configure</pre>
+        <h3>Android Secrets</h3>
+        <div class="list">
+          <div>Create android/app/src/main/res/values/secrets.xml</div>
+          <div>Keys: google_maps_api_key, facebook_app_id, facebook_client_token</div>
+        </div>
+        <pre class="code">&lt;resources&gt;
+  &lt;string name="google_maps_api_key"&gt;YOUR_KEY&lt;/string&gt;
+  &lt;string name="facebook_app_id"&gt;YOUR_APP_ID&lt;/string&gt;
+  &lt;string name="facebook_client_token"&gt;YOUR_TOKEN&lt;/string&gt;
+&lt;/resources&gt;</pre>
         <h3>Maps API Key</h3>
         <div class="list">
           <div>AndroidManifest.xml:</div>
@@ -145,7 +138,7 @@ FLAVOR=dev|staging|prod</pre>
         <pre class="code">&lt;application&gt;
   &lt;meta-data
       android:name="com.google.android.geo.API_KEY"
-      android:value="YOUR_ANDROID_API_KEY"/&gt;
+      android:value="@string/google_maps_api_key"/&gt;
 &lt;/application&gt;</pre>
         <div class="list">
           <div>iOS Info.plist:</div>
@@ -193,30 +186,47 @@ FLAVOR=dev|staging|prod</pre>
         </div>
       </div>
 
-      <h2 id="mock-data-api">Mock Data &amp; API Integration</h2>
+      <h2 id="features">Core Features</h2>
       <div class="section">
         <div class="list">
-          <div>Use mock server with latency for UI development</div>
-          <div>Switch base URL when integrating backend</div>
-          <div>Follow Repository → Service → Bloc pattern with DI</div>
+          <div>Dashboard tabs: Home, Orders, Account</div>
+          <div>Login with password/OTP; setup password</div>
+          <div>Orders list, details, confirmation</div>
+          <div>Order delivery location with Google Maps (from/to)</div>
+          <div>Cancel delivery with reason selection</div>
+          <div>Notifications (Firebase) and local notifications</div>
+          <div>Chat and conversations</div>
+          <div>Settings, edit profile, terms &amp; condition, contact us</div>
+          <div>File viewer for images/videos</div>
+        </div>
+      </div>
+
+      <h2 id="architecture">Architecture</h2>
+      <div class="section">
+        <div class="list">
+          <div>Routing with GoRouter and dashboard ShellRoute</div>
+          <div>State with Bloc; DI via get_it + injectable</div>
+          <div>ThemeLocalizationWrapper and AppWrapper</div>
+          <div>Firebase initialized in main with NotificationHelper and background handler</div>
+          <div>Error handling via Catcher2 (debug/release configs)</div>
         </div>
       </div>
 
       <h2 id="structure">Project Structure</h2>
       <div class="section">
         <div class="list">
-          <div>lib/core: configuration and utilities</div>
-          <div>lib/data: models and data sources</div>
-          <div>lib/features: UI screens and state management</div>
-          <div>lib/widgets: shared components</div>
+          <div>lib/config/route: route_config.dart</div>
+          <div>lib/config/theme: light_theme.dart, dark_theme.dart, custom_theme_colors.dart</div>
+          <div>lib/config/util: assets.gen.dart, fonts.gen.dart, styles.dart, constants</div>
+          <div>lib/core: helpers, DI, notifications, handlers</div>
+          <div>lib/features: account, chat, orders, settings, home, etc.</div>
+          <div>lib/l10n/arb: app_en.arb, app_ar.arb, app_bn.arb, app_es.arb, app_hi.arb</div>
         </div>
       </div>
 
       <h2 id="run">Run and Debug</h2>
       <div class="section">
-        <pre class="code">flutter run --flavor dev -t lib/main_dev.dart</pre>
-        <pre class="code">flutter run --flavor staging -t lib/main_staging.dart</pre>
-        <pre class="code">flutter run --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter run</pre>
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
@@ -224,9 +234,9 @@ FLAVOR=dev|staging|prod</pre>
       <h2 id="build">Build and Release</h2>
       <div class="section">
         <h3>Android</h3>
-        <pre class="code">flutter build apk --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter build apk</pre>
         <h3>iOS</h3>
-        <pre class="code">flutter build ipa --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter build ipa</pre>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
@@ -262,6 +272,8 @@ FLAVOR=dev|staging|prod</pre>
           <div>iOS deployment target: update Podfile and Xcode settings</div>
           <div>No matching Firebase client: correct bundle identifier</div>
           <div>Generated files missing: run build_runner with delete-conflicting-outputs</div>
+          <div>google-services.json not found: place at android/app/google-services.json</div>
+          <div>Maps key missing: create secrets.xml and add google_maps_api_key</div>
         </div>
       </div>
 

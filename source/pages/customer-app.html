@@ -40,15 +40,14 @@
         <a href="#requirements">Requirements</a>
         <a href="#setup">Setup</a>
         <a href="#quick-start">Quick Start</a>
-        <a href="#env">Environment</a>
+        <a href="#configuration">Configuration</a>
         <a href="#android-ios-config">Android &amp; iOS Config</a>
         <a href="#localization-rtl">Localization &amp; RTL</a>
         <a href="#theme-branding">Theme &amp; Branding</a>
         <a href="#maps-api">Maps API Keys</a>
-        <a href="#mock-data-api">Mock Data &amp; API</a>
+        <a href="#features">Core Features</a>
+        <a href="#architecture">Architecture</a>
         <a href="#structure">Project Structure</a>
-        <a href="#widget-copy-flow">Widget Copy Flow</a>
-        <a href="#screen-copy-flow">Screen Copy Flow</a>
         <a href="#run">Run and Debug</a>
         <a href="#build">Build and Release</a>
         <a href="#signing-release">Signing &amp; Release</a>
@@ -62,23 +61,12 @@
     <section class="content">
       <h2 id="overview">Overview</h2>
       <div class="section">
-        <p><strong>Foodlay Customer App</strong> delivers a full-featured food ordering experience built with Flutter,
-          running on Android and iOS from a single codebase.</p>
-        <h3>Highlights</h3>
+        <p><strong>Foodlay Customer App</strong> is a complete, production-ready food ordering application built with Flutter for Android and iOS.</p>
         <div class="list">
-          <div>Clean, modern food delivery design</div>
-          <div>100+ ready-to-use screens</div>
-          <div>Dark &amp; Light theme, multi-language with RTL</div>
-          <div>Google Maps and Firebase integrations</div>
-          <div>Responsive layouts for phones and tablets</div>
-        </div>
-        <h3>Key Features</h3>
-        <div class="list">
-          <div>Onboarding, authentication, and profile</div>
-          <div>Browse restaurants &amp; cuisines with search/filter</div>
-          <div>Item details, cart and customization flows</div>
-          <div>Multiple payment methods and promo/discounts</div>
-          <div>Order history, live tracking, notifications</div>
+          <div>A full customer app with authentication, ordering, and tracking</div>
+          <div>GoRouter-based navigation with bottom tab dashboard</div>
+          <div>Localization, theming, and DI built-in</div>
+          <div>Google Maps, Firebase Messaging/Analytics/Crashlytics</div>
         </div>
         <h3>Basic Usage</h3>
         <div class="list">
@@ -116,31 +104,34 @@
           <div>Open the project in Android Studio or VS Code</div>
           <div>Run flutter pub get to install dependencies</div>
           <div>Start an emulator or connect a device</div>
-          <div>Launch with flavor: dev, staging, or prod</div>
+          <div>Run the app with: flutter run</div>
         </div>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
-      <h2 id="env">Environment</h2>
+      <h2 id="configuration">Configuration</h2>
       <div class="section">
-        <div class="row">
-          <div>
-            <h3>Config file</h3>
-            <pre class="code">API_BASE_URL=
-API_KEY=
-SENTRY_DSN=
-FLAVOR=dev|staging|prod</pre>
-          </div>
-          <div>
-            <h3>Flavors</h3>
-            <pre class="code">lib/
-  main_dev.dart
-  main_staging.dart
-  main_prod.dart</pre>
-          </div>
+        <h3>Firebase</h3>
+        <div class="list">
+          <div>Android: android/app/google-services.json</div>
+          <div>iOS: ios/Runner/GoogleService-Info.plist</div>
+          <div>Generate lib/firebase_options.dart via FlutterFire CLI</div>
         </div>
+        <pre class="code">dart pub global activate flutterfire_cli
+firebase login
+flutterfire configure</pre>
+        <h3>Android Secrets</h3>
+        <div class="list">
+          <div>Create android/app/src/main/res/values/secrets.xml</div>
+          <div>Keys: google_maps_api_key, facebook_app_id, facebook_client_token</div>
+        </div>
+        <pre class="code">&lt;resources&gt;
+  &lt;string name="google_maps_api_key"&gt;YOUR_KEY&lt;/string&gt;
+  &lt;string name="facebook_app_id"&gt;YOUR_APP_ID&lt;/string&gt;
+  &lt;string name="facebook_client_token"&gt;YOUR_TOKEN&lt;/string&gt;
+&lt;/resources&gt;</pre>
         <h3>Maps API Key</h3>
         <div class="list">
           <div>AndroidManifest.xml:</div>
@@ -148,7 +139,7 @@ FLAVOR=dev|staging|prod</pre>
         <pre class="code">&lt;application&gt;
   &lt;meta-data
       android:name="com.google.android.geo.API_KEY"
-      android:value="YOUR_ANDROID_API_KEY"/&gt;
+      android:value="@string/google_maps_api_key"/&gt;
 &lt;/application&gt;</pre>
         <div class="list">
           <div>iOS Info.plist:</div>
@@ -199,50 +190,49 @@ FLAVOR=dev|staging|prod</pre>
         </div>
       </div>
 
-      <h2 id="mock-data-api">Mock Data &amp; API Integration</h2>
+      <h2 id="features">Core Features</h2>
       <div class="section">
         <div class="list">
-          <div>Use mock server with CORS and latency for offline UI</div>
-          <div>Flip base URL to integrate backend when ready</div>
-          <div>Feature calls flow: Repository → Service → Bloc with DI</div>
+          <div>Dashboard tabs: Home, Menu, Cart, Offers, Account</div>
+          <div>Onboarding, Splash, Search with filters</div>
+          <div>Authentication: password, OTP verification, setup password</div>
+          <div>Profile and settings, wishlist</div>
+          <div>Address selection and delivery info with Maps</div>
+          <div>Checkout and payment (webview-based flows)</div>
+          <div>Orders, details, tracking, confirmation</div>
+          <div>Wallet, loyalty points, referral</div>
+          <div>Notifications (Firebase) and local notifications</div>
+          <div>Chat and conversations</div>
+          <div>File viewer (images/videos), About/Terms/Privacy/Refund</div>
+        </div>
+      </div>
+
+      <h2 id="architecture">Architecture</h2>
+      <div class="section">
+        <div class="list">
+          <div>Routing with GoRouter and custom transitions</div>
+          <div>State with Bloc/HydratedBloc; DI via get_it + injectable</div>
+          <div>ThemeLocalizationWrapper and GlobalOverlayWrapper</div>
+          <div>Firebase initialized in main with NotificationHelper</div>
+          <div>Error handling via Catcher2 (debug/release configs)</div>
         </div>
       </div>
 
       <h2 id="structure">Project Structure</h2>
       <div class="section">
         <div class="list">
-          <div>lib/core: configuration and utilities</div>
-          <div>lib/data: models and data sources</div>
-          <div>lib/features: UI screens and state management</div>
-          <div>lib/widgets: shared components</div>
-        </div>
-      </div>
-
-      <h2 id="widget-copy-flow">Widget Copy Flow</h2>
-      <div class="section">
-        <div class="list">
-          <div>Locate widget under common or feature widgets</div>
-          <div>Copy file to target folder and rename if needed</div>
-          <div>Fix imports and constructor call sites</div>
-          <div>Optionally update barrel exports</div>
-        </div>
-      </div>
-
-      <h2 id="screen-copy-flow">Screen Copy Flow</h2>
-      <div class="section">
-        <div class="list">
-          <div>Duplicate feature screen folder and rename classes</div>
-          <div>Register route in config and wire DI annotations</div>
-          <div>Regenerate DI with build_runner</div>
-          <div>Clean, rebuild, and verify navigation</div>
+          <div>lib/config/route: route_config.dart</div>
+          <div>lib/config/theme: light_theme.dart, dark_theme.dart, custom_theme_colors.dart</div>
+          <div>lib/config/util: assets.gen.dart, fonts.gen.dart, styles.dart, constants</div>
+          <div>lib/core: helpers, DI, notifications, overlays</div>
+          <div>lib/features: screens for home, menu, cart, checkout, orders, etc.</div>
+          <div>lib/l10n/arb: app_en.arb, app_ar.arb, app_bn.arb, app_es.arb, app_hi.arb</div>
         </div>
       </div>
 
       <h2 id="run">Run and Debug</h2>
       <div class="section">
-        <pre class="code">flutter run --flavor dev -t lib/main_dev.dart</pre>
-        <pre class="code">flutter run --flavor staging -t lib/main_staging.dart</pre>
-        <pre class="code">flutter run --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter run</pre>
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
@@ -250,9 +240,9 @@ FLAVOR=dev|staging|prod</pre>
       <h2 id="build">Build and Release</h2>
       <div class="section">
         <h3>Android</h3>
-        <pre class="code">flutter build apk --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter build apk</pre>
         <h3>iOS</h3>
-        <pre class="code">flutter build ipa --flavor prod -t lib/main_prod.dart</pre>
+        <pre class="code">flutter build ipa</pre>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
@@ -288,6 +278,8 @@ FLAVOR=dev|staging|prod</pre>
           <div>iOS deployment target: align Podfile and Xcode target versions</div>
           <div>No matching Firebase client: use correct bundle identifier</div>
           <div>Generated files missing: run build_runner with delete-conflicting-outputs</div>
+          <div>google-services.json not found: place at android/app/google-services.json</div>
+          <div>Maps key missing: create secrets.xml and add google_maps_api_key</div>
         </div>
       </div>
 
