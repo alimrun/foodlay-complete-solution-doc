@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel Documentation</title>
+    <title>Foodlay Laravel Documentation</title>
     <link rel="stylesheet" href="assets/css/docs.css">
 </head>
 
@@ -13,7 +13,7 @@
         <div class="nav-inner container">
             <div class="brand">
                 <div class="logo"></div>
-                <div class="title">Project Documentation</div>
+                <div class="title">Foodlay</div>
             </div>
             <nav class="nav-links">
                 <a href="index.html">Home</a>
@@ -36,60 +36,222 @@
             </div>
             <h4>Contents</h4>
             <nav class="toc" id="toc">
-                <a href="#overview">Overview</a>
-                <a href="#requirements">Requirements</a>
-                <a href="#setup">Setup</a>
-                <a href="#env">Environment</a>
-                <a href="#structure">Project Structure</a>
-                <a href="#database">Database</a>
-                <a href="#api">API</a>
-                <a href="#queues">Queues and Jobs</a>
-                <a href="#broadcast">Broadcasting</a>
-                <a href="#testing">Testing</a>
+                <a href="#introduction">Introduction</a>
+                <a href="#system-features">System Features</a>
+                <a href="#prerequisites">Prerequisites</a>
+                <a href="#quick-start">Quick Start Guide</a>
+                <a href="#installation-process">Installation Process</a>
+                <a href="#configuration">Configuration</a>
+                <a href="#server-configuration">Server Configuration</a>
                 <a href="#deployment">Deployment</a>
                 <a href="#troubleshooting">Troubleshooting</a>
-                <a href="#links">Links</a>
+                <a href="#customization">Customization</a>
+                <a href="#help-support">Help &amp; Support</a>
             </nav>
         </aside>
 
         <section class="content">
-            <h2 id="overview">Overview</h2>
+            <h2 id="introduction">Introduction</h2>
             <div class="section">
+                <p><strong>Foodlay</strong> is a modern single-vendor restaurant management system built on top of the
+                    DayOneFood stack, combining a robust <strong>Laravel 12</strong> backend with a dynamic <strong>Vue
+                        3</strong> frontend via <strong>Inertia.js</strong>.</p>
                 <div class="list">
-                    <div>Laravel backend powering two Flutter applications</div>
-                    <div>RESTful APIs for authentication, profile, products, orders</div>
-                    <div>Queue workers for emails, notifications, and background jobs</div>
+                    <div>Backend: Laravel 12</div>
+                    <div>Frontend: Vue 3 (Composition API) with Inertia.js</div>
+                    <div>Styling: Tailwind CSS 4</div>
+                    <div>Build tool: Vite 7</div>
+                    <div>Database: MySQL 8+/MariaDB 10.5+</div>
+                </div>
+                <h3>System Architecture</h3>
+                <div class="list">
+                    <div>Monolithic Laravel application with two decoupled frontend modules:</div>
+                    <div>Admin Panel: dashboard for managing orders, items, users, and settings</div>
+                    <div>Storefront: customer-facing web app for browsing menus and placing orders</div>
+                </div>
+                <h3>Folder Structure</h3>
+                <pre class="code">/app
+/Http
+  /Controllers
+    /Api          (REST API V1)
+    /Payment      (Gateways: Stripe, PayPal, etc.)
+    /Web          (Inertia controllers: Admin, StoreFront)
+  /Middleware
+  /Requests
+  /Resources
+/config
+/database
+/public          (POINT DOMAIN HERE)
+/resources
+  /js
+    /AdminPanel   (Admin Vue app)
+    /StoreFront   (Customer Vue app)
+    /components   (Shared UI)
+    /lib          (Utilities)
+  /css            (Tailwind entries)
+  /views          (Blade entry points)
+/routes
+  /api            (Versioned API routes)
+  /web            (Admin, Storefront, Installer)
+/storage
+.env</pre>
+            </div>
+
+            <h2 id="system-features">System Features</h2>
+            <div class="section">
+                <h3>Dashboard &amp; Analytics</h3>
+                <div class="list">
+                    <div>Real-time overview of orders, revenue, and active users</div>
+                    <div>Reports: sales &amp; revenue, category &amp; item performance, user activity, hourly trends
+                    </div>
+                </div>
+                <h3>Order Management</h3>
+                <div class="list">
+                    <div>Full lifecycle tracking: Pending, Confirm, Processing, Handover, Picked Up, Delivered</div>
+                    <div>Delivery assignment (manual/automatic), invoice generation, refund workflows</div>
+                </div>
+                <h3>Food &amp; Menu Management</h3>
+                <div class="list">
+                    <div>Advanced item setup (description, images, pricing)</div>
+                    <div>Variations &amp; addons; categories &amp; sub-categories; labels &amp; cuisines</div>
+                    <div>Bulk import/export via CSV/Excel</div>
+                </div>
+                <h3>Marketing &amp; Promotions</h3>
+                <div class="list">
+                    <div>Coupons with limits/expiry; BOGO; Happy Hour scheduling</div>
+                    <div>Loyalty points redeemable to wallet; push notifications via Firebase</div>
+                    <div>Sales popups for FOMO on storefront</div>
+                </div>
+                <h3>User Management</h3>
+                <div class="list">
+                    <div>Employee roles &amp; granular permissions</div>
+                    <div>Deliveryman management with shift tracking and earnings</div>
+                    <div>Customer wallet and CRM (orders, points, balance)</div>
+                </div>
+                <h3>Website &amp; Content</h3>
+                <div class="list">
+                    <div>Page builder for About/Privacy/Terms</div>
+                    <div>Blogs and FAQ modules</div>
+                    <div>Social links configuration</div>
+                </div>
+                <h3>Settings &amp; Configuration</h3>
+                <div class="list">
+                    <div>Payment gateways: Stripe, PayPal, Razorpay, Flutterwave</div>
+                    <div>SMS gateways: Twilio, Nexmo</div>
+                    <div>Firebase setup for notifications/auth; Mail via SMTP (Gmail, SES, Mailgun)</div>
+                    <div>Business info: currency, time zone, logo, branding</div>
+                </div>
+                <h3>Communication</h3>
+                <div class="list">
+                    <div>Live chat between customers and Admin/Support</div>
+                    <div>Order-specific support channels</div>
+                </div>
+                <h3>System Maintenance</h3>
+                <div class="list">
+                    <div>Database backups, system health view (PHP version, extensions)</div>
+                    <div>Activity logs for auditing</div>
+                </div>
+                <h3>Security</h3>
+                <div class="list">
+                    <div>Role-based access control</div>
+                    <div>Secure login protections</div>
                 </div>
             </div>
 
-            <h2 id="requirements">Requirements</h2>
+            <h2 id="prerequisites">Prerequisites</h2>
             <div class="section">
+                <h3>Server Requirements</h3>
                 <div class="list">
-                    <div>PHP 8.2+</div>
-                    <div>Composer 2+</div>
-                    <div>MySQL 8 or MariaDB 10+</div>
-                    <div>Redis for caching and queues</div>
-                    <div>Node.js for asset tooling if applicable</div>
+                    <div>PHP ≥ 8.2</div>
+                    <div>Composer ≥ 2.5</div>
+                    <div>Node.js ≥ 18.x</div>
+                    <div>MySQL 8.0+ or MariaDB 10.5+</div>
                 </div>
+                <h3>PHP Extensions</h3>
+                <pre class="code">BCMath
+Ctype
+Fileinfo
+JSON
+Mbstring
+OpenSSL
+PDO (pdo_mysql)
+Tokenizer
+XML
+curl
+gd
+exif
+intl
+zip</pre>
+                <img src="assets/images/upload/requirements.png" alt="Server requirements check" class="doc-img">
             </div>
 
-            <h2 id="setup">Setup</h2>
+            <h2 id="quick-start">Quick Start Guide</h2>
             <div class="section">
-                <h3>Install dependencies</h3>
-                <pre class="code">composer install</pre>
+                <h3>Pre-flight Checklist</h3>
+                <div class="list">
+                    <div>Domain and hosting meeting prerequisites.</div>
+                    <div>Purchase code available.</div>
+                    <div>Empty MySQL/MariaDB database created.</div>
+                </div>
+                <h3>4-Step Installation</h3>
+                <div class="list">
+                    <div>Upload and unzip install.zip.</div>
+                    <div>Point domain document root to /public.</div>
+                    <div>Run installer wizard in browser.</div>
+                    <div>Configure DB credentials and purchase code.</div>
+                </div>
+                <h3>Post-Installation</h3>
+                <div class="list">
+                    <div>Configure business settings.</div>
+                    <div>Set up mail (SMTP).</div>
+                    <div>Configure cron job.</div>
+                    <div>Create zone and add first food item.</div>
+                </div>
+                <img src="assets/images/upload/business-setup.png" alt="Business setup screen" class="doc-img">
+            </div>
+
+            <h2 id="installation-process">Installation Process</h2>
+            <div class="section">
+                <h3>Database Creation</h3>
+                <div class="list">
+                    <div>Step A: Create database via cPanel wizard.</div>
+                    <div>Step B: Create DB user and password.</div>
+                    <div>Step C: Assign ALL PRIVILEGES to the user.</div>
+                </div>
+                <img src="assets/images/upload/database-setup.png" alt="Database setup wizard" class="doc-img">
+                <h3>Extraction &amp; Setup</h3>
+                <div class="list">
+                    <div>Upload and unzip install.zip to server root.</div>
+                    <div>Point domain/subdomain to /public.</div>
+                    <div>Ensure writable: /storage, /bootstrap/cache, .env.</div>
+                </div>
+                <h3>Automated Wizard</h3>
+                <div class="list">
+                    <div>Visit site to start installer.</div>
+                    <div>Enter DB credentials and purchase code.</div>
+                    <div>Finish and log in to Admin Panel.</div>
+                </div>
+                <img src="assets/images/upload/purchase-verification.png" alt="Purchase verification" class="doc-img">
+                <img src="assets/images/upload/finalize installation.png" alt="Finalize installation" class="doc-img">
+                <img src="assets/images/upload/installation-success.png" alt="Installation success" class="doc-img">
+            </div>
+
+            <h2 id="configuration">Configuration</h2>
+            <div class="section">
+                <h3>Core</h3>
+                <div class="list">
+                    <div>Business details, currency, time zone, branding.</div>
+                    <div>Enable/disable modules as needed.</div>
+                </div>
+                <h3>Integrations</h3>
+                <div class="list">
+                    <div>Payment gateways: Stripe, PayPal, Razorpay, Flutterwave, etc.</div>
+                    <div>SMS gateways: Twilio, Nexmo, others for OTP.</div>
+                    <div>Firebase: push notifications and auth.</div>
+                    <div>Mail: SMTP (Gmail, AWS SES, Mailgun).</div>
+                </div>
                 <h3>Environment</h3>
-                <pre class="code">cp .env.example .env
-php artisan key:generate</pre>
-                <h3>Database</h3>
-                <pre class="code">php artisan migrate --seed</pre>
-            </div>
-
-            <h2 id="env">Environment</h2>
-            <div class="section">
-                <div class="row">
-                    <div>
-                        <h3>Core variables</h3>
-                        <pre class="code">APP_NAME=
+                <pre class="code">APP_NAME=
 APP_ENV=
 APP_KEY=
 APP_URL=
@@ -97,93 +259,207 @@ DB_HOST=
 DB_PORT=
 DB_DATABASE=
 DB_USERNAME=
-DB_PASSWORD=</pre>
-                    </div>
-                    <div>
-                        <h3>Services</h3>
-                        <pre class="code">MAIL_MAILER=
-REDIS_HOST=
+DB_PASSWORD=
+MAIL_MAILER=
 QUEUE_CONNECTION=
 BROADCAST_DRIVER=
 CACHE_DRIVER=</pre>
-                    </div>
-                </div>
             </div>
 
-            <h2 id="structure">Project Structure</h2>
+            <h2 id="server-configuration">Server Configuration</h2>
             <div class="section">
+                <h3>Local Development</h3>
                 <div class="list">
-                    <div>app: application code and domain logic</div>
-                    <div>routes: API and web routes</div>
-                    <div>database: migrations, seeders, factories</div>
-                    <div>config: application configuration</div>
-                    <div>resources: views and assets</div>
+                    <div>php artisan serve (local dev only)</div>
+                    <div>Access: http://127.0.0.1:8000</div>
                 </div>
-            </div>
-
-            <h2 id="database">Database</h2>
-            <div class="section">
-                <h3>Migrations</h3>
-                <pre class="code">php artisan migrate</pre>
-                <h3>Seeders</h3>
-                <pre class="code">php artisan db:seed</pre>
-            </div>
-
-            <h2 id="api">API</h2>
-            <div class="section">
+                <h3>Nginx</h3>
+                <pre class="code">server {
+    listen 80;
+    server_name example.com;
+    root /var/www/foodlay/public;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    index index.php;
+    charset utf-8;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}</pre>
+                <h3>Apache</h3>
+                <pre class="code">&lt;VirtualHost *:80&gt;
+    ServerName example.com
+    DocumentRoot /var/www/foodlay/public
+    &lt;Directory /var/www/foodlay/public&gt;
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+&lt;/VirtualHost&gt;</pre>
+                <h3>LiteSpeed / OpenLiteSpeed</h3>
                 <div class="list">
-                    <div>Authentication and token issuing</div>
-                    <div>CRUD endpoints for core resources</div>
-                    <div>Pagination and filtering for collections</div>
+                    <div>Enterprise: point document root to /public; uses .htaccess</div>
+                    <div>OpenLiteSpeed: enable Rewrite and auto-load .htaccess in Virtual Host</div>
                 </div>
-                <h3>Run server</h3>
-                <pre class="code">php artisan serve</pre>
-            </div>
-
-            <h2 id="queues">Queues and Jobs</h2>
-            <div class="section">
-                <pre class="code">php artisan queue:work</pre>
-            </div>
-
-            <h2 id="broadcast">Broadcasting</h2>
-            <div class="section">
+                <h3>SSL &amp; Security</h3>
+                <pre class="code">sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d example.com</pre>
+                <h3>cPanel Alternative (if /public not possible)</h3>
                 <div class="list">
-                    <div>Driver options: log, pusher, redis</div>
-                    <div>Use channels for real-time updates</div>
+                    <div>Upload project to /public_html/foodlay_core/</div>
+                    <div>Move all files from /foodlay_core/public/ to /public_html/</div>
+                    <div>Edit public_html/index.php paths:</div>
                 </div>
-            </div>
-
-            <h2 id="testing">Testing</h2>
-            <div class="section">
-                <pre class="code">php artisan test</pre>
+                <pre class="code">require __DIR__.'/foodlay_core/vendor/autoload.php';
+$app = require_once __DIR__.'/foodlay_core/bootstrap/app.php';</pre>
+                <h3>Permissions</h3>
+                <div class="list">
+                    <div>Ensure writable: /storage, /bootstrap/cache, .env</div>
+                </div>
+                <h3>Cron Job</h3>
+                <pre class="code">* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</pre>
+                <h3>Queue Workers</h3>
+                <div class="list">
+                    <div>Use Supervisor/systemd when QUEUE_CONNECTION=database</div>
+                </div>
             </div>
 
             <h2 id="deployment">Deployment</h2>
             <div class="section">
                 <div class="list">
+                    <div>Point domain document root to /public</div>
+                    <div>Upload built assets (public/build) after npm run build</div>
                     <div>Optimize configuration and routes</div>
                     <div>Run migrations and seeders</div>
-                    <div>Start queue workers and horizon if used</div>
+                    <div>Start queue workers (Supervisor/Horizon)</div>
                 </div>
-                <pre class="code">php artisan config:cache
+                <pre class="code">npm install
+npm run build
+php artisan config:cache
 php artisan route:cache
 php artisan migrate --force</pre>
             </div>
 
             <h2 id="troubleshooting">Troubleshooting</h2>
             <div class="section">
+                <h3>500 Server Error</h3>
                 <div class="list">
-                    <div>Check logs in storage/logs</div>
-                    <div>Verify environment variables and cache</div>
-                    <div>Ensure queue workers are running</div>
+                    <div>Check storage/logs/laravel.log</div>
+                    <div>Fix permissions:</div>
                 </div>
+                <pre class="code">chmod -R 775 storage
+chmod -R 775 bootstrap/cache</pre>
+                <h3>Vite manifest not found</h3>
+                <div class="list">
+                    <div>Ensure public/build exists and was uploaded correctly</div>
+                </div>
+                <h3>Images not loading</h3>
+                <div class="list">
+                    <div>Link storage:</div>
+                </div>
+                <pre class="code">php artisan storage:link</pre>
+                <h3>404 Not Found (except homepage)</h3>
+                <div class="list">
+                    <div>Nginx: include try_files $uri $uri/ /index.php?$query_string;</div>
+                    <div>Apache: ensure .htaccess exists and mod_rewrite is enabled</div>
+                </div>
+                <h3>Emails not sending</h3>
+                <div class="list">
+                    <div>Verify SMTP config; test connection</div>
+                    <div>Use QUEUE_CONNECTION=sync for testing or run workers</div>
+                </div>
+                <h3>Class/Target not found</h3>
+                <pre class="code">composer dump-autoload
+php artisan optimize:clear</pre>
+                <h3>Changes not reflecting</h3>
+                <pre class="code">php artisan optimize:clear
+php artisan config:clear
+php artisan cache:clear</pre>
+                <h3>419 Page Expired (CSRF)</h3>
+                <div class="list">
+                    <div>Check SESSION_DOMAIN; ensure sessions path is writable; set SESSION_SECURE_COOKIE when HTTPS
+                    </div>
+                </div>
+                <h3>Mixed Content (HTTP/HTTPS)</h3>
+                <pre class="code">APP_URL=https://yourdomain.com</pre>
+                <h3>Composer platform issues</h3>
+                <pre class="code">composer install --ignore-platform-reqs</pre>
+                <h3>SQL strict mode errors</h3>
+                <div class="list">
+                    <div>Set 'strict' => false in config/database.php and clear config cache</div>
+                </div>
+                <h3>Large file uploads fail</h3>
+                <pre class="code">upload_max_filesize = 64M
+post_max_size = 64M
+memory_limit = 512M</pre>
+                <h3>Node/Vue build issues</h3>
+                <pre class="code">rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+export NODE_OPTIONS=--max_old_space_size=4096
+npm run build</pre>
             </div>
 
-            <h2 id="links">Links</h2>
+            <h2 id="customization">Customization</h2>
+            <div class="section">
+                <h3>Controllers &amp; Services</h3>
+                <div class="list">
+                    <div>Controllers in app/Http/Controllers handle requests</div>
+                    <div>Services in app/Services encapsulate business logic</div>
+                </div>
+                <h3>Models</h3>
+                <div class="list">
+                    <div>Use migrations for schema changes; update model $fillable</div>
+                </div>
+                <pre class="code">php artisan make:migration add_column_to_items_table</pre>
+                <h3>Frontend (Vue 3 + Inertia)</h3>
+                <div class="list">
+                    <div>Pages in resources/js/Pages</div>
+                    <div>Components in resources/js/Components</div>
+                    <div>Run npm run dev for HMR; npm run build for production</div>
+                </div>
+                <h3>Styling &amp; Themes</h3>
+                <div class="list">
+                    <div>Tailwind CSS entries in resources/css</div>
+                    <div>Rebuild assets after changes</div>
+                </div>
+                <h3>Translations</h3>
+                <div class="list">
+                    <div>Manage languages via Admin Panel; developer seeds in database/seeders</div>
+                </div>
+                <h3>Email Templates</h3>
+                <div class="list">
+                    <div>Blade templates at resources/views/emails</div>
+                </div>
+                <h3>Routes</h3>
+                <pre class="code">Route::get('/', fn () =&gt; Inertia::render('StoreFront/Home'));
+Route::get('/admin', fn () =&gt; Inertia::render('AdminPanel/Dashboard'));</pre>
+            </div>
+
+            <h2 id="help-support">Help &amp; Support</h2>
             <div class="section">
                 <div class="list">
+                    <div>Email support: <a href="mailto:thedayonesoft@gmail.com">thedayonesoft@gmail.com</a></div>
+                    <div>WhatsApp: <a href="https://wa.me/8801601666058" target="_blank">+880 1601-666058</a></div>
                     <div><a href="https://laravel.com/docs" target="_blank" rel="noopener">Laravel Docs</a></div>
                     <div><a href="https://laravel.com/api" target="_blank" rel="noopener">Laravel API</a></div>
+                </div>
+                <h3>Support Policy</h3>
+                <div class="list">
+                    <div>Included: feature questions, bug assistance, help with bundled assets</div>
+                    <div>Not included: customization services, installation, hosting/server issues</div>
+                </div>
+                <h3>Before Contacting</h3>
+                <div class="list">
+                    <div>Read this documentation thoroughly</div>
+                    <div>Check Troubleshooting section</div>
+                    <div>Search marketplace comments for similar issues</div>
                 </div>
             </div>
         </section>
