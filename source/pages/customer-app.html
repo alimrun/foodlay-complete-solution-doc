@@ -95,7 +95,7 @@
         <h3>Get dependencies</h3>
         <pre class="code">flutter pub get</pre>
         <h3>Generate code</h3>
-        <pre class="code">flutter pub run build_runner build --delete-conflicting-outputs</pre>
+        <pre class="code highlight">flutter pub run build_runner build --delete-conflicting-outputs</pre>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/pub-get-command.png" alt="Pub get command" class="doc-img">
       </div>
@@ -103,10 +103,10 @@
       <h2 id="quick-start">Quick Start</h2>
       <div class="section">
         <div class="list">
-          <div>Open the project in Android Studio or VS Code</div>
-          <div>Run flutter pub get to install dependencies</div>
+          <div>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span></div>
+          <div>Install dependencies: <span class="cmd">flutter pub get</span></div>
           <div>Start an emulator or connect a device</div>
-          <div>Run the app with: flutter run</div>
+          <div>Run the app: <span class="cmd">flutter run</span></div>
         </div>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
@@ -116,6 +116,8 @@
       <h2 id="configuration">Configuration</h2>
       <div class="section">
         <h3>Firebase</h3>
+        <div class="alert alert-warning">These configuration files contain sensitive credentials. Do not commit them to
+          source control.</div>
         <div class="list">
           <div>Android: android/app/google-services.json</div>
           <div>iOS: ios/Runner/GoogleService-Info.plist</div>
@@ -159,6 +161,7 @@ static const String baseUrl = 'https://example.com';</pre>
 lib/main.dart
 await configureDependencies(env: Environment.prod);</pre>
         <h3>Maps API Key</h3>
+        <div class="alert alert-info">Restrict keys to your package/bundle and enable required Maps SDKs.</div>
         <div class="list">
           <div>AndroidManifest.xml:</div>
         </div>
@@ -305,7 +308,7 @@ await configureDependencies(env: Environment.prod);</pre>
 
       <h2 id="run">Run and Debug</h2>
       <div class="section">
-        <pre class="code">flutter run</pre>
+        <pre class="code highlight">flutter run</pre>
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
@@ -313,9 +316,9 @@ await configureDependencies(env: Environment.prod);</pre>
       <h2 id="build">Build and Release</h2>
       <div class="section">
         <h3>Android</h3>
-        <pre class="code">flutter build apk</pre>
+        <pre class="code highlight">flutter build apk</pre>
         <h3>iOS</h3>
-        <pre class="code">flutter build ipa</pre>
+        <pre class="code highlight">flutter build ipa</pre>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>

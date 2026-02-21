@@ -252,6 +252,7 @@ zip</pre>
                     <div>Mail: SMTP (Gmail, AWS SES, Mailgun).</div>
                 </div>
                 <h3>Environment</h3>
+        <div class="alert alert-warning">.env contains sensitive credentials. Do not commit it. Ensure <span class="mark">APP_URL</span> matches your domain.</div>
                 <pre class="code">APP_NAME=
 APP_ENV=
 APP_KEY=
@@ -341,7 +342,7 @@ $app = require_once __DIR__.'/foodlay_core/bootstrap/app.php';</pre>
                     <div>Run migrations and seeders</div>
                     <div>Start queue workers (Supervisor/Horizon)</div>
                 </div>
-                <pre class="code">npm install
+        <pre class="code highlight">npm install
 npm run build
 php artisan config:cache
 php artisan route:cache
@@ -365,7 +366,7 @@ chmod -R 775 bootstrap/cache</pre>
                 <div class="list">
                     <div>Link storage:</div>
                 </div>
-                <pre class="code">php artisan storage:link</pre>
+        <pre class="code highlight">php artisan storage:link</pre>
                 <h3>404 Not Found (except homepage)</h3>
                 <div class="list">
                     <div>Nginx: include try_files $uri $uri/ /index.php?$query_string;</div>
@@ -377,10 +378,10 @@ chmod -R 775 bootstrap/cache</pre>
                     <div>Use QUEUE_CONNECTION=sync for testing or run workers</div>
                 </div>
                 <h3>Class/Target not found</h3>
-                <pre class="code">composer dump-autoload
+        <pre class="code highlight">composer dump-autoload
 php artisan optimize:clear</pre>
                 <h3>Changes not reflecting</h3>
-                <pre class="code">php artisan optimize:clear
+        <pre class="code highlight">php artisan optimize:clear
 php artisan config:clear
 php artisan cache:clear</pre>
                 <h3>419 Page Expired (CSRF)</h3>
@@ -389,9 +390,9 @@ php artisan cache:clear</pre>
                     </div>
                 </div>
                 <h3>Mixed Content (HTTP/HTTPS)</h3>
-                <pre class="code">APP_URL=https://yourdomain.com</pre>
+        <pre class="code highlight">APP_URL=https://yourdomain.com</pre>
                 <h3>Composer platform issues</h3>
-                <pre class="code">composer install --ignore-platform-reqs</pre>
+        <pre class="code highlight">composer install --ignore-platform-reqs</pre>
                 <h3>SQL strict mode errors</h3>
                 <div class="list">
                     <div>Set 'strict' => false in config/database.php and clear config cache</div>
@@ -401,7 +402,7 @@ php artisan cache:clear</pre>
 post_max_size = 64M
 memory_limit = 512M</pre>
                 <h3>Node/Vue build issues</h3>
-                <pre class="code">rm -rf node_modules package-lock.json
+        <pre class="code highlight">rm -rf node_modules package-lock.json
 npm install --legacy-peer-deps
 export NODE_OPTIONS=--max_old_space_size=4096
 npm run build</pre>
