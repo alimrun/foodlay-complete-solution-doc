@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laravel Documentation</title>
+    <link rel="stylesheet" href="assets/css/docs.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-inner container">
+            <div class="brand">
+                <div class="logo"></div>
+                <div class="title">Project Documentation</div>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="laravel.html">Laravel</a>
+                <a href="flutter-app-1.html">Flutter App 1</a>
+                <a href="flutter-app-2.html">Flutter App 2</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn" id="menu-toggle">Menu</button>
+                <button class="btn" id="theme-toggle"><span id="theme-icon">🌙</span> Theme</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container layout">
+        <aside class="sidebar">
+            <div class="search">
+                <input type="text" id="search" placeholder="Search headings">
+                <span class="kbd">/</span>
+            </div>
+            <h4>Contents</h4>
+            <nav class="toc" id="toc">
+                <a href="#overview">Overview</a>
+                <a href="#requirements">Requirements</a>
+                <a href="#setup">Setup</a>
+                <a href="#env">Environment</a>
+                <a href="#structure">Project Structure</a>
+                <a href="#database">Database</a>
+                <a href="#api">API</a>
+                <a href="#queues">Queues and Jobs</a>
+                <a href="#broadcast">Broadcasting</a>
+                <a href="#testing">Testing</a>
+                <a href="#deployment">Deployment</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#links">Links</a>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <h2 id="overview">Overview</h2>
+            <div class="section">
+                <div class="list">
+                    <div>Laravel backend powering two Flutter applications</div>
+                    <div>RESTful APIs for authentication, profile, products, orders</div>
+                    <div>Queue workers for emails, notifications, and background jobs</div>
+                </div>
+            </div>
+
+            <h2 id="requirements">Requirements</h2>
+            <div class="section">
+                <div class="list">
+                    <div>PHP 8.2+</div>
+                    <div>Composer 2+</div>
+                    <div>MySQL 8 or MariaDB 10+</div>
+                    <div>Redis for caching and queues</div>
+                    <div>Node.js for asset tooling if applicable</div>
+                </div>
+            </div>
+
+            <h2 id="setup">Setup</h2>
+            <div class="section">
+                <h3>Install dependencies</h3>
+                <pre class="code">composer install</pre>
+                <h3>Environment</h3>
+                <pre class="code">cp .env.example .env
+php artisan key:generate</pre>
+                <h3>Database</h3>
+                <pre class="code">php artisan migrate --seed</pre>
+            </div>
+
+            <h2 id="env">Environment</h2>
+            <div class="section">
+                <div class="row">
+                    <div>
+                        <h3>Core variables</h3>
+                        <pre class="code">APP_NAME=
+APP_ENV=
+APP_KEY=
+APP_URL=
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=</pre>
+                    </div>
+                    <div>
+                        <h3>Services</h3>
+                        <pre class="code">MAIL_MAILER=
+REDIS_HOST=
+QUEUE_CONNECTION=
+BROADCAST_DRIVER=
+CACHE_DRIVER=</pre>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="structure">Project Structure</h2>
+            <div class="section">
+                <div class="list">
+                    <div>app: application code and domain logic</div>
+                    <div>routes: API and web routes</div>
+                    <div>database: migrations, seeders, factories</div>
+                    <div>config: application configuration</div>
+                    <div>resources: views and assets</div>
+                </div>
+            </div>
+
+            <h2 id="database">Database</h2>
+            <div class="section">
+                <h3>Migrations</h3>
+                <pre class="code">php artisan migrate</pre>
+                <h3>Seeders</h3>
+                <pre class="code">php artisan db:seed</pre>
+            </div>
+
+            <h2 id="api">API</h2>
+            <div class="section">
+                <div class="list">
+                    <div>Authentication and token issuing</div>
+                    <div>CRUD endpoints for core resources</div>
+                    <div>Pagination and filtering for collections</div>
+                </div>
+                <h3>Run server</h3>
+                <pre class="code">php artisan serve</pre>
+            </div>
+
+            <h2 id="queues">Queues and Jobs</h2>
+            <div class="section">
+                <pre class="code">php artisan queue:work</pre>
+            </div>
+
+            <h2 id="broadcast">Broadcasting</h2>
+            <div class="section">
+                <div class="list">
+                    <div>Driver options: log, pusher, redis</div>
+                    <div>Use channels for real-time updates</div>
+                </div>
+            </div>
+
+            <h2 id="testing">Testing</h2>
+            <div class="section">
+                <pre class="code">php artisan test</pre>
+            </div>
+
+            <h2 id="deployment">Deployment</h2>
+            <div class="section">
+                <div class="list">
+                    <div>Optimize configuration and routes</div>
+                    <div>Run migrations and seeders</div>
+                    <div>Start queue workers and horizon if used</div>
+                </div>
+                <pre class="code">php artisan config:cache
+php artisan route:cache
+php artisan migrate --force</pre>
+            </div>
+
+            <h2 id="troubleshooting">Troubleshooting</h2>
+            <div class="section">
+                <div class="list">
+                    <div>Check logs in storage/logs</div>
+                    <div>Verify environment variables and cache</div>
+                    <div>Ensure queue workers are running</div>
+                </div>
+            </div>
+
+            <h2 id="links">Links</h2>
+            <div class="section">
+                <div class="list">
+                    <div><a href="https://laravel.com/docs" target="_blank" rel="noopener">Laravel Docs</a></div>
+                    <div><a href="https://laravel.com/api" target="_blank" rel="noopener">Laravel API</a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer container">
+        <div>Laravel backend documentation</div>
+    </footer>
+    <script src="assets/js/docs.js"></script>
+</body>
+
+</html>

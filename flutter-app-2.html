@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flutter App 2 Documentation</title>
+  <link rel="stylesheet" href="assets/css/docs.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <div class="brand">
+        <div class="logo"></div>
+        <div class="title">Project Documentation</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="laravel.html">Laravel</a>
+        <a href="flutter-app-1.html">Flutter App 1</a>
+        <a href="flutter-app-2.html">Flutter App 2</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn" id="menu-toggle">Menu</button>
+        <button class="btn" id="theme-toggle"><span id="theme-icon">🌙</span> Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <aside class="sidebar">
+      <div class="search">
+        <input type="text" id="search" placeholder="Search headings">
+        <span class="kbd">/</span>
+      </div>
+      <h4>Contents</h4>
+      <nav class="toc" id="toc">
+        <a href="#overview">Overview</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#setup">Setup</a>
+        <a href="#env">Environment</a>
+        <a href="#structure">Project Structure</a>
+        <a href="#run">Run and Debug</a>
+        <a href="#build">Build and Release</a>
+        <a href="#api">API Usage</a>
+        <a href="#testing">Testing</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#links">Links</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <h2 id="overview">Overview</h2>
+      <div class="section">
+        <div class="list">
+          <div>Second Flutter application integrated with Laravel backend</div>
+          <div>Distinct feature set and UI components</div>
+          <div>Separate flavors and configuration</div>
+        </div>
+      </div>
+
+      <h2 id="requirements">Requirements</h2>
+      <div class="section">
+        <div class="list">
+          <div>Flutter 3+</div>
+          <div>Dart 3+</div>
+          <div>Android Studio or Xcode</div>
+          <div>Devices or emulators</div>
+        </div>
+      </div>
+
+      <h2 id="setup">Setup</h2>
+      <div class="section">
+        <h3>Get dependencies</h3>
+        <pre class="code">flutter pub get</pre>
+        <h3>Generate code</h3>
+        <pre class="code">flutter pub run build_runner build --delete-conflicting-outputs</pre>
+      </div>
+
+      <h2 id="env">Environment</h2>
+      <div class="section">
+        <div class="row">
+          <div>
+            <h3>Config file</h3>
+            <pre class="code">API_BASE_URL=
+API_KEY=
+SENTRY_DSN=
+FLAVOR=dev|staging|prod</pre>
+          </div>
+          <div>
+            <h3>Flavors</h3>
+            <pre class="code">lib/
+  main_dev.dart
+  main_staging.dart
+  main_prod.dart</pre>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="structure">Project Structure</h2>
+      <div class="section">
+        <div class="list">
+          <div>lib/core: configuration and utilities</div>
+          <div>lib/data: models and data sources</div>
+          <div>lib/features: UI screens and state management</div>
+          <div>lib/widgets: shared components</div>
+        </div>
+      </div>
+
+      <h2 id="run">Run and Debug</h2>
+      <div class="section">
+        <pre class="code">flutter run --flavor dev -t lib/main_dev.dart</pre>
+        <pre class="code">flutter run --flavor staging -t lib/main_staging.dart</pre>
+        <pre class="code">flutter run --flavor prod -t lib/main_prod.dart</pre>
+      </div>
+
+      <h2 id="build">Build and Release</h2>
+      <div class="section">
+        <h3>Android</h3>
+        <pre class="code">flutter build apk --flavor prod -t lib/main_prod.dart</pre>
+        <h3>iOS</h3>
+        <pre class="code">flutter build ipa --flavor prod -t lib/main_prod.dart</pre>
+      </div>
+
+      <h2 id="api">API Usage</h2>
+      <div class="section">
+        <div class="list">
+          <div>Use token-based authentication</div>
+          <div>Handle pagination for lists</div>
+          <div>Use secure storage for sensitive data</div>
+        </div>
+      </div>
+
+      <h2 id="testing">Testing</h2>
+      <div class="section">
+        <pre class="code">flutter test</pre>
+      </div>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <div class="section">
+        <div class="list">
+          <div>Check device logs and network requests</div>
+          <div>Verify API base URL and flavor configuration</div>
+          <div>Clear caches and reinstall app if needed</div>
+        </div>
+      </div>
+
+      <h2 id="links">Links</h2>
+      <div class="section">
+        <div class="list">
+          <div><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></div>
+          <div><a href="https://pub.dev" target="_blank" rel="noopener">pub.dev</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div>Flutter App 2 documentation</div>
+  </footer>
+  <script src="assets/js/docs.js"></script>
+</body>
+</html>
