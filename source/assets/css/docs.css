@@ -256,6 +256,21 @@ a:hover {
   padding: 16px;
 }
 
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sidebar {
+    position: relative;
+    top: 0;
+    height: auto;
+    overflow: visible;
+    padding: 12px;
+  }
+}
+
 .sidebar h4 {
   margin: 0 0 10px 0;
   font-size: 0.95rem;
@@ -496,37 +511,47 @@ a:hover {
   :root {
     --nav-height: 72px;
   }
+
   .container {
     padding: 0 16px;
   }
+
   .hero {
     padding: 40px 0 8px;
     gap: 18px;
   }
+
   .hero .kicker {
     font-size: 0.8rem;
     padding: 6px 10px;
   }
+
   .nav-inner {
     padding: 16px 18px;
   }
+
   .content {
     padding: 16px;
   }
+
   .toc a {
     padding: 8px 8px;
   }
+
   .code {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
+
   .btn {
     padding: 6px 10px;
   }
+
   .pill {
     padding: 5px 8px;
     font-size: 0.8em;
   }
+
   .nav-links {
     display: none;
     position: absolute;
@@ -537,10 +562,12 @@ a:hover {
     background: var(--mobile-nav-gradient);
     border-bottom: 1px solid var(--border);
   }
+
   .nav-links[data-open="true"] {
     display: grid;
     grid-template-columns: 1fr;
   }
+
   .nav-actions #menu-toggle {
     display: inline-flex;
   }
