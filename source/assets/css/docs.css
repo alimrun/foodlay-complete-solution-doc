@@ -243,6 +243,7 @@ a:hover {
   top: var(--nav-height);
   height: calc(100vh - var(--nav-height));
   overflow: auto;
+  scroll-behavior: smooth;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface-180-strong);

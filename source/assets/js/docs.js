@@ -92,7 +92,19 @@ function initTocScrollspy() {
     links.forEach(a => a.classList.remove("active"));
     if (current) {
       const target = $$("a", toc).find(a => a.getAttribute("href") === `#${current.id}`);
-      if (target) target.classList.add("active");
+      if (target) {
+        target.classList.add("active");
+        const scroller = toc.closest(".sidebar") || toc;
+        const sRect = scroller.getBoundingClientRect();
+        const tRect = target.getBoundingClientRect();
+        const offsetUp = tRect.top - (sRect.top + 16);
+        const offsetDown = tRect.bottom - (sRect.bottom - 16);
+        if (offsetUp < 0 || offsetDown > 0) {
+          const currentRelTop = tRect.top - sRect.top;
+          const desired = scroller.scrollTop + currentRelTop - (scroller.clientHeight / 2 - target.offsetHeight / 2);
+          scroller.scrollTo({ top: desired, behavior: "smooth" });
+        }
+      }
     }
   }
   activate();
