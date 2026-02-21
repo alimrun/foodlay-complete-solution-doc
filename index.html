@@ -35,38 +35,49 @@
       <p>Comprehensive guides for the Laravel backend and both Flutter apps, covering Quick Start, installation,
         platform configuration, localization &amp; RTL, theming, Maps API keys, API integration, build/signing,
         deployment, and troubleshooting.</p>
-      UI.</p>
 
       <section class="grid">
         <a class="card" href="source/pages/admin-and-web.html">
           <h3>Admin &amp; Web</h3>
-          <p>Tech stack, admin panel, storefront (web), setup, environment, API, queues, testing, deployment.</p>
+          <p>Admin panel &amp; storefront (web). Laravel 12 + Vue 3 (Inertia), Tailwind 4, Vite 7. Setup, environment,
+            queues, testing, deployment.</p>
           <div class="actions">
             <span class="pill">PHP 8+</span>
             <span class="pill">Composer</span>
             <span class="pill">MySQL</span>
+            <span class="pill">Laravel 12</span>
+            <span class="pill">Vue 3</span>
+            <span class="pill">Inertia.js</span>
+            <span class="pill">Tailwind 4</span>
+            <span class="pill">Vite 7</span>
           </div>
         </a>
         <a class="card" href="source/pages/customer-app.html">
           <h3>Customer App</h3>
-          <p>Quick Start, Android/iOS config, localization &amp; RTL, theme/branding, Maps API keys, mock data &amp;
-            API,
-            widget/screen copy flows, signing &amp; release, troubleshooting.</p>
+          <p>Complete customer app: navigation, auth, search, cart, checkout, maps, notifications, chat. Run, build,
+            configuration.</p>
           <div class="actions">
             <span class="pill">Flutter 3+</span>
             <span class="pill">Dart</span>
             <span class="pill">Android/iOS</span>
+            <span class="pill">GoRouter</span>
+            <span class="pill">Bloc</span>
+            <span class="pill">Firebase</span>
+            <span class="pill">Google Maps</span>
           </div>
         </a>
         <a class="card" href="source/pages/deliveryman-app.html">
           <h3>Deliveryman App</h3>
-          <p>Quick Start, Android/iOS config, localization &amp; RTL, theme/branding, Maps API keys, mock data &amp;
-            API,
-            widget/screen copy flows, signing &amp; release, troubleshooting.</p>
+          <p>Complete delivery partner app: orders, map navigation, status updates, earnings, chat, notifications. Run,
+            build, configuration.</p>
           <div class="actions">
             <span class="pill">Flutter 3+</span>
             <span class="pill">Dart</span>
             <span class="pill">Android/iOS</span>
+            <span class="pill">GoRouter</span>
+            <span class="pill">Bloc</span>
+            <span class="pill">Firebase</span>
+            <span class="pill">Google Maps</span>
           </div>
         </a>
         <div class="card" id="help-support">
@@ -77,7 +88,15 @@
                 <div>Email: <a href="mailto:thedayonesoft@gmail.com">thedayonesoft@gmail.com</a></div>
                 <div>WhatsApp: <a href="https://wa.me/8801601666058" target="_blank" rel="noopener">+880 1601-666058</a>
                 </div>
-                <div>Provide logs, device/emulator info, and steps to reproduce</div>
+                <div>Share issue details: steps to reproduce, screenshots/video</div>
+                <div>Include environment info: OS, device/emulator, Flutter/Dart versions</div>
+                <div>Attach logs if possible:
+                  Android Logcat, Xcode logs, Laravel storage/logs/laravel.log</div>
+                <div>Check troubleshooting first:
+                  <a href="source/pages/admin-and-web.html#troubleshooting">Admin &amp; Web</a>,
+                  <a href="source/pages/customer-app.html#troubleshooting">Customer</a>,
+                  <a href="source/pages/deliveryman-app.html#troubleshooting">Deliveryman</a>
+                </div>
               </div>
             </div>
             <div>
@@ -85,6 +104,11 @@
                 <div><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></div>
                 <div><a href="https://laravel.com/docs" target="_blank" rel="noopener">Laravel Docs</a></div>
                 <div><a href="https://laravel.com/api" target="_blank" rel="noopener">Laravel API</a></div>
+                <div>Common checks:</div>
+                <div>Flutter: flutter clean; flutter pub get; restart IDE</div>
+                <div>Android: update SDK/Gradle; invalidate caches</div>
+                <div>iOS: pod repo update; pod install; clean build folder</div>
+                <div>Backend: .env configured; cache cleared; queue running</div>
               </div>
             </div>
           </div>
