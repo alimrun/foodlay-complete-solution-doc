@@ -62,7 +62,8 @@
     <section class="content">
       <h2 id="overview">Overview</h2>
       <div class="section">
-        <p><strong>Foodlay Customer App</strong> is a complete, production-ready food ordering application built with Flutter for Android and iOS.</p>
+        <p><strong>Foodlay Customer App</strong> is a complete, production-ready food ordering application built with
+          Flutter for Android and iOS.</p>
         <div class="list">
           <div>A full customer app with authentication, ordering, and tracking</div>
           <div>GoRouter-based navigation with bottom tab dashboard</div>
@@ -133,6 +134,30 @@ flutterfire configure</pre>
   &lt;string name="facebook_app_id"&gt;YOUR_APP_ID&lt;/string&gt;
   &lt;string name="facebook_client_token"&gt;YOUR_TOKEN&lt;/string&gt;
 &lt;/resources&gt;</pre>
+        <h3>Server API Base URL</h3>
+        <div class="list">
+          <div>Set the server API base URL used to fetch data (root of your Laravel backend)</div>
+          <div>Edit lib/config/util/app_constants.dart and set baseUrl to your backend domain</div>
+          <div>No trailing slash; endpoints are appended (e.g., /api/v1/...)</div>
+          <div>Local development hosts:</div>
+          <div>Android emulator → http://10.0.2.2:8000 (or your backend port)</div>
+          <div>iOS simulator → http://localhost:8000 (or http://localhost:8888 for MAMP)</div>
+          <div>Ensure your backend allows CORS for the app’s origin during development</div>
+        </div>
+        <pre class="code">lib/config/util/app_constants.dart
+static const String baseUrl = 'https://example.com';</pre>
+        <div class="list">
+          <div>HTTP client composes requests as baseUrl + endpoint path</div>
+          <div>See lib/core/data/api/api_client.dart (Uri.parse(appBaseUrl + uri))</div>
+          <div>Optional per-environment base URL:</div>
+          <div>Edit lib/core/dependency_injection/dependency_module.dart and switch env in lib/main.dart</div>
+        </div>
+        <pre class="code">lib/core/dependency_injection/dependency_module.dart
+@Named('appBaseUrl') @dev  String get devBaseUrl  =&gt; 'https://dev.example.com';
+@Named('appBaseUrl') @prod String get prodBaseUrl =&gt; 'https://api.example.com';
+
+lib/main.dart
+await configureDependencies(env: Environment.prod);</pre>
         <h3>Maps API Key</h3>
         <div class="list">
           <div>AndroidManifest.xml:</div>
