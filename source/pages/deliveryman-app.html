@@ -47,6 +47,7 @@
         <a href="#maps-api">Maps API Keys</a>
         <a href="#features">Core Features</a>
         <a href="#architecture">Architecture</a>
+        <a href="#routes">Routes</a>
         <a href="#structure">Project Structure</a>
         <a href="#run">Run and Debug</a>
         <a href="#build">Build and Release</a>
@@ -64,7 +65,7 @@
         <p><strong>Foodlay Deliveryman App</strong> is a complete, production-ready application for delivery partners
           built with Flutter for Android and iOS.</p>
         <div class="list">
-          <div>Not a UI kit — a full delivery app with login, orders, maps, and chat</div>
+          <div>A full delivery app with login, orders, maps, and chat</div>
           <div>GoRouter-based navigation with a dashboard (Home, Orders, Account)</div>
           <div>Localization, theming, DI, and Firebase messaging integrated</div>
         </div>
@@ -209,6 +210,35 @@ flutterfire configure</pre>
           <div>ThemeLocalizationWrapper and AppWrapper</div>
           <div>Firebase initialized in main with NotificationHelper and background handler</div>
           <div>Error handling via Catcher2 (debug/release configs)</div>
+        </div>
+      </div>
+
+      <h2 id="routes">Routes</h2>
+      <div class="section">
+        <div class="list">
+          <div>Shell: Dashboard</div>
+          <div>Home: /home</div>
+          <div>Orders: /order</div>
+          <div>Orders → Details: /order/order_details</div>
+          <div>Orders → Result: /order/order_result</div>
+          <div>Orders → Cancel Reason: /order/order_cancel_reason</div>
+          <div>Orders → Delivery Location: /order/order_delivery_location</div>
+          <div>Chat: /chat</div>
+          <div>Chat → Conversation: /chat/conversation</div>
+          <div>Account: /account</div>
+          <div>Login: /login</div>
+          <div>Login → Password: /login/password</div>
+          <div>Login → Verification: /login/verification</div>
+          <div>Login → Set Up Password: /login/set_up_password</div>
+          <div>Settings: /settings</div>
+          <div>Settings → Setup Password: /settings/settings_setup_password</div>
+          <div>Notification: /notification</div>
+          <div>File Viewer: /file_viewer</div>
+          <div>Splash: /splash</div>
+          <div>Contact Us: /contact_us</div>
+          <div>Terms &amp; Condition: /terms_and_condition</div>
+          <div>Edit Profile: /edit_profile</div>
+          <div>Forget Password Login: /forget_login</div>
         </div>
       </div>
 
