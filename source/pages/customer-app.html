@@ -392,12 +392,51 @@ flutter run</pre>
 
           <h2 id="theme-branding">Theme &amp; Branding</h2>
           <div class="section">
+            <h3>Change App Color</h3>
             <ul class="list">
-              <li>Edit ThemeData in lib/config/theme/light_theme.dart and dark_theme.dart</li>
-              <li>Use CustomThemeColors for global palette</li>
-              <li>Declare fonts in pubspec.yaml and reference via theme</li>
-              <li>Replace assets under assets/ and configure app icons</li>
+              <li>Open &lt;project&gt;/lib/theme/light_theme.dart and set primaryColor, foregroundColor, secondary, etc.
+              </li>
+              <li>Open &lt;project&gt;/lib/theme/dark_theme.dart and mirror the same updates for dark mode.</li>
+              <li>Keep contrast and accessibility in mind for text and icons.</li>
             </ul>
+            <h3>Change App Font</h3>
+            <ul class="list">
+              <li>Download a font family you like. See free options at <a href="https://fonts.google.com/"
+                  target="_blank" rel="noopener">Google Fonts</a>.</li>
+              <li>Unzip and copy TTF/OTF files to &lt;project&gt;/assets/font/</li>
+              <li>Declare the font in pubspec.yaml under flutter → fonts.</li>
+            </ul>
+            <pre class="code">flutter:
+  fonts:
+    - family: YOUR_FONT_FAMILY_NAME
+      fonts:
+        - asset: assets/font/YOUR_FONT_FILE_NAME.ttf
+          weight: YOUR_FONT_WEIGHT</pre>
+            <ul class="list">
+              <li>Set the font family in &lt;project&gt;/lib/util/app_constants.dart</li>
+            </ul>
+            <pre class="code">static const String fontFamily = 'YOUR_FONT_FAMILY_NAME';</pre>
+            <h3>Change Notification Sound</h3>
+            <ul class="list">
+              <li>Android: replace &lt;project&gt;/android/app/src/main/res/raw/notification.wav with your file. Keep
+                the filename notification.wav</li>
+              <li>If there is notification.mp3 or notification.wav under &lt;project&gt;/assets, replace it too and keep
+                the filename unchanged.</li>
+              <li>Use a short and small audio file to avoid delivery issues.</li>
+            </ul>
+            <h3>Change Onboarding Text and Graphics</h3>
+            <ul class="list">
+              <li>Open lib/l10n/arb/app_en.arb. Update values for keys such as "on_boarding_1_title" and
+                "on_boarding_1_description". Do not change keys.</li>
+            </ul>
+            <pre class="code">"on_boarding_1_title": "YOUR_PREFERRED_TITLE",
+"on_boarding_1_description": "YOUR_PREFERRED_DESCRIPTION"</pre>
+            <ul class="list">
+              <li>Repeat for other languages (e.g., app_es.arb) and regenerate: flutter gen-l10n</li>
+              <li>Graphics: replace &lt;project&gt;/assets/images/onboard_1.png, onboard_2.png, onboard_3.png with your
+                PNGs using the same names.</li>
+            </ul>
+
           </div>
 
 
