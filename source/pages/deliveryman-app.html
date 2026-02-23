@@ -38,6 +38,7 @@
       <nav class="toc" id="toc">
         <a href="#overview">Overview</a>
         <a href="#requirements">Requirements</a>
+        <a href="#environment-setup">Environment Setup</a>
         <a href="#setup">Setup</a>
         <a href="#quick-start">Quick Start</a>
         <a href="#configuration">Configuration</a>
@@ -86,6 +87,65 @@
           <li>Android Studio</li>
           <li>Xcode 26.2 for IPA file build</li>
           <li>Devices or emulators</li>
+        </ul>
+      </div>
+
+      <h2 id="environment-setup">Environment Setup</h2>
+      <div class="section">
+        <h3>Windows</h3>
+        <ul class="list">
+          <li>Download Android Studio Koala 2024.1.2 (bundled JDK 17).</li>
+          <li>Ensure JDK 17 is used for Android builds.</li>
+          <li>Run the installer (e.g., android-studio-ide-&lt;version&gt;-windows.exe).</li>
+          <li>Follow the installation wizard; choose a custom location if needed.</li>
+          <li>Select components (Android Studio, Android Virtual Device, etc.).</li>
+          <li>Launch Android Studio and complete initial setup.</li>
+          <li>Install SDK components when prompted.</li>
+          <li>Optional: create an emulator in AVD Manager.</li>
+        </ul>
+        <h3>Install Flutter SDK (Windows)</h3>
+        <ul class="list">
+          <li>Download the latest stable Flutter for Windows.</li>
+          <li>Extract to a folder, e.g., C:\flutter.</li>
+          <li>Add C:\flutter\bin to PATH:</li>
+          <li>Right‑click “This PC” → Properties → Advanced system settings → Environment Variables.</li>
+          <li>Edit “Path” under System variables → New → add C:\flutter\bin.</li>
+        </ul>
+        <pre class="code">flutter doctor</pre>
+        <ul class="list">
+          <li>In Android Studio: File → Settings → Plugins → Marketplace → install Flutter and Dart, then restart.</li>
+        </ul>
+        <h3>Linux</h3>
+        <ul class="list">
+          <li>Download Android Studio Koala 2024.1.2 (bundled JDK 17) for Linux.</li>
+          <li>Ensure JDK 17 is used for Android builds.</li>
+          <li>Extract the archive, move to a preferred location, run setup:</li>
+        </ul>
+        <pre class="code">tar -xvzf android-studio-ide-&lt;version&gt;-linux.tar.gz
+sudo mv android-studio /YOUR_DIRECTORY
+cd /YOUR_DIRECTORY/android-studio/bin
+./studio.sh</pre>
+        <ul class="list">
+          <li>Install Flutter SDK (Linux): download stable, extract, move to a preferred location, add flutter/bin to PATH.</li>
+        </ul>
+        <pre class="code">tar xf flutter_linux_&lt;version&gt;.tar.xz
+sudo mv flutter /YOUR_DIRECTORY
+flutter doctor</pre>
+        <ul class="list">
+          <li>In Android Studio: Settings → Plugins → Marketplace → install Flutter and Dart, then restart.</li>
+        </ul>
+        <h3>macOS</h3>
+        <ul class="list">
+          <li>Download Android Studio for macOS (Koala 2024.1.2 with JDK 17).</li>
+          <li>Ensure JDK 17 is used for Android builds.</li>
+          <li>Open the DMG and drag Android Studio to Applications.</li>
+          <li>Launch Android Studio; complete setup and install SDK components.</li>
+          <li>Install Flutter SDK (macOS): download stable, extract, move to preferred location, add flutter/bin to PATH.</li>
+        </ul>
+        <pre class="code">tar xf flutter_macos_&lt;version&gt;.tar.xz
+flutter doctor</pre>
+        <ul class="list">
+          <li>In Android Studio: Preferences → Plugins → Marketplace → install Flutter and Dart, then restart.</li>
         </ul>
       </div>
 
