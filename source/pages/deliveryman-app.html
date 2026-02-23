@@ -215,44 +215,60 @@ static const String baseUrl = 'https://your_domain.com';</pre>
           <li>Enter old package as search, new package as replacement → Replace All.</li>
         </ul>
         <h3>Setup Firebase for Push Notification</h3>
-        <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Admin/Web, Deliveryman). Add
-          multiple apps under the same project.</div>
-        <h4>Android</h4>
+        <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Deliveryman, Admin). Add multiple apps under the same project.</div>
+        <h4>Prerequisites</h4>
         <ul class="list">
-          <li>Add Android app in Firebase with your package name and app name.</li>
-          <li>Download google-services.json and place into android/app/ (replace existing file).</li>
-          <li>Replace notification icon with a white PNG at android/app/src/main/res/drawable/notification_icon.png.
-          </li>
-          <li>Update Firebase options in lib/main.dart (apiKey, appId, messagingSenderId, projectId).</li>
+          <li>Change your package name/bundle ID first.</li>
+          <li>Create a Firebase project at <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>.</li>
         </ul>
+        <h4>Install packages &amp; configure</h4>
         <ul class="list">
-          <li>Generate lib/firebase_options.dart via FlutterFire CLI:</li>
+          <li>Add Firebase packages and run the FlutterFire CLI to generate lib/firebase_options.dart</li>
         </ul>
-        <pre class="code">dart pub global activate flutterfire_cli
+        <pre class="code">dart pub add firebase_core firebase_messaging
+dart pub global activate flutterfire_cli
 firebase login
 flutterfire configure</pre>
+        <h4>Android</h4>
+        <ul class="list">
+          <li>Register your Android app in Firebase using the exact applicationId (package name) from android/app/build.gradle.</li>
+          <li>Add SHA‑1 and SHA‑256 fingerprints (from Gradle signing report or Play Console) for reliable delivery.</li>
+          <li>Download google-services.json and place it at android/app/google-services.json (replace if exists).</li>
+          <li>Ensure the Google Services Gradle plugin is applied in android/app/build.gradle.</li>
+          <li>Create a solid white notification icon named notification_icon.png under android/app/src/main/res/drawable/.</li>
+          <li>Targeting Android 13+: request POST_NOTIFICATIONS permission at runtime in your app code.</li>
+        </ul>
         <h4>iOS</h4>
         <ul class="list">
-          <li>Add iOS app in the same Firebase project.</li>
-          <li>Download GoogleService-Info.plist and place under ios/.</li>
-          <li>Complete APNs/FCM integration steps for iOS.</li>
+          <li>Register your iOS app in the same Firebase project with your Bundle Identifier.</li>
+          <li>Download GoogleService-Info.plist and add it to ios/Runner (ensure it is included in the Runner target in Xcode).</li>
+          <li>Enable Push Notifications and Background Modes → Remote notifications under Signing &amp; Capabilities.</li>
+          <li>In Apple Developer, create an APNs Auth Key (.p8), then upload Key ID and Team ID to Firebase &rarr; Project Settings &rarr; Cloud Messaging.</li>
+          <li>On iOS, notifications require user permission; request it at app startup.</li>
         </ul>
+        <h4>Request permission &amp; get token</h4>
         <ul class="list">
-          <li>See: <a href="https://firebase.flutter.dev/docs/messaging/apple-integration" target="_blank">FCM via APNs
-              integration</a></li>
+          <li>Request permission (iOS) and retrieve the device FCM token to test delivery.</li>
         </ul>
-        <h4>Admin</h4>
+        <pre class="code">final settings = await FirebaseMessaging.instance.requestPermission(
+  alert: true, badge: true, sound: true,
+);
+final token = await FirebaseMessaging.instance.getToken();
+print('FCM token: $token');</pre>
+        <h4>Send a test notification</h4>
         <ul class="list">
-          <li>Add a Web app in the project to retrieve firebaseConfig for Admin.</li>
-          <li>Follow Admin Firebase configuration.</li>
+          <li>Build and run on a real device.</li>
+          <li>Open Firebase &rarr; Cloud Messaging &rarr; Send test message to the device token.</li>
+          <li>Android requires Google Play services; iOS requires a real device (simulator cannot receive push).</li>
         </ul>
+        <h4>Troubleshooting</h4>
         <ul class="list">
-          <li>Guide: <a
-              href="https://6ammart.app/documentation/admin-application-configuration/mandatory-setups/#firebase-configuration"
-              target="_blank">Admin Firebase configuration</a></li>
+          <li>Token is null (iOS): verify APNs key uploaded, Push/Background modes enabled, run on a real device.</li>
+          <li>Missing google-services.json: ensure file path is android/app/google-services.json.</li>
+          <li>No notification on Android 13+: request POST_NOTIFICATIONS permission at runtime.</li>
+          <li>Stuck delivery: reinstall the app after configuration changes and restart the IDE.</li>
         </ul>
-        <div class="alert alert-info">After setup, restart your IDE, uninstall any previously installed app, and run
-          again on a real device (emulators/simulators do not receive push on iOS).</div>
+        <div class="alert alert-info">After setup, restart your IDE, uninstall any previously installed app, and test on a real device (emulators/simulators do not receive push on iOS).</div>
         <h3>Android Secrets</h3>
         <ul class="list">
           <li>Create android/app/src/main/res/values/secrets.xml with required keys.</li>
