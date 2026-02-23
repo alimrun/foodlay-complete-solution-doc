@@ -517,41 +517,278 @@ flutter run</pre>
 
       <h2 id="run">Run and Debug</h2>
       <div class="section">
-        <pre class="code highlight">flutter run</pre>
-        <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
-        <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
+        <h3>From IDE</h3>
+        <ul class="list">
+          <li>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span>.</li>
+          <li>Select a device (emulator/simulator/USB) from the device picker.</li>
+          <li>Click Run ▶ to start in debug mode. Use hot reload for UI changes.</li>
+          <li>Set breakpoints in Dart files; inspect Variables and Call Stack.</li>
+          <li>Open Flutter DevTools from the IDE for Performance, Memory, and Logs.</li>
+        </ul>
+        <h3>From terminal</h3>
+        <pre class="code">flutter pub get
+flutter devices
+flutter run</pre>
+        <ul class="list">
+          <li>Hot reload: press <span class="mark">r</span>. Hot restart: <span class="mark">R</span>. Quit: <span class="mark">q</span>.</li>
+          <li>Run on a specific device with <span class="mark">flutter run -d &lt;deviceId&gt;</span>.</li>
+          <li>Attach to an already running app:</li>
+        </ul>
+        <pre class="code">flutter attach</pre>
+        <h3>Logging</h3>
+        <ul class="list">
+          <li>View framework/app logs:</li>
+        </ul>
+        <pre class="code">flutter logs</pre>
+        <ul class="list">
+          <li>Android (advanced):</li>
+        </ul>
+        <pre class="code">adb logcat | grep -i your.package.name</pre>
+        <ul class="list">
+          <li>iOS Simulator (advanced):</li>
+        </ul>
+        <pre class="code">xcrun simctl spawn booted log stream --predicate 'process == "Runner"'</pre>
+        <h3>Profile performance</h3>
+        <ul class="list">
+          <li>Run with instrumentation and use DevTools &rarr; Performance:</li>
+        </ul>
+        <pre class="code">flutter run --profile</pre>
+        <h3>Clean &amp; rebuild</h3>
+        <ul class="list">
+          <li>If builds behave unexpectedly, clean and fetch dependencies again:</li>
+        </ul>
+        <pre class="code">flutter clean
+flutter pub get</pre>
+        <div class="alert alert-info">To test push notifications and background behaviors, run on a real device. iOS
+          simulators cannot receive APNs push.</div>
       </div>
 
       <h2 id="build">Build and Release</h2>
       <div class="section">
         <h3>Android</h3>
-        <pre class="code highlight">flutter build apk</pre>
+        <ul class="list">
+          <li>Ensure release signing is configured. See Signing &amp; Release section.</li>
+          <li>Release APK (quick test on device):</li>
+        </ul>
+        <pre class="code highlight">flutter build apk --release</pre>
+        <ul class="list">
+          <li>App Bundle (required for Play Store):</li>
+        </ul>
+        <pre class="code highlight">flutter build appbundle</pre>
+        <ul class="list">
+          <li>Split per ABI for smaller APKs:</li>
+        </ul>
+        <pre class="code highlight">flutter build apk --split-per-abi</pre>
+        <ul class="list">
+          <li>Artifacts:</li>
+        </ul>
+        <pre class="code">build/app/outputs/flutter-apk/app-release.apk
+build/app/outputs/bundle/release/app-release.aab</pre>
+        <ul class="list">
+          <li>Install to test on device:</li>
+        </ul>
+        <pre class="code">flutter install -d &lt;deviceId&gt;</pre>
+        <ul class="list">
+          <li>Set version in android/app/build.gradle before release:</li>
+        </ul>
+        <pre class="code">defaultConfig {
+    versionCode 2
+    versionName "1.1.0"
+}</pre>
         <h3>iOS</h3>
+        <ul class="list">
+          <li>Prerequisites: Apple Developer account with signing and provisioning configured in Xcode.</li>
+          <li>Build IPA via CLI:</li>
+        </ul>
         <pre class="code highlight">flutter build ipa</pre>
+        <ul class="list">
+          <li>Archive and distribute via Xcode:</li>
+          <li>Open ios/Runner.xcworkspace → select device/Any iOS Device (Archive) → Product → Archive.</li>
+          <li>In Organizer → Distribute App → choose App Store Connect or Ad Hoc.</li>
+          <li>Update Version and Build in Xcode General tab before archiving.</li>
+        </ul>
+        <ul class="list">
+          <li>CLI artifact path:</li>
+        </ul>
+        <pre class="code">build/ios/ipa/Runner.ipa</pre>
+        <div class="alert alert-info">Run a final pass on a release build to verify notifications, location updates, and background tasks perform as expected.</div>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
       <div class="section">
+        <h3>Android: Keystore &amp; Signing</h3>
         <ul class="list">
-          <li>Android: configure keystore, release signing, and proguard rules</li>
-          <li>Android: validate release checklist before publishing</li>
-          <li>iOS: set signing identities, capabilities, and entitlements</li>
-          <li>iOS: verify App Store release checklist</li>
+          <li>Create a private keystore (keep it secure and out of git):</li>
+        </ul>
+        <pre class="code">keytool -genkeypair -v -keystore ~/keystores/foodlay-dm-release.keystore \
+  -alias foodlaydm -keyalg RSA -keysize 2048 -validity 36500</pre>
+        <ul class="list">
+          <li>Create <span class="mark">key.properties</span> in project root (git‑ignored):</li>
+        </ul>
+        <pre class="code">storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=foodlaydm
+storeFile=/ABSOLUTE/PATH/TO/foodlay-dm-release.keystore</pre>
+        <ul class="list">
+          <li>Load and apply signing in <span class="mark">android/app/build.gradle</span> and enable shrinking for release:</li>
+        </ul>
+        <pre class="code">def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+  signingConfigs {
+    release {
+      storeFile file(keystoreProperties['storeFile'])
+      storePassword keystoreProperties['storePassword']
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+    }
+  }
+  buildTypes {
+    release {
+      signingConfig signingConfigs.release
+      minifyEnabled true
+      shrinkResources true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+}</pre>
+        <div class="alert alert-warning"><strong>Security</strong> Do not commit keystore or key.properties. Store them securely.</div>
+
+        <h3>Android: Play Console</h3>
+        <ul class="list">
+          <li>Use Play App Signing; first upload your <span class="mark">.aab</span> to register the upload key.</li>
+          <li>Complete store listing, privacy policy, content rating, and data safety forms.</li>
+          <li>Test location and notification flows on release builds before rollout.</li>
+        </ul>
+
+        <h3>iOS: Signing &amp; Provisioning</h3>
+        <ul class="list">
+          <li>Open <span class="mark">ios/Runner.xcworkspace</span> → select Team → enable <span class="mark">Automatically manage signing</span>.</li>
+          <li>Ensure a Distribution profile for release and correct Bundle Identifier.</li>
+          <li>Capabilities: Push Notifications and Background Modes → Remote notifications; enable Location updates if used.</li>
+        </ul>
+
+        <h3>iOS: Archive &amp; Submit</h3>
+        <ul class="list">
+          <li>Update Version and Build in Xcode (General tab).</li>
+          <li>Product → Archive → Organizer → Distribute App → App Store Connect → Upload.</li>
+          <li>Fill App Store Connect metadata and privacy questions; include location permission justifications if applicable.</li>
+        </ul>
+
+        <h3>Release Checklist</h3>
+        <ul class="list">
+          <li>Verify production API endpoints and disable verbose logs.</li>
+          <li>Confirm foreground/background location prompts and behaviors reflect features used.</li>
+          <li>Update app icons, splash, and display name for production.</li>
+          <li>Back up keystore and signing credentials in a secure vault.</li>
         </ul>
       </div>
 
       <h2 id="api">API Usage</h2>
       <div class="section">
+        <h3>Base URL &amp; Environments</h3>
         <ul class="list">
-          <li>Use token-based authentication</li>
-          <li>Handle pagination for lists</li>
-          <li>Use secure storage for sensitive data</li>
+          <li>Keep separate API base URLs for dev, stage, and prod.</li>
+          <li>Inject at build time or load securely; do not hardcode secrets.</li>
+          <li>Pass runtime values when needed:</li>
         </ul>
+        <pre class="code">flutter run --dart-define=API_BASE_URL=https://api.example.com</pre>
+        <h3>Authentication</h3>
+        <ul class="list">
+          <li>Use token-based auth with short-lived access token and refresh token.</li>
+          <li>Attach Authorization header to protected requests:</li>
+        </ul>
+        <pre class="code">Authorization: Bearer &lt;ACCESS_TOKEN&gt;</pre>
+        <ul class="list">
+          <li>Refresh tokens on 401; queue and retry pending requests after refresh; logout if refresh fails.</li>
+          <li>Store refresh tokens in platform-secure storage.</li>
+        </ul>
+        <h3>Common headers</h3>
+        <ul class="list">
+          <li>Accept: application/json</li>
+          <li>Accept-Language: current locale code</li>
+          <li>X-App-Version: app version/build</li>
+        </ul>
+        <h3>Pagination &amp; filtering</h3>
+        <ul class="list">
+          <li>Use page/limit or cursor; maintain hasMore based on response payload.</li>
+          <li>For delivery lists, filter by status and date ranges to reduce payloads.</li>
+        </ul>
+        <h3>Error handling</h3>
+        <ul class="list">
+          <li>Map 400/401/403/404/429/5xx to meaningful messages and fallback states.</li>
+          <li>Retry safe idempotent calls only; prompt user on repeated failures.</li>
+        </ul>
+        <h3>Retry, timeout, and backoff</h3>
+        <ul class="list">
+          <li>Use connection/receive timeouts to avoid hangs.</li>
+          <li>Exponential backoff with jitter for transient errors; avoid retrying non-idempotent requests.</li>
+        </ul>
+        <h3>Security</h3>
+        <ul class="list">
+          <li>Use HTTPS in production; never log tokens or PII.</li>
+          <li>Persist sensitive values using platform-secure storage APIs.</li>
+        </ul>
+        <h3>Sample requests (cURL)</h3>
+        <ul class="list">
+          <li>Authenticate:</li>
+        </ul>
+        <pre class="code">curl -X POST https://api.example.com/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"phone":"0123456789","otp":"123456"}'</pre>
+        <ul class="list">
+          <li>Fetch deliveries page with filters:</li>
+        </ul>
+        <pre class="code">curl "https://api.example.com/api/v1/deliveries?page=1&amp;limit=20&amp;status=ongoing" \
+  -H "Authorization: Bearer &lt;ACCESS_TOKEN&gt;" \
+  -H "Accept: application/json" \
+  -H "Accept-Language: en"</pre>
       </div>
 
       <h2 id="testing">Testing</h2>
       <div class="section">
+        <h3>Unit &amp; Widget Tests</h3>
+        <ul class="list">
+          <li>Put tests under <span class="mark">test/</span> and name files <span class="mark">*_test.dart</span>.</li>
+          <li>Run all tests:</li>
+        </ul>
         <pre class="code">flutter test</pre>
+        <ul class="list">
+          <li>Run a specific test file or filter by test name:</li>
+        </ul>
+        <pre class="code">flutter test test/path/to/widget_test.dart
+flutter test --plain-name "shows order list"</pre>
+        <ul class="list">
+          <li>Increase concurrency to speed up suites where appropriate:</li>
+        </ul>
+        <pre class="code">flutter test --concurrency=4</pre>
+        <h3>Integration Tests</h3>
+        <ul class="list">
+          <li>Place tests in <span class="mark">integration_test/</span>, start an emulator/simulator or connect a device.</li>
+          <li>Run all integration tests:</li>
+        </ul>
+        <pre class="code">flutter test integration_test</pre>
+        <ul class="list">
+          <li>Target a specific device (find with <span class="mark">flutter devices</span>):</li>
+        </ul>
+        <pre class="code">flutter test integration_test -d &lt;deviceId&gt;</pre>
+        <h3>Coverage</h3>
+        <ul class="list">
+          <li>Generate coverage and open a local HTML report (requires <span class="mark">lcov</span>):</li>
+        </ul>
+        <pre class="code">flutter test --coverage
+genhtml coverage/lcov.info -o coverage/html
+open coverage/html/index.html</pre>
+        <h3>Best Practices</h3>
+        <ul class="list">
+          <li>Isolate business logic with fakes/mocks; avoid real network or location calls in tests.</li>
+          <li>Use golden tests for delivery flow UI where layout must remain consistent.</li>
+          <li>Keep tests deterministic and independent; avoid sharing mutable global state.</li>
+        </ul>
       </div>
 
       <h2 id="troubleshooting">Troubleshooting</h2>
