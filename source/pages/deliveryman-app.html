@@ -44,7 +44,6 @@
         <a href="#android-ios-config">Android &amp; iOS Config</a>
         <a href="#localization-rtl">Localization &amp; RTL</a>
         <a href="#theme-branding">Theme &amp; Branding</a>
-        <a href="#maps-api">Maps API Keys</a>
         <a href="#features">Core Features</a>
         <a href="#architecture">Architecture</a>
         <a href="#routes">Routes</a>
@@ -285,12 +284,29 @@ flutterfire configure</pre>
 
       <h2 id="quick-start">Quick Start</h2>
       <div class="section">
+        <h3>Pick a device</h3>
         <ul class="list">
-          <li>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span></li>
-          <li>Install dependencies: <span class="cmd">flutter pub get</span></li>
-          <li>Prepare emulator/device and sign in</li>
-          <li>Run the app: <span class="cmd">flutter run</span></li>
+          <li>Android: start an emulator from AVD Manager or connect a device with USB debugging enabled.</li>
+          <li>iOS: open Simulator from Xcode (or connect a real device with Developer Mode enabled).</li>
         </ul>
+        <h3>Run from IDE</h3>
+        <ul class="list">
+          <li>Open the project in <span class="mark">Android Studio</span> or <span class="mark">VS Code</span>.</li>
+          <li>Select a target device from the device dropdown.</li>
+          <li>Click Run ▶ to build and launch in debug mode.</li>
+        </ul>
+        <h3>Run from terminal</h3>
+        <pre class="code">flutter pub get
+flutter run</pre>
+        <h3>Common checks</h3>
+        <ul class="list">
+          <li>Accept Android SDK licenses if prompted.</li>
+        </ul>
+        <pre class="code">flutter doctor --android-licenses</pre>
+        <ul class="list">
+          <li>Verify a device is available.</li>
+        </ul>
+        <pre class="code">flutter devices</pre>
         <img src="../assets/images/upload/open-project.png" alt="Open project" class="doc-img">
         <img src="../assets/images/upload/emulator-connection.png" alt="Emulator connection" class="doc-img">
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
@@ -300,10 +316,21 @@ flutterfire configure</pre>
 
       <h2 id="android-ios-config">Android &amp; iOS Config</h2>
       <div class="section">
+        <h3>Android</h3>
         <ul class="list">
-          <li>Set application name and ID for release</li>
-          <li>Configure Android signing and iOS capabilities</li>
-          <li>Align minimum and target SDKs with platform requirements</li>
+          <li>App ID: set applicationId under defaultConfig in android/app/build.gradle.</li>
+          <li>App name: set android:label in android/app/src/main/AndroidManifest.xml.</li>
+          <li>SDK levels: set minSdkVersion and targetSdkVersion in build.gradle.</li>
+          <li>Signing: create a keystore, add key.properties, and reference it in the release signingConfig.</li>
+          <li>Release build: flutter build apk or flutter build appbundle.</li>
+        </ul>
+        <h3>iOS</h3>
+        <ul class="list">
+          <li>Open ios/Runner.xcworkspace in Xcode.</li>
+          <li>Bundle Identifier: set under General; select Team to enable automatic signing.</li>
+          <li>Deployment Target: choose a supported iOS version.</li>
+          <li>Capabilities: enable Push Notifications and Background Modes if using FCM.</li>
+          <li>Release build: flutter build ipa or archive via Xcode Product → Archive.</li>
         </ul>
         <img src="../assets/images/upload/application-name.png" alt="Application name" class="doc-img">
         <img src="../assets/images/upload/application-id-2.png" alt="Application ID" class="doc-img">
@@ -329,13 +356,7 @@ flutterfire configure</pre>
         </ul>
       </div>
 
-      <h2 id="maps-api">Maps API Keys</h2>
-      <div class="section">
-        <ul class="list">
-          <li>Restrict keys by package/bundle identifiers</li>
-          <li>Enable required Maps SDKs and set usage limits</li>
-        </ul>
-      </div>
+      
 
       <h2 id="features">Core Features</h2>
       <div class="section">
