@@ -39,7 +39,7 @@
         <a href="#overview">Overview</a>
         <a href="#requirements">Requirements</a>
         <a href="#environment-setup">Environment Setup</a>
-        <a href="#setup">Setup</a>
+        <a href="#mandatory-setup">Mandatory Setup</a>
         <a href="#quick-start">Quick Start</a>
         <a href="#android-ios-config">Android &amp; iOS Config</a>
         <a href="#localization-rtl">Localization &amp; RTL</a>
@@ -153,7 +153,7 @@ flutter doctor</pre>
           <li>In Android Studio: Preferences → Plugins → Marketplace → install Flutter and Dart, then restart.</li>
         </ul>
 
-        <h2 id="setup">Setup</h2>
+        <h2 id="mandatory-setup">Mandatory Setup</h2>
         <div class="section">
           <h3>Run an existing Flutter project on IDE</h3>
           <ul class="list">
@@ -337,7 +337,7 @@ flutter run</pre>
             <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
           </div>
 
-          <!-- Configuration section merged into Setup; removed to avoid duplication -->
+          <!-- Configuration section merged into Mandatory Setup; removed to avoid duplication -->
 
           <h2 id="android-ios-config">Android &amp; iOS Config</h2>
           <div class="section">
@@ -851,15 +851,76 @@ open coverage/html/index.html</pre>
 
           <h2 id="troubleshooting">Troubleshooting</h2>
           <div class="section">
+            <h3>Quick checks</h3>
             <ul class="list">
-              <li>Gradle build failed: match Gradle/Android plugin versions</li>
-              <li>Flutter SDK path not found: check flutter/bin in PATH</li>
-              <li>Dependency resolution failed: run flutter clean then pub get</li>
-              <li>iOS deployment target: align Podfile and Xcode target versions</li>
-              <li>No matching Firebase client: use correct bundle identifier</li>
-              <li>Generated files missing: run build_runner with delete-conflicting-outputs</li>
-              <li>google-services.json not found: place at android/app/google-services.json</li>
-              <li>Maps key missing: create secrets.xml and add google_maps_api_key</li>
+              <li>Verify setup:</li>
+            </ul>
+            <pre class="code">flutter doctor -v</pre>
+            <ul class="list">
+              <li>Clean caches and re-fetch deps:</li>
+            </ul>
+            <pre class="code">flutter clean
+flutter pub get</pre>
+            <h3>Android build issues</h3>
+            <ul class="list">
+              <li>Gradle/AGP mismatch: update Gradle wrapper and Android Gradle Plugin together.</li>
+            </ul>
+            <pre class="code">android/gradle/wrapper/gradle-wrapper.properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.x-all.zip</pre>
+            <ul class="list">
+              <li>Update AGP in android/build.gradle:</li>
+            </ul>
+            <pre class="code">classpath "com.android.tools.build:gradle:8.x.y"</pre>
+            <ul class="list">
+              <li>compileSdk/targetSdk errors: align to supported SDK levels in android/app/build.gradle.</li>
+              <li>Activity exported error (Android 12+): set exported on activities with intent filters.</li>
+            </ul>
+            <pre
+              class="code">&lt;activity android:name=".MainActivity" android:exported="true"&gt;...&lt;/activity&gt;</pre>
+            <ul class="list">
+              <li>INSTALL_FAILED_VERSION_DOWNGRADE or SIGNATURE conflict: uninstall previous app first.</li>
+            </ul>
+            <pre class="code">adb uninstall your.package.name</pre>
+            <ul class="list">
+              <li>google-services.json not found: ensure file exists at android/app/google-services.json.</li>
+            </ul>
+            <h3>iOS build issues</h3>
+            <ul class="list">
+              <li>CocoaPods errors: install/update pods inside ios/ then re-run build.</li>
+            </ul>
+            <pre class="code">cd ios
+pod repo update
+pod install --repo-update</pre>
+            <ul class="list">
+              <li>Clean DerivedData when Xcode behaves inconsistently:</li>
+            </ul>
+            <pre class="code">rm -rf ~/Library/Developer/Xcode/DerivedData</pre>
+            <ul class="list">
+              <li>Deployment target mismatch: align platform in Podfile with Xcode target.</li>
+              <li>Signing/profile issues: set Team, Bundle Identifier, and enable required Capabilities.</li>
+            </ul>
+            <h3>Firebase push</h3>
+            <ul class="list">
+              <li>No token on iOS: use a real device, enable Push/Background Modes, upload APNs key to Firebase.</li>
+              <li>Android 13+ no notifications: request POST_NOTIFICATIONS at runtime.</li>
+              <li>After changing configs, uninstall app and reinstall to refresh tokens and permissions.</li>
+            </ul>
+            <h3>Network &amp; SSL</h3>
+            <ul class="list">
+              <li>CERTIFICATE_VERIFY_FAILED: use HTTPS endpoints, check device date/time, and avoid self‑signed certs in
+                prod.</li>
+              <li>Timeouts/intermittent errors: add sensible connect/receive timeouts and retry with backoff for
+                idempotent calls.</li>
+            </ul>
+            <h3>Code generation</h3>
+            <ul class="list">
+              <li>Generated files missing or stale:</li>
+            </ul>
+            <pre class="code">flutter pub run build_runner build --delete-conflicting-outputs</pre>
+            <h3>Maps</h3>
+            <ul class="list">
+              <li>Map key missing: add google_maps_api_key to secrets.xml and iOS key via GMSServices.provideAPIKey.
+              </li>
             </ul>
           </div>
 

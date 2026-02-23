@@ -39,7 +39,7 @@
         <a href="#overview">Overview</a>
         <a href="#requirements">Requirements</a>
         <a href="#environment-setup">Environment Setup</a>
-        <a href="#setup">Setup</a>
+        <a href="#mandatory-setup">Mandatory Setup</a>
         <a href="#quick-start">Quick Start</a>
         <a href="#android-ios-config">Android &amp; iOS Config</a>
         <a href="#localization-rtl">Localization &amp; RTL</a>
@@ -149,7 +149,7 @@ flutter doctor</pre>
         </ul>
       </div>
 
-      <h2 id="setup">Setup</h2>
+      <h2 id="mandatory-setup">Mandatory Setup</h2>
       <div class="section">
         <h3>Run an existing Flutter project on IDE</h3>
         <ul class="list">
@@ -215,11 +215,13 @@ static const String baseUrl = 'https://your_domain.com';</pre>
           <li>Enter old package as search, new package as replacement → Replace All.</li>
         </ul>
         <h3>Setup Firebase for Push Notification</h3>
-        <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Deliveryman, Admin). Add multiple apps under the same project.</div>
+        <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Deliveryman, Admin). Add
+          multiple apps under the same project.</div>
         <h4>Prerequisites</h4>
         <ul class="list">
           <li>Change your package name/bundle ID first.</li>
-          <li>Create a Firebase project at <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>.</li>
+          <li>Create a Firebase project at <a href="https://console.firebase.google.com" target="_blank"
+              rel="noopener">console.firebase.google.com</a>.</li>
         </ul>
         <h4>Install packages &amp; configure</h4>
         <ul class="list">
@@ -231,19 +233,25 @@ firebase login
 flutterfire configure</pre>
         <h4>Android</h4>
         <ul class="list">
-          <li>Register your Android app in Firebase using the exact applicationId (package name) from android/app/build.gradle.</li>
-          <li>Add SHA‑1 and SHA‑256 fingerprints (from Gradle signing report or Play Console) for reliable delivery.</li>
+          <li>Register your Android app in Firebase using the exact applicationId (package name) from
+            android/app/build.gradle.</li>
+          <li>Add SHA‑1 and SHA‑256 fingerprints (from Gradle signing report or Play Console) for reliable delivery.
+          </li>
           <li>Download google-services.json and place it at android/app/google-services.json (replace if exists).</li>
           <li>Ensure the Google Services Gradle plugin is applied in android/app/build.gradle.</li>
-          <li>Create a solid white notification icon named notification_icon.png under android/app/src/main/res/drawable/.</li>
+          <li>Create a solid white notification icon named notification_icon.png under
+            android/app/src/main/res/drawable/.</li>
           <li>Targeting Android 13+: request POST_NOTIFICATIONS permission at runtime in your app code.</li>
         </ul>
         <h4>iOS</h4>
         <ul class="list">
           <li>Register your iOS app in the same Firebase project with your Bundle Identifier.</li>
-          <li>Download GoogleService-Info.plist and add it to ios/Runner (ensure it is included in the Runner target in Xcode).</li>
-          <li>Enable Push Notifications and Background Modes → Remote notifications under Signing &amp; Capabilities.</li>
-          <li>In Apple Developer, create an APNs Auth Key (.p8), then upload Key ID and Team ID to Firebase &rarr; Project Settings &rarr; Cloud Messaging.</li>
+          <li>Download GoogleService-Info.plist and add it to ios/Runner (ensure it is included in the Runner target in
+            Xcode).</li>
+          <li>Enable Push Notifications and Background Modes → Remote notifications under Signing &amp; Capabilities.
+          </li>
+          <li>In Apple Developer, create an APNs Auth Key (.p8), then upload Key ID and Team ID to Firebase &rarr;
+            Project Settings &rarr; Cloud Messaging.</li>
           <li>On iOS, notifications require user permission; request it at app startup.</li>
         </ul>
         <h4>Request permission &amp; get token</h4>
@@ -268,7 +276,8 @@ print('FCM token: $token');</pre>
           <li>No notification on Android 13+: request POST_NOTIFICATIONS permission at runtime.</li>
           <li>Stuck delivery: reinstall the app after configuration changes and restart the IDE.</li>
         </ul>
-        <div class="alert alert-info">After setup, restart your IDE, uninstall any previously installed app, and test on a real device (emulators/simulators do not receive push on iOS).</div>
+        <div class="alert alert-info">After setup, restart your IDE, uninstall any previously installed app, and test on
+          a real device (emulators/simulators do not receive push on iOS).</div>
         <h3>Android Secrets</h3>
         <ul class="list">
           <li>Create android/app/src/main/res/values/secrets.xml with required keys.</li>
@@ -328,7 +337,7 @@ flutter run</pre>
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
-      <!-- Configuration section merged into Setup; removed to avoid duplication -->
+      <!-- Configuration section merged into Mandatory Setup; removed to avoid duplication -->
 
       <h2 id="android-ios-config">Android &amp; iOS Config</h2>
       <div class="section">
@@ -361,7 +370,9 @@ flutter run</pre>
           <li>Create a new ARB file under lib/l10n/arb, e.g., lib/l10n/arb/app_es.arb</li>
           <li>Copy all keys from app_en.arb and translate only the values.</li>
           <li>Keep placeholders and variables intact to avoid runtime issues.</li>
-          <li>Use valid ISO language/country codes when needed (ISO‑639 / ISO‑3166). Reference: <a href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html" target="_blank" rel="noopener">ISO codes list</a></li>
+          <li>Use valid ISO language/country codes when needed (ISO‑639 / ISO‑3166). Reference: <a
+              href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html" target="_blank"
+              rel="noopener">ISO codes list</a></li>
         </ul>
         <pre class="code">lib/l10n/arb/app_es.arb
 {
@@ -407,13 +418,15 @@ flutter run</pre>
       <div class="section">
         <h3>Change App Color</h3>
         <ul class="list">
-          <li>Open &lt;project&gt;/lib/theme/light_theme.dart and set primaryColor, foregroundColor, secondary, etc.</li>
+          <li>Open &lt;project&gt;/lib/theme/light_theme.dart and set primaryColor, foregroundColor, secondary, etc.
+          </li>
           <li>Open &lt;project&gt;/lib/theme/dark_theme.dart and mirror the same updates for dark mode.</li>
           <li>Keep contrast and accessibility in mind for text and icons.</li>
         </ul>
         <h3>Change App Font</h3>
         <ul class="list">
-          <li>Download a font family you like. See free options at <a href="https://fonts.google.com/" target="_blank" rel="noopener">Google Fonts</a>.</li>
+          <li>Download a font family you like. See free options at <a href="https://fonts.google.com/" target="_blank"
+              rel="noopener">Google Fonts</a>.</li>
           <li>Unzip and copy TTF/OTF files to &lt;project&gt;/assets/font/</li>
           <li>Declare the font in pubspec.yaml under flutter → fonts.</li>
         </ul>
@@ -429,24 +442,28 @@ flutter run</pre>
         <pre class="code">static const String fontFamily = 'YOUR_FONT_FAMILY_NAME';</pre>
         <h3>Change Notification Sound</h3>
         <ul class="list">
-          <li>Android: replace &lt;project&gt;/android/app/src/main/res/raw/notification.wav with your file. Keep the filename notification.wav</li>
-          <li>If there is notification.mp3 or notification.wav under &lt;project&gt;/assets, replace it too and keep the filename unchanged.</li>
+          <li>Android: replace &lt;project&gt;/android/app/src/main/res/raw/notification.wav with your file. Keep the
+            filename notification.wav</li>
+          <li>If there is notification.mp3 or notification.wav under &lt;project&gt;/assets, replace it too and keep the
+            filename unchanged.</li>
           <li>Use a short and small audio file to avoid delivery issues.</li>
         </ul>
         <h3>Change Onboarding Text and Graphics</h3>
         <ul class="list">
-          <li>Open lib/l10n/arb/app_en.arb. Update values for keys such as "on_boarding_1_title" and "on_boarding_1_description". Do not change keys.</li>
+          <li>Open lib/l10n/arb/app_en.arb. Update values for keys such as "on_boarding_1_title" and
+            "on_boarding_1_description". Do not change keys.</li>
         </ul>
         <pre class="code">"on_boarding_1_title": "YOUR_PREFERRED_TITLE",
 "on_boarding_1_description": "YOUR_PREFERRED_DESCRIPTION"</pre>
         <ul class="list">
           <li>Repeat for other languages (e.g., app_es.arb) and regenerate: flutter gen-l10n</li>
-          <li>Graphics: replace &lt;project&gt;/assets/images/onboard_1.png, onboard_2.png, onboard_3.png with your PNGs using the same names.</li>
+          <li>Graphics: replace &lt;project&gt;/assets/images/onboard_1.png, onboard_2.png, onboard_3.png with your PNGs
+            using the same names.</li>
         </ul>
-        
+
       </div>
 
-      
+
 
       <h2 id="features">Core Features</h2>
       <div class="section">
@@ -530,7 +547,8 @@ flutter run</pre>
 flutter devices
 flutter run</pre>
         <ul class="list">
-          <li>Hot reload: press <span class="mark">r</span>. Hot restart: <span class="mark">R</span>. Quit: <span class="mark">q</span>.</li>
+          <li>Hot reload: press <span class="mark">r</span>. Hot restart: <span class="mark">R</span>. Quit: <span
+              class="mark">q</span>.</li>
           <li>Run on a specific device with <span class="mark">flutter run -d &lt;deviceId&gt;</span>.</li>
           <li>Attach to an already running app:</li>
         </ul>
@@ -611,7 +629,8 @@ build/app/outputs/bundle/release/app-release.aab</pre>
           <li>CLI artifact path:</li>
         </ul>
         <pre class="code">build/ios/ipa/Runner.ipa</pre>
-        <div class="alert alert-info">Run a final pass on a release build to verify notifications, location updates, and background tasks perform as expected.</div>
+        <div class="alert alert-info">Run a final pass on a release build to verify notifications, location updates, and
+          background tasks perform as expected.</div>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
@@ -630,7 +649,8 @@ keyPassword=YOUR_KEY_PASSWORD
 keyAlias=foodlaydm
 storeFile=/ABSOLUTE/PATH/TO/foodlay-dm-release.keystore</pre>
         <ul class="list">
-          <li>Load and apply signing in <span class="mark">android/app/build.gradle</span> and enable shrinking for release:</li>
+          <li>Load and apply signing in <span class="mark">android/app/build.gradle</span> and enable shrinking for
+            release:</li>
         </ul>
         <pre class="code">def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -656,7 +676,8 @@ android {
     }
   }
 }</pre>
-        <div class="alert alert-warning"><strong>Security</strong> Do not commit keystore or key.properties. Store them securely.</div>
+        <div class="alert alert-warning"><strong>Security</strong> Do not commit keystore or key.properties. Store them
+          securely.</div>
 
         <h3>Android: Play Console</h3>
         <ul class="list">
@@ -667,16 +688,19 @@ android {
 
         <h3>iOS: Signing &amp; Provisioning</h3>
         <ul class="list">
-          <li>Open <span class="mark">ios/Runner.xcworkspace</span> → select Team → enable <span class="mark">Automatically manage signing</span>.</li>
+          <li>Open <span class="mark">ios/Runner.xcworkspace</span> → select Team → enable <span
+              class="mark">Automatically manage signing</span>.</li>
           <li>Ensure a Distribution profile for release and correct Bundle Identifier.</li>
-          <li>Capabilities: Push Notifications and Background Modes → Remote notifications; enable Location updates if used.</li>
+          <li>Capabilities: Push Notifications and Background Modes → Remote notifications; enable Location updates if
+            used.</li>
         </ul>
 
         <h3>iOS: Archive &amp; Submit</h3>
         <ul class="list">
           <li>Update Version and Build in Xcode (General tab).</li>
           <li>Product → Archive → Organizer → Distribute App → App Store Connect → Upload.</li>
-          <li>Fill App Store Connect metadata and privacy questions; include location permission justifications if applicable.</li>
+          <li>Fill App Store Connect metadata and privacy questions; include location permission justifications if
+            applicable.</li>
         </ul>
 
         <h3>Release Checklist</h3>
@@ -768,7 +792,8 @@ flutter test --plain-name "shows order list"</pre>
         <pre class="code">flutter test --concurrency=4</pre>
         <h3>Integration Tests</h3>
         <ul class="list">
-          <li>Place tests in <span class="mark">integration_test/</span>, start an emulator/simulator or connect a device.</li>
+          <li>Place tests in <span class="mark">integration_test/</span>, start an emulator/simulator or connect a
+            device.</li>
           <li>Run all integration tests:</li>
         </ul>
         <pre class="code">flutter test integration_test</pre>
@@ -793,15 +818,81 @@ open coverage/html/index.html</pre>
 
       <h2 id="troubleshooting">Troubleshooting</h2>
       <div class="section">
+        <h3>Quick checks</h3>
         <ul class="list">
-          <li>Gradle build failed: align plugin &amp; wrapper versions</li>
-          <li>Flutter SDK path not found: verify PATH includes flutter/bin</li>
-          <li>Dependency resolution failed: flutter clean then pub get</li>
-          <li>iOS deployment target: update Podfile and Xcode settings</li>
-          <li>No matching Firebase client: correct bundle identifier</li>
-          <li>Generated files missing: run build_runner with delete-conflicting-outputs</li>
-          <li>google-services.json not found: place at android/app/google-services.json</li>
-          <li>Maps key missing: create secrets.xml and add google_maps_api_key</li>
+          <li>Verify setup and toolchain:</li>
+        </ul>
+        <pre class="code">flutter doctor -v</pre>
+        <ul class="list">
+          <li>Clear caches and re-fetch dependencies:</li>
+        </ul>
+        <pre class="code">flutter clean
+flutter pub get</pre>
+        <h3>Android build issues</h3>
+        <ul class="list">
+          <li>Gradle/AGP mismatch: update Gradle wrapper and Android Gradle Plugin together.</li>
+        </ul>
+        <pre class="code">android/gradle/wrapper/gradle-wrapper.properties
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.x-all.zip</pre>
+        <ul class="list">
+          <li>Update AGP in android/build.gradle:</li>
+        </ul>
+        <pre class="code">classpath "com.android.tools.build:gradle:8.x.y"</pre>
+        <ul class="list">
+          <li>compileSdk/targetSdk errors: align in android/app/build.gradle.</li>
+          <li>Activity exported error (Android 12+): set exported on activities with intent filters.</li>
+        </ul>
+        <pre
+          class="code">&lt;activity android:name=".MainActivity" android:exported="true"&gt;...&lt;/activity&gt;</pre>
+        <ul class="list">
+          <li>INSTALL_FAILED_VERSION_DOWNGRADE or SIGNATURE conflict: uninstall previous app.</li>
+        </ul>
+        <pre class="code">adb uninstall your.package.name</pre>
+        <ul class="list">
+          <li>google-services.json not found: ensure file exists at android/app/google-services.json.</li>
+        </ul>
+        <h3>iOS build issues</h3>
+        <ul class="list">
+          <li>CocoaPods errors: update/install pods in ios/ then rebuild.</li>
+        </ul>
+        <pre class="code">cd ios
+pod repo update
+pod install --repo-update</pre>
+        <ul class="list">
+          <li>Clean DerivedData when Xcode builds behave oddly:</li>
+        </ul>
+        <pre class="code">rm -rf ~/Library/Developer/Xcode/DerivedData</pre>
+        <ul class="list">
+          <li>Deployment target mismatch: align Podfile platform with Xcode target.</li>
+          <li>Signing/profile issues: set Team, Bundle Identifier, Capabilities.</li>
+        </ul>
+        <h3>Firebase push</h3>
+        <ul class="list">
+          <li>No token on iOS: use real device, enable Push/Background Modes, upload APNs key to Firebase.</li>
+          <li>Android 13+ no notifications: request POST_NOTIFICATIONS permission at runtime.</li>
+          <li>Reinstall after config changes to refresh tokens.</li>
+        </ul>
+        <h3>Location permissions</h3>
+        <ul class="list">
+          <li>Android: ensure location permissions are declared and requested at runtime.</li>
+          <li>iOS: add usage descriptions in Info.plist and request permission in app.</li>
+        </ul>
+        <pre class="code">&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
+&lt;string&gt;Your location is used to navigate deliveries.&lt;/string&gt;</pre>
+        <h3>Network &amp; SSL</h3>
+        <ul class="list">
+          <li>CERTIFICATE_VERIFY_FAILED: use HTTPS, correct device time, avoid self‑signed certs in prod.</li>
+          <li>Apply timeouts and limited retries with backoff for transient failures.</li>
+        </ul>
+        <h3>Code generation</h3>
+        <ul class="list">
+          <li>Generated files missing or stale:</li>
+        </ul>
+        <pre class="code">flutter pub run build_runner build --delete-conflicting-outputs</pre>
+        <h3>Maps</h3>
+        <ul class="list">
+          <li>Add google_maps_api_key to secrets.xml; verify platform SDKs enabled and key restrictions are correct.
+          </li>
         </ul>
       </div>
 
