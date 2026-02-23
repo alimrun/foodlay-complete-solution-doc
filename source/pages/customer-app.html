@@ -338,11 +338,55 @@ flutter run</pre>
 
           <h2 id="localization-rtl">Localization &amp; RTL</h2>
           <div class="section">
+            <h3>Add New Language</h3>
             <ul class="list">
-              <li>Localizations wired via AppLocalizations in main.dart</li>
-              <li>ARB files under lib/l10n/arb (en, ar, bn, es, hi)</li>
-              <li>Access strings using context.l10n helpers</li>
-              <li>RTL supported; prefer directional-aware widgets</li>
+              <li>Create a new ARB file under lib/l10n/arb, for example: lib/l10n/arb/app_es.arb</li>
+              <li>Copy all keys from app_en.arb into your new file.</li>
+              <li>Translate values after the colon only; keep keys and placeholders unchanged.</li>
+              <li>Use valid ISO language codes (ISO‑639) and country codes (ISO‑3166) when needed. Reference: <a
+                  href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html" target="_blank"
+                  rel="noopener">ISO codes list</a></li>
+            </ul>
+            <pre class="code">lib/l10n/arb/app_es.arb
+{
+  "@@locale": "es",
+  "office": "Oficina",
+  "welcome": "Bienvenido"
+}</pre>
+            <ul class="list">
+              <li>Generate localizations (or hot‑restart if your IDE runs gen‑l10n automatically):</li>
+            </ul>
+            <pre class="code">flutter gen-l10n</pre>
+            <ul class="list">
+              <li>Ensure the locale is included in supportedLocales. If you use AppLocalizations.supportedLocales, this
+                is automatic.</li>
+            </ul>
+            <pre class="code">MaterialApp(
+  supportedLocales: AppLocalizations.supportedLocales,
+  // Or explicitly:
+  // supportedLocales: const [Locale('en'), Locale('es')],
+)</pre>
+            <h3>Remove Existing Language</h3>
+            <ul class="list">
+              <li>Delete the ARB file for the language from lib/l10n/arb.</li>
+              <li>Regenerate localizations: flutter gen-l10n</li>
+              <li>If locales are manually listed, remove the Locale entry from supportedLocales.</li>
+            </ul>
+            <h3>Make Default Language</h3>
+            <ul class="list">
+              <li>Set a fixed default by specifying locale on your MaterialApp:</li>
+            </ul>
+            <pre class="code">MaterialApp(
+  locale: const Locale('es'),
+)</pre>
+            <ul class="list">
+              <li>Or rely on device language by omitting locale and keeping supportedLocales up to date.</li>
+            </ul>
+            <h3>RTL Support</h3>
+            <ul class="list">
+              <li>RTL locales (e.g., ar) are supported automatically by Flutter’s Directionality and localization
+                system.</li>
+              <li>Use directional widgets and avoid hard‑coding text directions in custom layouts.</li>
             </ul>
           </div>
 

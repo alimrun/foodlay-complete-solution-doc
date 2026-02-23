@@ -340,10 +340,50 @@ flutter run</pre>
 
       <h2 id="localization-rtl">Localization &amp; RTL</h2>
       <div class="section">
+        <h3>Add New Language</h3>
         <ul class="list">
-          <li>AppLocalizations setup in main.dart</li>
-          <li>ARB files in lib/l10n/arb</li>
-          <li>Use context.l10n and directional widgets for RTL</li>
+          <li>Create a new ARB file under lib/l10n/arb, e.g., lib/l10n/arb/app_es.arb</li>
+          <li>Copy all keys from app_en.arb and translate only the values.</li>
+          <li>Keep placeholders and variables intact to avoid runtime issues.</li>
+          <li>Use valid ISO language/country codes when needed (ISO‑639 / ISO‑3166). Reference: <a href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html" target="_blank" rel="noopener">ISO codes list</a></li>
+        </ul>
+        <pre class="code">lib/l10n/arb/app_es.arb
+{
+  "@@locale": "es",
+  "office": "Oficina",
+  "orders": "Pedidos"
+}</pre>
+        <ul class="list">
+          <li>Generate localizations (or hot‑restart if auto‑generated):</li>
+        </ul>
+        <pre class="code">flutter gen-l10n</pre>
+        <ul class="list">
+          <li>Ensure the new locale is present in supportedLocales.</li>
+        </ul>
+        <pre class="code">MaterialApp(
+  supportedLocales: AppLocalizations.supportedLocales,
+  // Or explicitly:
+  // supportedLocales: const [Locale('en'), Locale('es')],
+)</pre>
+        <h3>Remove Existing Language</h3>
+        <ul class="list">
+          <li>Delete the ARB file from lib/l10n/arb and run flutter gen-l10n.</li>
+          <li>If locales are declared manually, remove the Locale from supportedLocales.</li>
+        </ul>
+        <h3>Make Default Language</h3>
+        <ul class="list">
+          <li>Force a default locale by setting the locale on MaterialApp:</li>
+        </ul>
+        <pre class="code">MaterialApp(
+  locale: const Locale('es'),
+)</pre>
+        <ul class="list">
+          <li>Or rely on device language by not specifying locale.</li>
+        </ul>
+        <h3>RTL Support</h3>
+        <ul class="list">
+          <li>RTL locales like Arabic are supported automatically by Flutter’s Directionality.</li>
+          <li>Use directional-aware widgets; avoid hard-coded left/right paddings where possible.</li>
         </ul>
       </div>
 
