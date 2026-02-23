@@ -41,7 +41,7 @@
                 <a href="#prerequisites">Prerequisites</a>
                 <a href="#quick-start">Quick Start Guide</a>
                 <a href="#installation-process">Installation Process</a>
-                <a href="#configuration">Configuration</a>
+                <a href="#basic-configuration">Basic Configuration</a>
                 <a href="#server-configuration">Server Configuration</a>
                 <a href="#deployment">Deployment</a>
                 <a href="#troubleshooting">Troubleshooting</a>
@@ -236,7 +236,7 @@ zip</pre>
                 <img src="../assets/images/upload/installation-success.png" alt="Installation success" class="doc-img">
             </div>
 
-            <h2 id="configuration">Configuration</h2>
+            <h2 id="basic-configuration">Basic Configuration</h2>
             <div class="section">
                 <h3>Core</h3>
                 <ul class="list">
@@ -275,6 +275,22 @@ CACHE_DRIVER=</pre>
                     <li>php artisan serve (local dev only)</li>
                     <li>Access: http://127.0.0.1:8000</li>
                 </ul>
+                <h3>Production .env Essentials</h3>
+                <ul class="list">
+                    <li>Disable debug in production and set a correct APP_URL.</li>
+                </ul>
+                <pre class="code">APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://example.com
+LOG_CHANNEL=stack
+CACHE_DRIVER=file
+QUEUE_CONNECTION=database
+SESSION_DRIVER=file
+SESSION_SECURE_COOKIE=true
+# If using subdomains:
+SESSION_DOMAIN=.example.com
+# If behind a proxy/CDN:
+TRUSTED_PROXIES=*</pre>
                 <h3>Nginx</h3>
                 <pre class="code">server {
     listen 80;
@@ -293,6 +309,36 @@ CACHE_DRIVER=</pre>
         include fastcgi_params;
     }
 }</pre>
+                <h3>Nginx (HTTPS + Redirect)</h3>
+                <pre class="code">server {
+    listen 80;
+    server_name example.com www.example.com;
+    return 301 https://example.com$request_uri;
+}
+server {
+    listen 443 ssl http2;
+    server_name example.com;
+    root /var/www/foodlay/public;
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    index index.php;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    location ~ \.php$ {
+        # Adjust socket or use 127.0.0.1:9000 depending on your PHP-FPM setup
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    location ~* \.(?:css|js|jpg|jpeg|gif|png|webp|ico|svg)$ {
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800, immutable";
+    }
+}</pre>
                 <h3>Apache</h3>
                 <pre class="code">&lt;VirtualHost *:80&gt;
     ServerName example.com
@@ -305,6 +351,25 @@ CACHE_DRIVER=</pre>
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 &lt;/VirtualHost&gt;</pre>
+                <h3>Apache (HTTPS + Redirect)</h3>
+                <pre class="code">&lt;VirtualHost *:80&gt;
+  ServerName example.com
+  Redirect permanent / https://example.com/
+&lt;/VirtualHost&gt;
+&lt;IfModule mod_ssl.c&gt;
+&lt;VirtualHost *:443&gt;
+  ServerName example.com
+  DocumentRoot /var/www/foodlay/public
+  SSLEngine on
+  SSLCertificateFile /etc/letsencrypt/live/example.com/fullchain.pem
+  SSLCertificateKeyFile /etc/letsencrypt/live/example.com/privkey.pem
+  &lt;Directory /var/www/foodlay/public&gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Require all granted
+  &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+&lt;/IfModule&gt;</pre>
                 <h3>LiteSpeed / OpenLiteSpeed</h3>
                 <ul class="list">
                     <li>Enterprise: point document root to /public; uses .htaccess</li>
@@ -313,6 +378,16 @@ CACHE_DRIVER=</pre>
                 <h3>SSL &amp; Security</h3>
                 <pre class="code">sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d example.com</pre>
+                <h3>Subdomains for Admin &amp; Storefront</h3>
+                <ul class="list">
+                    <li>Point both <span class="mark">example.com</span> (storefront) and <span
+                            class="mark">admin.example.com</span> (Admin Panel) to the same /public.</li>
+                    <li>Ensure <span class="mark">APP_URL</span> matches the primary domain; use <span
+                            class="mark">SESSION_DOMAIN=.example.com</span> when sharing sessions across subdomains.
+                    </li>
+                    <li>If using a CDN/proxy (e.g., Cloudflare), set <span class="mark">TRUSTED_PROXIES=*</span> and
+                        keep <span class="mark">APP_URL</span> on https.</li>
+                </ul>
                 <h3>cPanel Alternative (if /public not possible)</h3>
                 <ul class="list">
                     <li>Upload project to /public_html/foodlay_core/</li>
@@ -325,28 +400,84 @@ $app = require_once __DIR__.'/foodlay_core/bootstrap/app.php';</pre>
                 <ul class="list">
                     <li>Ensure writable: /storage, /bootstrap/cache, .env</li>
                 </ul>
+                <pre class="code">sudo chown -R www-data:www-data /var/www/foodlay
+find /var/www/foodlay -type f -exec chmod 644 {} \;
+find /var/www/foodlay -type d -exec chmod 755 {} \;</pre>
                 <h3>Cron Job</h3>
                 <pre class="code">* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</pre>
                 <h3>Queue Workers</h3>
                 <ul class="list">
                     <li>Use Supervisor/systemd when QUEUE_CONNECTION=database</li>
                 </ul>
+                <pre class="code"># /etc/supervisor/conf.d/foodlay-worker.conf
+[program:foodlay-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/foodlay/artisan queue:work --sleep=1 --tries=3 --max-time=3600
+autostart=true
+autorestart=true
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/foodlay-worker.log</pre>
+                <h3>CORS (API on another domain)</h3>
+                <ul class="list">
+                    <li>If the mobile apps call this API from a different domain, configure <span
+                            class="mark">config/cors.php</span> accordingly.</li>
+                </ul>
+                <pre class="code">'paths' =&gt; ['api/*', 'sanctum/csrf-cookie'],
+'allowed_origins' =&gt; ['https://app.example.com', 'https://admin.example.com'],
+'allowed_methods' =&gt; ['*'],
+'allowed_headers' =&gt; ['*'],
+'supports_credentials' =&gt; true,</pre>
             </div>
 
             <h2 id="deployment">Deployment</h2>
             <div class="section">
+                <h3>First-Time Deployment</h3>
                 <ul class="list">
-                    <li>Point domain document root to /public</li>
-                    <li>Upload built assets (public/build) after npm run build</li>
-                    <li>Optimize configuration and routes</li>
-                    <li>Run migrations and seeders</li>
-                    <li>Start queue workers (Supervisor/Horizon)</li>
+                    <li>Point domain/subdomain document root to /public</li>
+                    <li>Upload project files to server</li>
+                    <li>Ensure writable: /storage, /bootstrap/cache, .env</li>
+                    <li>Create database and user, grant privileges</li>
+                    <li>Install PHP dependencies with production flags</li>
+                    <li>Generate APP_KEY and link storage</li>
+                    <li>Install Node dependencies and build assets</li>
+                    <li>Run migrations (and seeders if needed)</li>
+                    <li>Cache configuration and routes</li>
                 </ul>
-                <pre class="code highlight">npm install
+                <pre class="code highlight">composer install --no-dev --optimize-autoloader
+php artisan key:generate
+php artisan storage:link
+npm ci
 npm run build
+php artisan migrate --force
 php artisan config:cache
 php artisan route:cache
-php artisan migrate --force</pre>
+php artisan view:cache</pre>
+
+
+                <h3>Post‑Deployment Checklist</h3>
+                <ul class="list">
+                    <li>Visit / to ensure pages load and assets resolve</li>
+                    <li>Check APP_URL correctness and HTTPS redirects</li>
+                    <li>Verify public/build is present and Vite manifest loads</li>
+                    <li>Run health checks: DB connection, cache, queue</li>
+                    <li>Confirm storage symlink works (image uploads)</li>
+                </ul>
+
+                <h3>Backups &amp; Rollback</h3>
+                <ul class="list">
+                    <li>Backup database and .env before upgrades</li>
+                    <li>Keep previous release for quick rollback</li>
+                    <li>Restore DB from dump if migrations fail and rollback is required</li>
+                </ul>
+
+                <h3>cPanel Shared Hosting</h3>
+                <ul class="list">
+                    <li>If document root cannot point to /public, move public files to public_html and adjust index.php
+                        paths</li>
+                    <li>Run composer in terminal or deploy vendor from local</li>
+                    <li>Build assets locally and upload public/build</li>
+                </ul>
             </div>
 
             <h2 id="troubleshooting">Troubleshooting</h2>
