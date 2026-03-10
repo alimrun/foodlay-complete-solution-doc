@@ -49,7 +49,6 @@
         <a href="#routes">Routes</a>
         <a href="#structure">Project Structure</a>
         <a href="#run">Run and Debug</a>
-        <a href="#creating-release-builds">Creating Release Builds</a>
         <a href="#build">Build and Release</a>
         <a href="#signing-release">Signing &amp; Release</a>
         <a href="#api">API Usage</a>
@@ -607,30 +606,6 @@ flutter pub get</pre>
               simulators cannot receive APNs push.</div>
           </div>
 
-          <h2 id="creating-release-builds">Creating Release Builds</h2>
-          <div class="section">
-            <h3>Android</h3>
-            <ol class="list">
-              <li>Create or update your upload keystore (if not already done):</li>
-            </ol>
-            <pre class="code">keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload</pre>
-            <ol class="list">
-              <li>Configure signing in <span class="mark">android/app/build.gradle</span> (follow the official Flutter docs):</li>
-            </ol>
-            <ul class="list">
-              <li><a href="https://docs.flutter.dev/deployment/android#signing-the-app" target="_blank" rel="noopener">Flutter Android signing guide</a></li>
-            </ul>
-            <ol class="list">
-              <li>Build a release APK with obfuscation and split debug symbols:</li>
-            </ol>
-            <pre class="code highlight">flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
-            <ol class="list">
-              <li>Or build an App Bundle (preferred for Play Store) with obfuscation:</li>
-            </ol>
-            <pre class="code highlight">flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
-            <div class="alert alert-warning">Always keep the debug symbol files from <span class="mark">--split-debug-info</span> safe. They are required to de‑obfuscate crash stack traces in tools like Firebase Crashlytics and Play Console.</div>
-          </div>
-
           <h2 id="build">Build and Release</h2>
           <div class="section">
             <h3>Android</h3>
@@ -643,6 +618,19 @@ flutter pub get</pre>
               <li>App Bundle (required for Play Store):</li>
             </ul>
             <pre class="code highlight">flutter build appbundle</pre>
+            <ul class="list">
+              <li>Secure release (obfuscation + symbols):</li>
+            </ul>
+            <pre
+              class="code highlight">flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
+            <ul class="list">
+              <li>Secure App Bundle (preferred for Play Store):</li>
+            </ul>
+            <pre
+              class="code highlight">flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
+            <div class="alert alert-warning">Keep the debug symbol files from <span
+                class="mark">--split-debug-info</span> in a safe location. They are required to de‑obfuscate crash stack
+              traces (e.g., Crashlytics, Play Console).</div>
             <ul class="list">
               <li>Split per ABI (smaller APKs for distribution outside Play):</li>
             </ul>
