@@ -53,6 +53,7 @@
         <a href="#signing-release">Signing &amp; Release</a>
         <a href="#api">API Usage</a>
         <a href="#testing">Testing</a>
+        <a href="#update-procedure">Update Procedure</a>
         <a href="#troubleshooting">Troubleshooting</a>
         <a href="#links">Links</a>
       </nav>
@@ -858,6 +859,70 @@ open coverage/html/index.html</pre>
               <li>Keep unit tests pure and deterministic; avoid real network calls.</li>
               <li>Use fakes or dependency injection to isolate business logic from I/O.</li>
               <li>For widgets, prefer golden tests for stable UI states; update goldens intentionally.</li>
+            </ul>
+          </div>
+
+          <h2 id="update-procedure">Update Procedure</h2>
+          <div class="section">
+            <p>When a new version is released, you will receive the update package containing either <strong>changed
+                files only</strong> or the <strong>full source code</strong>. You can choose whichever method suits your
+              setup best.</p>
+
+            <h3>Before You Update</h3>
+            <div class="alert alert-warning">Always back up your current project before applying any update. If you have
+              made custom modifications, document them so you can reapply after updating.</div>
+            <ul class="list">
+              <li>Back up your entire project folder</li>
+              <li>Note any custom changes you have made to the source code</li>
+              <li>Ensure your development environment meets the latest version's requirements</li>
+              <li>Download the update package from your purchase account</li>
+            </ul>
+
+            <h3>Option A: Apply Changed Files Only</h3>
+            <p>This method is recommended if you have made custom modifications and want to preserve them.</p>
+            <ul class="list">
+              <li><strong>Step 1:</strong> Extract the update package. Locate the folder containing only the changed
+                files.</li>
+              <li><strong>Step 2:</strong> Copy the changed files into your existing project, replacing the
+                corresponding files in their respective directories.</li>
+              <li><strong>Step 3:</strong> If you have custom modifications in any of the replaced files, manually merge
+                your changes back into the updated files.</li>
+              <li><strong>Step 4:</strong> Run <span class="mark">flutter pub get</span> to update dependencies.</li>
+              <li><strong>Step 5:</strong> Clean and rebuild the project:</li>
+            </ul>
+            <pre class="code highlight">flutter clean
+flutter pub get
+flutter run</pre>
+
+            <h3>Option B: Replace with Full Source Code</h3>
+            <p>This method is recommended for a clean update when you have not made custom modifications.</p>
+            <ul class="list">
+              <li><strong>Step 1:</strong> Extract the update package. Locate the full source code folder.</li>
+              <li><strong>Step 2:</strong> Replace your entire project directory with the new full source code.</li>
+              <li><strong>Step 3:</strong> Restore your configuration files and assets:
+                <ul class="list">
+                  <li>Firebase configuration files (<span class="mark">google-services.json</span>, <span
+                      class="mark">GoogleService-Info.plist</span>)</li>
+                  <li>App icons and splash screen assets</li>
+                  <li>Package name / bundle identifier settings</li>
+                  <li>API base URL and any environment-specific values</li>
+                  <li>Signing keys and keystore files</li>
+                </ul>
+              </li>
+              <li><strong>Step 4:</strong> Run <span class="mark">flutter pub get</span> to install dependencies.</li>
+              <li><strong>Step 5:</strong> Clean and rebuild the project:</li>
+            </ul>
+            <pre class="code highlight">flutter clean
+flutter pub get
+flutter run</pre>
+
+            <h3>Post-Update Checklist</h3>
+            <ul class="list">
+              <li>Verify the app builds and runs without errors on both Android and iOS</li>
+              <li>Test core functionality: login, browsing menu, placing orders, and payments</li>
+              <li>Confirm push notifications are working</li>
+              <li>Validate that all custom modifications have been reapplied (if using Option A)</li>
+              <li>Run on a physical device to verify full functionality before releasing</li>
             </ul>
           </div>
 
