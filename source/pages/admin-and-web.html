@@ -44,6 +44,7 @@
                 <a href="#basic-configuration">Basic Configuration</a>
                 <a href="#server-configuration">Server Configuration</a>
                 <a href="#deployment">Deployment</a>
+                <a href="#update-procedure">Update Procedure</a>
                 <a href="#troubleshooting">Troubleshooting</a>
                 <a href="#customization">Customization</a>
             </nav>
@@ -477,6 +478,52 @@ php artisan view:cache</pre>
                         paths</li>
                     <li>Run composer in terminal or deploy vendor from local</li>
                     <li>Build assets locally and upload public/build</li>
+                </ul>
+            </div>
+
+            <h2 id="update-procedure">Update Procedure</h2>
+            <div class="section">
+                <p>Foodlay includes a built-in updater that allows administrators to apply new versions directly from the
+                    Admin Panel. Follow the steps below to safely update your Admin Panel and Web Storefront.</p>
+
+                <h3>Before You Update</h3>
+                <div class="alert alert-warning">Always back up your database and files before applying an update.
+                    Updates may include database migrations that alter existing tables.</div>
+                <ul class="list">
+                    <li>Create a full database backup via phpMyAdmin, cPanel, or CLI</li>
+                    <li>Back up your <span class="mark">.env</span> file and any custom modifications</li>
+                    <li>Ensure your server meets the latest version's requirements</li>
+                    <li>Download the <span class="mark">update.zip</span> file from your purchase account</li>
+                </ul>
+
+                <h3>Step-by-Step Update Process</h3>
+                <ul class="list">
+                    <li><strong>Step 1:</strong> Log in to the Admin Panel using your administrator credentials.</li>
+                    <li><strong>Step 2:</strong> Navigate to the updater page by visiting <span class="mark">yourdomain.com/updater</span> in your browser.</li>
+                    <li><strong>Step 3:</strong> On the updater page, click the file upload area and select the <span class="mark">update.zip</span> file you downloaded.</li>
+                    <li><strong>Step 4:</strong> Click the <strong>Update</strong> button to begin the update process.</li>
+                    <li><strong>Step 5:</strong> Wait for the process to complete. The system will extract the files, apply database migrations, and clear caches automatically.</li>
+                </ul>
+
+                <h3>Post-Update Checklist</h3>
+                <ul class="list">
+                    <li>Verify the application loads correctly and check for any errors</li>
+                    <li>Confirm the version number has been updated in the Admin Panel</li>
+                    <li>Test core functionality: placing an order, processing payments, and login flows</li>
+                    <li>Clear browser cache to ensure updated assets are loaded</li>
+                </ul>
+
+                <h3>Update Troubleshooting</h3>
+                <ul class="list">
+                    <li><strong>Upload fails or times out:</strong> Increase PHP <span class="mark">upload_max_filesize</span> and <span class="mark">post_max_size</span> to at least 64M in your php.ini</li>
+                    <li><strong>Permission denied errors:</strong> Ensure <span class="mark">/storage</span>, <span class="mark">/bootstrap/cache</span>, and project root are writable by the web server</li>
+                    <li><strong>500 error after update:</strong> Run the following commands via SSH to clear all caches:</li>
+                </ul>
+                <pre class="code highlight">php artisan optimize:clear
+php artisan config:clear
+php artisan cache:clear</pre>
+                <ul class="list">
+                    <li><strong>Rollback:</strong> If the update causes critical issues, restore your database backup and replace the application files with your pre-update backup</li>
                 </ul>
             </div>
 
