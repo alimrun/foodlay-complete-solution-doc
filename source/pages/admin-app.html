@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Foodlay Deliveryman App Documentation</title>
+  <title>Foodlay Admin App Documentation</title>
   <link rel="stylesheet" href="../assets/css/docs.css">
 </head>
 
@@ -63,26 +63,30 @@
     <section class="content">
       <h2 id="overview">Overview</h2>
       <div class="section">
-        <p><strong>Foodlay Deliveryman App</strong> is a complete, production-ready application for delivery partners
-          built with Flutter for Android and iOS.</p>
+        <p><strong>Foodlay Admin App</strong> is a complete, production-ready mobile administration application built
+          with Flutter for Android and iOS. It gives restaurant owners and managers full control over orders, menu items,
+          promotions, and business settings from their mobile device.</p>
         <ul class="list">
-          <li>A full delivery app with login, orders, maps, and chat</li>
-          <li>GoRouter-based navigation with a dashboard (Home, Orders, Account)</li>
+          <li>A full admin app with dashboard, order management, food/menu management, and promotions</li>
+          <li>GoRouter-based navigation with a bottom tab dashboard (Home, Food List, Orders)</li>
           <li>Localization, theming, DI, and Firebase messaging integrated</li>
+          <li>Google Maps for address and delivery zone management</li>
         </ul>
         <h3>Basic Usage</h3>
         <ul class="list">
-          <li>Sign in and switch to online mode</li>
-          <li>Accept incoming delivery requests</li>
-          <li>Navigate to pickup, update status, deliver order</li>
-          <li>Review completed orders and earnings</li>
+          <li>Sign in with admin credentials</li>
+          <li>View dashboard with order summaries and analytics</li>
+          <li>Manage orders: view, edit, cancel, refund, assign delivery</li>
+          <li>Manage food items: create, update, set variations/addons, pricing, stock</li>
+          <li>Set up coupons, BOGO offers, and happy hour promotions</li>
+          <li>Configure business settings, invoices, and notifications</li>
         </ul>
       </div>
 
       <h2 id="requirements">Requirements</h2>
       <div class="section">
         <ul class="list">
-          <li>Flutter (Channel stable, 3.27.x) &mdash; Dart SDK &ge; 3.9.0</li>
+          <li>Flutter (Channel stable, 3.29.x) &mdash; Dart SDK &ge; 3.10.0</li>
           <li>Android Studio</li>
           <li>Xcode 16+ for IPA file build</li>
           <li>Devices or emulators</li>
@@ -107,8 +111,8 @@
           <li>Download the latest stable Flutter for Windows.</li>
           <li>Extract to a folder, e.g., C:\flutter.</li>
           <li>Add C:\flutter\bin to PATH:</li>
-          <li>Right‑click “This PC” → Properties → Advanced system settings → Environment Variables.</li>
-          <li>Edit “Path” under System variables → New → add C:\flutter\bin.</li>
+          <li>Right‑click "This PC" → Properties → Advanced system settings → Environment Variables.</li>
+          <li>Edit "Path" under System variables → New → add C:\flutter\bin.</li>
         </ul>
         <pre class="code">flutter doctor</pre>
         <ul class="list">
@@ -201,7 +205,7 @@ android:label="YOUR_APP_NAME"</pre>
         <ul class="list">
           <li>Install and set up your Admin Panel first.</li>
           <li>If admin login is https://your_domain.com/admin/auth/login then base URL is https://your_domain.com</li>
-          <li>Open &lt;project&gt;/lib/util/app_constrants.dart and set baseUrl.</li>
+          <li>Open &lt;project&gt;/lib/config/util/app_constants.dart and set baseUrl.</li>
           <li>Do not add a trailing slash.</li>
         </ul>
         <pre class="code">Wrong:
@@ -338,8 +342,6 @@ flutter run</pre>
         <img src="../assets/images/upload/run-completed.png" alt="Run completed" class="doc-img">
       </div>
 
-      <!-- Configuration section merged into Mandatory Setup; removed to avoid duplication -->
-
       <h2 id="android-ios-config">Android &amp; iOS Config</h2>
       <div class="section">
         <h3>Android</h3>
@@ -379,7 +381,7 @@ flutter run</pre>
 {
   "@@locale": "es",
   "office": "Oficina",
-  "orders": "Pedidos"
+  "dashboard": "Tablero"
 }</pre>
         <ul class="list">
           <li>Generate localizations (or hot‑restart if auto‑generated):</li>
@@ -410,7 +412,7 @@ flutter run</pre>
         </ul>
         <h3>RTL Support</h3>
         <ul class="list">
-          <li>RTL locales like Arabic are supported automatically by Flutter’s Directionality.</li>
+          <li>RTL locales like Arabic are supported automatically by Flutter's Directionality.</li>
           <li>Use directional-aware widgets; avoid hard-coded left/right paddings where possible.</li>
         </ul>
       </div>
@@ -419,9 +421,9 @@ flutter run</pre>
       <div class="section">
         <h3>Change App Color</h3>
         <ul class="list">
-          <li>Open &lt;project&gt;/lib/theme/light_theme.dart and set primaryColor, foregroundColor, secondary, etc.
-          </li>
-          <li>Open &lt;project&gt;/lib/theme/dark_theme.dart and mirror the same updates for dark mode.</li>
+          <li>Open &lt;project&gt;/lib/config/theme/light_theme.dart and set primaryColor, foregroundColor, secondary,
+            etc.</li>
+          <li>Open &lt;project&gt;/lib/config/theme/dark_theme.dart and mirror the same updates for dark mode.</li>
           <li>Keep contrast and accessibility in mind for text and icons.</li>
         </ul>
         <h3>Change App Font</h3>
@@ -438,7 +440,7 @@ flutter run</pre>
         - asset: assets/font/YOUR_FONT_FILE_NAME.ttf
           weight: YOUR_FONT_WEIGHT</pre>
         <ul class="list">
-          <li>Set the font family in &lt;project&gt;/lib/util/app_constants.dart</li>
+          <li>Set the font family in &lt;project&gt;/lib/config/util/app_constants.dart</li>
         </ul>
         <pre class="code">static const String fontFamily = 'YOUR_FONT_FAMILY_NAME';</pre>
         <h3>Change Notification Sound</h3>
@@ -461,22 +463,33 @@ flutter run</pre>
           <li>Graphics: replace &lt;project&gt;/assets/images/onboard_1.png, onboard_2.png, onboard_3.png with your PNGs
             using the same names.</li>
         </ul>
-
       </div>
-
-
 
       <h2 id="features">Core Features</h2>
       <div class="section">
         <ul class="list">
-          <li>Dashboard tabs: Home, Orders, Account</li>
-          <li>Login with password/OTP; setup password</li>
-          <li>Orders list, details, confirmation</li>
-          <li>Order delivery location with Google Maps (from/to)</li>
-          <li>Cancel delivery with reason selection</li>
+          <li>Dashboard tabs: Home, Food List, Orders</li>
+          <li>Dashboard analytics: order summaries, revenue overview</li>
+          <li>Order management: list, details, status updates, cancel, refund</li>
+          <li>Order editing: modify food items, delivery info, customer info, comments</li>
+          <li>Order filters: by status, type, payment status, date range</li>
+          <li>Delivery man assignment for orders</li>
+          <li>Food management: create, edit, view details, variations &amp; addons, pricing, stock</li>
+          <li>Food filtering with advanced search</li>
+          <li>Category management</li>
+          <li>Product management: cuisines, labels, menu types, addons</li>
+          <li>Coupon management: create, view, trash, customer-specific coupons</li>
+          <li>BOGO (Buy One Get One) offers: create, view, trash</li>
+          <li>Happy Hour scheduling and setup</li>
+          <li>Business setup: currency, countries, working hours</li>
+          <li>Invoice setup and configuration</li>
+          <li>Notification setup: create, send, and view push notifications</li>
+          <li>Refund request management: view, approve, deny, process refunds</li>
+          <li>Chat and conversations with customers and deliverymen</li>
+          <li>Profile settings and two-factor authentication (2FA)</li>
+          <li>Tax configuration</li>
           <li>Notifications (Firebase) and local notifications</li>
-          <li>Chat and conversations</li>
-          <li>Settings, edit profile, terms &amp; condition, contact us</li>
+          <li>Onboarding, splash, and settings screens</li>
           <li>File viewer for images/videos</li>
         </ul>
       </div>
@@ -485,10 +498,13 @@ flutter run</pre>
       <div class="section">
         <ul class="list">
           <li>Routing with GoRouter and dashboard ShellRoute</li>
-          <li>State with Bloc; DI via get_it + injectable</li>
-          <li>ThemeLocalizationWrapper and AppWrapper</li>
-          <li>Firebase initialized in main with NotificationHelper and background handler</li>
-          <li>Error handling via Catcher2 (debug/release configs)</li>
+          <li>State with Bloc/HydratedBloc; DI via get_it + injectable</li>
+          <li>ThemeLocalizationWrapper and GlobalOverlayWrapper</li>
+          <li>Firebase initialized in main with NotificationHelper and Crashlytics</li>
+          <li>Clean architecture per feature: data (models, repositories), domain (services), presentation (bloc,
+            screens, widgets)</li>
+          <li>Error handling via FirebaseCrashlytics in release mode</li>
+          <li>Responsive layout with mobile and desktop breakpoints</li>
         </ul>
       </div>
 
@@ -497,27 +513,63 @@ flutter run</pre>
         <ul class="list">
           <li>Shell: Dashboard</li>
           <li>Home: /home</li>
-          <li>Orders: /order</li>
-          <li>Orders → Details: /order/order_details</li>
-          <li>Orders → Result: /order/order_result</li>
-          <li>Orders → Cancel Reason: /order/order_cancel_reason</li>
-          <li>Orders → Delivery Location: /order/order_delivery_location</li>
+          <li>Food List: /food_list</li>
+          <li>Food List → Food Trash: /food_list/food_trash</li>
+          <li>My Orders: /my_orders</li>
+          <li>My Orders Filter: /my_orders_filter</li>
+          <li>Order Details: /order_details</li>
+          <li>Order Cancel: /order_cancel</li>
+          <li>Order Refund: /order_refund</li>
+          <li>Edit Food (Order): /edit_food</li>
+          <li>Edit Comment (Order): /edit_comment</li>
+          <li>Edit Delivery Info: /edit_delivery_info</li>
+          <li>Edit Customer Info: /edit_customer_info</li>
+          <li>Add New Food (Order): /add_new_food</li>
+          <li>Food Setup: /food_setup</li>
+          <li>Food Details: /food_details/:id</li>
+          <li>Food Details → Variations &amp; Addons: /food_details/:id/variations_addons</li>
+          <li>Food Details → Edit Meta Data: /food_details/:id/edit_meta_data</li>
+          <li>Food Details → Update Price: /food_details/:id/food_update_price</li>
+          <li>Food Details → Update Stock: /food_details/:id/food_update_stock</li>
+          <li>Product Management List: /product_management_list</li>
+          <li>Product Management → Create: /product_management_list/create_product_management</li>
+          <li>Product Management → Details: /product_management_list/product_management_details</li>
+          <li>Product Management → Trash: /product_management_list/trash</li>
+          <li>Category List: /category_list</li>
+          <li>Filter: /filter</li>
+          <li>Coupon List: /coupon_list</li>
+          <li>Coupon List → View: /coupon_list/coupon_view</li>
+          <li>Coupon List → Setup: /coupon_list/coupon_setup</li>
+          <li>Coupon List → Setup → Customer List: /coupon_list/coupon_setup/customer_list</li>
+          <li>Coupon List → Trash: /coupon_list/coupon_trash</li>
+          <li>BOGO List: /bogo_list_screen</li>
+          <li>BOGO List → View: /bogo_list_screen/bogo_view_screen</li>
+          <li>BOGO List → Setup: /bogo_list_screen/bogo_setup_screen</li>
+          <li>BOGO List → Trash: /bogo_list_screen/bogo_trash</li>
+          <li>Happy Hour Setup: /happy_hour_setup_screen</li>
+          <li>Notification Setup: /notification_setup</li>
+          <li>Notification Setup → Send: /notification_setup/send-notification</li>
+          <li>Notification Setup → View: /notification_setup/view</li>
+          <li>Invoice Setup: /invoice_setup</li>
+          <li>Business Setup: /business_setup</li>
+          <li>Business Setup → Create Currency: /business_setup/create_currency</li>
+          <li>Refund Request: /refund_request</li>
+          <li>Refund Request → Details: /refund_request/refund_request_details</li>
+          <li>Refund Request → Denied: /refund_request/refund_denied</li>
+          <li>Refund Request → Process: /refund_request/refund_process</li>
+          <li>Refund Request Filter: /refund_request_filter</li>
           <li>Chat: /chat</li>
           <li>Chat → Conversation: /chat/conversation</li>
-          <li>Account: /account</li>
-          <li>Login: /login</li>
-          <li>Login → Password: /login/password</li>
-          <li>Login → Verification: /login/verification</li>
-          <li>Login → Set Up Password: /login/set_up_password</li>
+          <li>Profile Settings: /profile_settings</li>
           <li>Settings: /settings</li>
-          <li>Settings → Setup Password: /settings/settings_setup_password</li>
           <li>Notification: /notification</li>
-          <li>File Viewer: /file_viewer</li>
           <li>Splash: /splash</li>
-          <li>Contact Us: /contact_us</li>
-          <li>Terms &amp; Condition: /terms_and_condition</li>
-          <li>Edit Profile: /edit_profile</li>
-          <li>Forget Password Login: /forget_login</li>
+          <li>Onboarding: /onboarding_screen</li>
+          <li>Login: /login</li>
+          <li>Forget Password: /forget_login</li>
+          <li>Set Up Password: /set_up_password</li>
+          <li>Verification: /verification</li>
+          <li>File Viewer: /file_viewer</li>
         </ul>
       </div>
 
@@ -526,9 +578,12 @@ flutter run</pre>
         <ul class="list">
           <li>lib/config/route: route_config.dart</li>
           <li>lib/config/theme: light_theme.dart, dark_theme.dart, custom_theme_colors.dart</li>
-          <li>lib/config/util: assets.gen.dart, fonts.gen.dart, styles.dart, constants</li>
-          <li>lib/core: helpers, DI, notifications, handlers</li>
-          <li>lib/features: account, chat, orders, settings, home, etc.</li>
+          <li>lib/config/util: app_constants.dart, assets.gen.dart, dimensions.dart, styles.dart</li>
+          <li>lib/core: data (API client, models, storage), dependency injection, helpers (notifications, utilities)</li>
+          <li>lib/features: account, address, bogo, business_setup, cart, category, chat, common, coupon, dashboard,
+            file_viewer, filter, food, happy_hour_setup, home, invoice_setup, login, menu, notification,
+            notification_setup, offers, onboarding, order, product_management, profile, refund, review, search,
+            settings, splash, tax</li>
           <li>lib/l10n/arb: app_en.arb, app_ar.arb, app_bn.arb, app_es.arb, app_hi.arb</li>
         </ul>
       </div>
@@ -597,12 +652,16 @@ flutter pub get</pre>
         <ul class="list">
           <li>Secure release (obfuscation + symbols):</li>
         </ul>
-        <pre class="code highlight">flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
+        <pre
+          class="code highlight">flutter build apk --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
         <ul class="list">
           <li>Secure App Bundle (preferred for Play Store):</li>
         </ul>
-        <pre class="code highlight">flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
-        <div class="alert alert-warning">Keep the debug symbol files from <span class="mark">--split-debug-info</span> in a safe location. They are required to de‑obfuscate crash stack traces (e.g., Crashlytics, Play Console).</div>
+        <pre
+          class="code highlight">flutter build appbundle --release --obfuscate --split-debug-info=build/app/outputs/symbols</pre>
+        <div class="alert alert-warning">Keep the debug symbol files from <span
+            class="mark">--split-debug-info</span> in a safe location. They are required to de‑obfuscate crash stack
+          traces (e.g., Crashlytics, Play Console).</div>
         <ul class="list">
           <li>Split per ABI for smaller APKs:</li>
         </ul>
@@ -639,8 +698,8 @@ build/app/outputs/bundle/release/app-release.aab</pre>
           <li>CLI artifact path:</li>
         </ul>
         <pre class="code">build/ios/ipa/Runner.ipa</pre>
-        <div class="alert alert-info">Run a final pass on a release build to verify notifications, location updates, and
-          background tasks perform as expected.</div>
+        <div class="alert alert-info">Run a final pass on a release build to verify notifications and all management
+          features perform as expected before distribution.</div>
       </div>
 
       <h2 id="signing-release">Signing &amp; Release</h2>
@@ -649,15 +708,15 @@ build/app/outputs/bundle/release/app-release.aab</pre>
         <ul class="list">
           <li>Create a private keystore (keep it secure and out of git):</li>
         </ul>
-        <pre class="code">keytool -genkeypair -v -keystore ~/keystores/foodlay-dm-release.keystore \
-  -alias foodlaydm -keyalg RSA -keysize 2048 -validity 36500</pre>
+        <pre class="code">keytool -genkeypair -v -keystore ~/keystores/foodlay-admin-release.keystore \
+  -alias foodlayadmin -keyalg RSA -keysize 2048 -validity 36500</pre>
         <ul class="list">
           <li>Create <span class="mark">key.properties</span> in project root (git‑ignored):</li>
         </ul>
         <pre class="code">storePassword=YOUR_STORE_PASSWORD
 keyPassword=YOUR_KEY_PASSWORD
-keyAlias=foodlaydm
-storeFile=/ABSOLUTE/PATH/TO/foodlay-dm-release.keystore</pre>
+keyAlias=foodlayadmin
+storeFile=/ABSOLUTE/PATH/TO/foodlay-admin-release.keystore</pre>
         <ul class="list">
           <li>Load and apply signing in <span class="mark">android/app/build.gradle</span> and enable shrinking for
             release:</li>
@@ -693,7 +752,7 @@ android {
         <ul class="list">
           <li>Use Play App Signing; first upload your <span class="mark">.aab</span> to register the upload key.</li>
           <li>Complete store listing, privacy policy, content rating, and data safety forms.</li>
-          <li>Test location and notification flows on release builds before rollout.</li>
+          <li>Test all admin features on release builds before rollout.</li>
         </ul>
 
         <h3>iOS: Signing &amp; Provisioning</h3>
@@ -701,22 +760,20 @@ android {
           <li>Open <span class="mark">ios/Runner.xcworkspace</span> → select Team → enable <span
               class="mark">Automatically manage signing</span>.</li>
           <li>Ensure a Distribution profile for release and correct Bundle Identifier.</li>
-          <li>Capabilities: Push Notifications and Background Modes → Remote notifications; enable Location updates if
-            used.</li>
+          <li>Capabilities: Push Notifications and Background Modes → Remote notifications.</li>
         </ul>
 
         <h3>iOS: Archive &amp; Submit</h3>
         <ul class="list">
           <li>Update Version and Build in Xcode (General tab).</li>
           <li>Product → Archive → Organizer → Distribute App → App Store Connect → Upload.</li>
-          <li>Fill App Store Connect metadata and privacy questions; include location permission justifications if
-            applicable.</li>
+          <li>Fill App Store Connect metadata and privacy questions.</li>
         </ul>
 
         <h3>Release Checklist</h3>
         <ul class="list">
           <li>Verify production API endpoints and disable verbose logs.</li>
-          <li>Confirm foreground/background location prompts and behaviors reflect features used.</li>
+          <li>Confirm order management, food CRUD, and promotion flows work on release builds.</li>
           <li>Update app icons, splash, and display name for production.</li>
           <li>Back up keystore and signing credentials in a secure vault.</li>
         </ul>
@@ -734,11 +791,14 @@ android {
         <h3>Authentication</h3>
         <ul class="list">
           <li>Use token-based auth with short-lived access token and refresh token.</li>
+          <li>Admin login endpoint: /api/v1/admin/auth/login</li>
           <li>Attach Authorization header to protected requests:</li>
         </ul>
         <pre class="code">Authorization: Bearer &lt;ACCESS_TOKEN&gt;</pre>
         <ul class="list">
-          <li>Refresh tokens on 401; queue and retry pending requests after refresh; logout if refresh fails.</li>
+          <li>Refresh tokens on 401 via /api/v1/admin/auth/refresh; queue and retry pending requests after refresh;
+            logout if refresh fails.</li>
+          <li>Two-factor authentication supported via /api/v1/admin/auth/verify-2fa.</li>
           <li>Store refresh tokens in platform-secure storage.</li>
         </ul>
         <h3>Common headers</h3>
@@ -747,10 +807,33 @@ android {
           <li>Accept-Language: current locale code</li>
           <li>X-App-Version: app version/build</li>
         </ul>
+        <h3>Key API Endpoints</h3>
+        <ul class="list">
+          <li>Dashboard: /api/v1/admin/dashboard</li>
+          <li>Orders: /api/v1/admin/orders</li>
+          <li>Items: /api/v1/admin/item</li>
+          <li>Categories: /api/v1/admin/categories</li>
+          <li>Cuisines: /api/v1/admin/cuisine</li>
+          <li>Menu Types: /api/v1/admin/menu-type</li>
+          <li>Labels: /api/v1/admin/label</li>
+          <li>Addons: /api/v1/admin/addon</li>
+          <li>Coupons: /api/v1/admin/coupon</li>
+          <li>BOGO: /api/v1/admin/bogo</li>
+          <li>Happy Hour: /api/v1/admin/happy-hour</li>
+          <li>Refund Requests: /api/v1/admin/refund-requests</li>
+          <li>Tax: /api/v1/admin/tax</li>
+          <li>Notifications: /api/v1/admin/notifications</li>
+          <li>Chat: /api/v1/admin/chats</li>
+          <li>Profile: /api/v1/admin/profile</li>
+          <li>Business Setup: /api/v1/admin/business/setup</li>
+          <li>Currency: /api/v1/admin/currency</li>
+          <li>Invoice Setup: /api/v1/admin/invoice-setup</li>
+        </ul>
         <h3>Pagination &amp; filtering</h3>
         <ul class="list">
+          <li>Default pagination limit: 10 items per page.</li>
           <li>Use page/limit or cursor; maintain hasMore based on response payload.</li>
-          <li>For delivery lists, filter by status and date ranges to reduce payloads.</li>
+          <li>Filter orders by status, type, payment status, and date ranges.</li>
         </ul>
         <h3>Error handling</h3>
         <ul class="list">
@@ -769,15 +852,15 @@ android {
         </ul>
         <h3>Sample requests (cURL)</h3>
         <ul class="list">
-          <li>Authenticate:</li>
+          <li>Admin login:</li>
         </ul>
-        <pre class="code">curl -X POST https://api.example.com/api/v1/auth/login \
+        <pre class="code">curl -X POST https://api.example.com/api/v1/admin/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"phone":"0123456789","otp":"123456"}'</pre>
+  -d '{"email":"admin@example.com","password":"your_password"}'</pre>
         <ul class="list">
-          <li>Fetch deliveries page with filters:</li>
+          <li>Fetch orders with filters:</li>
         </ul>
-        <pre class="code">curl "https://api.example.com/api/v1/deliveries?page=1&amp;limit=20&amp;status=ongoing" \
+        <pre class="code">curl "https://api.example.com/api/v1/admin/orders?page=1&amp;limit=10&amp;status=pending" \
   -H "Authorization: Bearer &lt;ACCESS_TOKEN&gt;" \
   -H "Accept: application/json" \
   -H "Accept-Language: en"</pre>
@@ -787,7 +870,8 @@ android {
       <div class="section">
         <h3>Unit &amp; Widget Tests</h3>
         <ul class="list">
-          <li>Put tests under <span class="mark">test/</span> and name files <span class="mark">*_test.dart</span>.</li>
+          <li>Put tests under <span class="mark">test/</span> and name files <span class="mark">*_test.dart</span>.
+          </li>
           <li>Run all tests:</li>
         </ul>
         <pre class="code">flutter test</pre>
@@ -820,8 +904,8 @@ genhtml coverage/lcov.info -o coverage/html
 open coverage/html/index.html</pre>
         <h3>Best Practices</h3>
         <ul class="list">
-          <li>Isolate business logic with fakes/mocks; avoid real network or location calls in tests.</li>
-          <li>Use golden tests for delivery flow UI where layout must remain consistent.</li>
+          <li>Isolate business logic with fakes/mocks; avoid real network calls in tests.</li>
+          <li>Use golden tests for admin dashboard and form layouts where consistency matters.</li>
           <li>Keep tests deterministic and independent; avoid sharing mutable global state.</li>
         </ul>
       </div>
@@ -883,8 +967,8 @@ flutter run</pre>
         <h3>Post-Update Checklist</h3>
         <ul class="list">
           <li>Verify the app builds and runs without errors on both Android and iOS</li>
-          <li>Test core functionality: login, accepting deliveries, navigation, and status updates</li>
-          <li>Confirm push notifications and location tracking are working</li>
+          <li>Test core functionality: login, dashboard, order management, food CRUD, and promotions</li>
+          <li>Confirm push notifications are working</li>
           <li>Validate that all custom modifications have been reapplied (if using Option A)</li>
           <li>Run on a physical device to verify full functionality before releasing</li>
         </ul>
@@ -946,13 +1030,6 @@ pod install --repo-update</pre>
           <li>Android 13+ no notifications: request POST_NOTIFICATIONS permission at runtime.</li>
           <li>Reinstall after config changes to refresh tokens.</li>
         </ul>
-        <h3>Location permissions</h3>
-        <ul class="list">
-          <li>Android: ensure location permissions are declared and requested at runtime.</li>
-          <li>iOS: add usage descriptions in Info.plist and request permission in app.</li>
-        </ul>
-        <pre class="code">&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
-&lt;string&gt;Your location is used to navigate deliveries.&lt;/string&gt;</pre>
         <h3>Network &amp; SSL</h3>
         <ul class="list">
           <li>CERTIFICATE_VERIFY_FAILED: use HTTPS, correct device time, avoid self‑signed certs in prod.</li>
@@ -970,7 +1047,6 @@ pod install --repo-update</pre>
         </ul>
       </div>
 
-
       <h2 id="links">Links</h2>
       <div class="section">
         <ul class="list">
@@ -982,7 +1058,7 @@ pod install --repo-update</pre>
   </main>
 
   <footer class="footer container">
-    <div>© 2026 Foodlay — Deliveryman app documentation. Need help? See Home &gt; Help &amp; Support.</div>
+    <div>&copy; 2026 Foodlay &mdash; Admin app documentation. Need help? See Home &gt; Help &amp; Support.</div>
   </footer>
   <script src="../assets/js/docs.js"></script>
 </body>
