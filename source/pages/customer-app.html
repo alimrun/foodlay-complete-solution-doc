@@ -57,6 +57,7 @@
         <a href="#update-procedure">Update Procedure</a>
         <a href="#troubleshooting">Troubleshooting</a>
         <a href="#links">Links</a>
+        <a href="#changelog">Version History</a>
       </nav>
     </aside>
 
@@ -213,12 +214,43 @@ static const String baseUrl = 'https://your_domain.com/';
 
 Right:
 static const String baseUrl = 'https://your_domain.com';</pre>
-          <h3>Change App Package</h3>
+          <h3>Change App Package Name</h3>
+          <div class="alert alert-warning">Change the package name <strong>before</strong> setting up Firebase. Default package is <code>com.flutter.customer</code> — replace with your own (e.g. <code>com.yourcompany.foodlay</code>).</div>
+          <h4>Step 1 — Android: Update applicationId</h4>
           <ul class="list">
-            <li>Find current package in android/app/src/main/AndroidManifest.xml.</li>
-            <li>In Android Studio: right‑click project → Replace in Path.</li>
-            <li>Enter old package as search, new package as replacement → Replace All.</li>
+            <li>Open <span class="mark">android/app/build.gradle</span> and update <code>applicationId</code>:</li>
           </ul>
+          <pre class="code">defaultConfig {
+    applicationId "com.yourcompany.foodlay"
+    ...
+}</pre>
+          <h4>Step 2 — Android: Rename the Kotlin source folder</h4>
+          <ul class="list">
+            <li>Old path: <span class="mark">android/app/src/main/kotlin/com/flutter/customer/</span></li>
+            <li>New path: <span class="mark">android/app/src/main/kotlin/com/yourcompany/foodlay/</span></li>
+            <li>In Android Studio: right-click the innermost folder → Refactor → Move, or rename each folder level manually.</li>
+          </ul>
+          <h4>Step 3 — Android: Update AndroidManifest.xml</h4>
+          <pre class="code">// android/app/src/main/AndroidManifest.xml
+&lt;manifest package="com.yourcompany.foodlay" ...&gt;</pre>
+          <h4>Step 4 — Android: Update MainActivity.kt</h4>
+          <pre class="code">// android/app/src/main/kotlin/com/yourcompany/foodlay/MainActivity.kt
+package com.yourcompany.foodlay</pre>
+          <h4>Step 5 — iOS: Change Bundle Identifier in Xcode</h4>
+          <ul class="list">
+            <li>Open <span class="mark">ios/Runner.xcworkspace</span> in Xcode.</li>
+            <li>Select the <span class="mark">Runner</span> target → <strong>General</strong> tab.</li>
+            <li>Set <strong>Bundle Identifier</strong> to <code>com.yourcompany.foodlay</code>.</li>
+          </ul>
+          <h4>Step 6 — iOS: Update Info.plist</h4>
+          <pre class="code">// ios/Runner/Info.plist
+&lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+&lt;string&gt;com.yourcompany.foodlay&lt;/string&gt;</pre>
+          <h4>Step 7 — Clean and rebuild</h4>
+          <pre class="code">flutter clean
+flutter pub get
+flutter run</pre>
+          <div class="alert alert-info">After renaming, re-register the new package in Firebase and re-download <code>google-services.json</code> and <code>GoogleService-Info.plist</code>.</div>
           <h3>Setup Firebase for Push Notification</h3>
           <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Deliveryman, Admin). Add
             multiple apps under the same project.</div>
@@ -1009,6 +1041,37 @@ pod install --repo-update</pre>
               <li><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></li>
               <li><a href="https://pub.dev" target="_blank" rel="noopener">pub.dev</a></li>
             </ul>
+          </div>
+          <h2 id="changelog">Version History</h2>
+          <div class="section">
+
+            <h3>Version 2.0 &mdash; April 2026</h3>
+            <ul class="list">
+              <li>Added <strong>Loyalty Points</strong> — earn points on orders, redeem via wallet</li>
+              <li>Added <strong>Wallet</strong> — top-up, spend, and view transaction history</li>
+              <li>Added <strong>Referral System</strong> — share referral codes for rewards</li>
+              <li>Added <strong>Wishlist</strong> — save favourite items for later</li>
+              <li>Added <strong>Real-time Chat</strong> with support team</li>
+              <li>Added <strong>Speech-to-Text</strong> search input</li>
+              <li>Improved home screen layout and category browsing</li>
+              <li>Improved checkout flow with address auto-complete via Google Maps</li>
+              <li>Bug fixes and performance improvements</li>
+            </ul>
+
+            <h3>Version 1.0.0 &mdash; 07 March 2026</h3>
+            <ul class="list">
+              <li>Initial release</li>
+              <li>Food browsing by category, cuisine, and search</li>
+              <li>Cart and checkout with delivery address selection</li>
+              <li>Real-time order tracking with Google Maps</li>
+              <li>Multiple payment methods including Stripe</li>
+              <li>Order history and reorder support</li>
+              <li>Firebase push notifications</li>
+              <li>Social login (Google, Facebook, Apple)</li>
+              <li>Multi-language support (EN, BN, HI, AR, ES)</li>
+              <li>Dark and light theme support</li>
+            </ul>
+
           </div>
     </section>
   </main>

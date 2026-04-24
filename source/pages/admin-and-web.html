@@ -48,6 +48,7 @@
                 <a href="#update-procedure">Update Procedure</a>
                 <a href="#troubleshooting">Troubleshooting</a>
                 <a href="#customization">Customization</a>
+                <a href="#changelog">Version History</a>
             </nav>
         </aside>
 
@@ -220,10 +221,13 @@ zip</pre>
                 </ul>
                 <img src="../assets/images/upload/database-setup.png" alt="Database setup wizard" class="doc-img">
                 <h3>Extraction &amp; Setup</h3>
+                <div class="alert alert-warning"><strong>Note:</strong> The <code>vendor</code> folder and <code>public/build</code> folder are not included in the package. You must generate them yourself after extraction by running the commands below.</div>
                 <ul class="list">
                     <li>Upload and unzip install.zip to server root.</li>
                     <li>Point domain/subdomain to /public.</li>
                     <li>Ensure writable: /storage, /bootstrap/cache, .env.</li>
+                    <li>Run <code>composer install</code> to install PHP dependencies.</li>
+                    <li>Run <code>npm install</code> then <code>npm run build</code> to compile frontend assets.</li>
                 </ul>
                 <h3>Automated Wizard</h3>
                 <ul class="list">
@@ -477,8 +481,8 @@ php artisan view:cache</pre>
                 <ul class="list">
                     <li>If document root cannot point to /public, move public files to public_html and adjust index.php
                         paths</li>
-                    <li>Run composer in terminal or deploy vendor from local</li>
-                    <li>Build assets locally and upload public/build</li>
+                    <li>Run <code>composer install --no-dev --optimize-autoloader</code> via SSH or cPanel terminal</li>
+                    <li>Run <code>npm install</code> and <code>npm run build</code> locally, then upload the generated <code>public/build</code> folder to the server</li>
                 </ul>
             </div>
 
@@ -632,6 +636,54 @@ Route::get('/admin', fn () =&gt; Inertia::render('AdminPanel/Dashboard'));</pre>
                 <li>Check Troubleshooting section</li>
                 <li>Search marketplace comments for similar issues</li>
             </ul>
+            </div>
+            <h2 id="changelog">Version History</h2>
+            <div class="section">
+
+                <h3>Version 2.0 &mdash; April 2026</h3>
+                <div class="alert alert-warning">This is a major update. Back up your database and files before upgrading.</div>
+                <ul class="list">
+                    <li>Upgraded backend to <strong>Laravel 12</strong> with full PHP 8.2+ support</li>
+                    <li>Migrated frontend to <strong>Vue 3.5 + Inertia.js 2.0</strong> with Composition API</li>
+                    <li>Upgraded build tooling to <strong>Vite 7</strong> and <strong>Tailwind CSS 4</strong></li>
+                    <li>Added <strong>Happy Hour</strong> scheduling with time-based discount rules</li>
+                    <li>Added <strong>BOGO</strong> (Buy One Get One) offer support</li>
+                    <li>Added <strong>Invoice Setup</strong> — customizable invoice templates per business</li>
+                    <li>Added <strong>Refund Management</strong> — admin refund request handling with status tracking</li>
+                    <li>Added <strong>Tax Management</strong> — flexible tax rules per item and category</li>
+                    <li>Added <strong>Real-time Chat</strong> between Admin, Customers, and Delivery staff via Laravel Reverb (WebSockets)</li>
+                    <li>Added <strong>Two-Factor Authentication</strong> (TOTP) for admin accounts</li>
+                    <li>Added <strong>Loyalty Points</strong> system — earn and redeem points via wallet</li>
+                    <li>Added <strong>Wallet</strong> — customer wallet with top-up and transaction history</li>
+                    <li>Added <strong>Referral System</strong> — referral codes with configurable rewards</li>
+                    <li>Added <strong>Blog Module</strong> — full blog management with categories and rich-text editor</li>
+                    <li>Added <strong>Newsletter</strong> subscription management</li>
+                    <li>Added <strong>AWS S3</strong> integration for cloud media storage</li>
+                    <li>Added <strong>Google reCAPTCHA v3</strong> on login and registration</li>
+                    <li>Improved Admin Panel UI with shadcn-vue component library</li>
+                    <li>Improved Storefront with enhanced product and category browsing</li>
+                    <li>Performance improvements via optional Laravel Octane (Swoole) support</li>
+                    <li>Built-in one-click updater at <code>yourdomain.com/updater</code></li>
+                </ul>
+
+                <h3>Version 1.0 &mdash; 07 March 2026</h3>
+                <ul class="list">
+                    <li>Initial release</li>
+                    <li>Laravel 11 backend with Vue 3 + Inertia.js frontend</li>
+                    <li>Full order lifecycle management (Pending → Delivered)</li>
+                    <li>Category, food item, and addon management</li>
+                    <li>Delivery assignment and zone management</li>
+                    <li>Payment gateway integration (Stripe)</li>
+                    <li>Firebase push notifications</li>
+                    <li>Multi-language support (EN, BN, HI, AR, ES)</li>
+                    <li>Customer-facing web storefront</li>
+                    <li>Admin panel with dashboard and analytics</li>
+                    <li>Role-based employee access control</li>
+                    <li>Coupon and discount management</li>
+                    <li>Customer and deliveryman management</li>
+                    <li>SMTP email integration</li>
+                </ul>
+
             </div>
         </section>
     </main>

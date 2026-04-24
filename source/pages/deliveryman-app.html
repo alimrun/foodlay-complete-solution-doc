@@ -57,6 +57,7 @@
         <a href="#update-procedure">Update Procedure</a>
         <a href="#troubleshooting">Troubleshooting</a>
         <a href="#links">Links</a>
+        <a href="#changelog">Version History</a>
       </nav>
     </aside>
 
@@ -209,12 +210,43 @@ static const String baseUrl = 'https://your_domain.com/';
 
 Right:
 static const String baseUrl = 'https://your_domain.com';</pre>
-        <h3>Change App Package</h3>
+        <h3>Change App Package Name</h3>
+        <div class="alert alert-warning">Change the package name <strong>before</strong> setting up Firebase. Default package is <code>com.flutter.deliveryman</code> — replace with your own (e.g. <code>com.yourcompany.foodlaydelivery</code>).</div>
+        <h4>Step 1 — Android: Update applicationId</h4>
         <ul class="list">
-          <li>Find current package in android/app/src/main/AndroidManifest.xml.</li>
-          <li>In Android Studio: right‑click project → Replace in Path.</li>
-          <li>Enter old package as search, new package as replacement → Replace All.</li>
+          <li>Open <span class="mark">android/app/build.gradle</span> and update <code>applicationId</code>:</li>
         </ul>
+        <pre class="code">defaultConfig {
+    applicationId "com.yourcompany.foodlaydelivery"
+    ...
+}</pre>
+        <h4>Step 2 — Android: Rename the Kotlin source folder</h4>
+        <ul class="list">
+          <li>Old path: <span class="mark">android/app/src/main/kotlin/com/flutter/deliveryman/</span></li>
+          <li>New path: <span class="mark">android/app/src/main/kotlin/com/yourcompany/foodlaydelivery/</span></li>
+          <li>In Android Studio: right-click the innermost folder → Refactor → Move, or rename each folder level manually.</li>
+        </ul>
+        <h4>Step 3 — Android: Update AndroidManifest.xml</h4>
+        <pre class="code">// android/app/src/main/AndroidManifest.xml
+&lt;manifest package="com.yourcompany.foodlaydelivery" ...&gt;</pre>
+        <h4>Step 4 — Android: Update MainActivity.kt</h4>
+        <pre class="code">// android/app/src/main/kotlin/com/yourcompany/foodlaydelivery/MainActivity.kt
+package com.yourcompany.foodlaydelivery</pre>
+        <h4>Step 5 — iOS: Change Bundle Identifier in Xcode</h4>
+        <ul class="list">
+          <li>Open <span class="mark">ios/Runner.xcworkspace</span> in Xcode.</li>
+          <li>Select the <span class="mark">Runner</span> target → <strong>General</strong> tab.</li>
+          <li>Set <strong>Bundle Identifier</strong> to <code>com.yourcompany.foodlaydelivery</code>.</li>
+        </ul>
+        <h4>Step 6 — iOS: Update Info.plist</h4>
+        <pre class="code">// ios/Runner/Info.plist
+&lt;key&gt;CFBundleIdentifier&lt;/key&gt;
+&lt;string&gt;com.yourcompany.foodlaydelivery&lt;/string&gt;</pre>
+        <h4>Step 7 — Clean and rebuild</h4>
+        <pre class="code">flutter clean
+flutter pub get
+flutter run</pre>
+        <div class="alert alert-info">After renaming, re-register the new package in Firebase and re-download <code>google-services.json</code> and <code>GoogleService-Info.plist</code>.</div>
         <h3>Setup Firebase for Push Notification</h3>
         <div class="alert alert-warning">Use one Firebase project for all apps (Customer, Deliveryman, Admin). Add
           multiple apps under the same project.</div>
@@ -977,6 +1009,30 @@ pod install --repo-update</pre>
           <li><a href="https://docs.flutter.dev" target="_blank" rel="noopener">Flutter Docs</a></li>
           <li><a href="https://pub.dev" target="_blank" rel="noopener">pub.dev</a></li>
         </ul>
+      </div>
+      <h2 id="changelog">Version History</h2>
+      <div class="section">
+
+        <h3>Version 2.0 &mdash; April 2026</h3>
+        <ul class="list">
+          <li>Added <strong>Real-time Chat</strong> with admin and customers</li>
+          <li>Improved order notification reliability via Firebase</li>
+          <li>Improved earnings summary and transaction history screen</li>
+          <li>Bug fixes and performance improvements</li>
+        </ul>
+
+        <h3>Version 1.0.0 &mdash; 07 March 2026</h3>
+        <ul class="list">
+          <li>Initial release</li>
+          <li>Order acceptance and delivery workflow</li>
+          <li>Real-time delivery tracking with Google Maps</li>
+          <li>Earnings and payout history</li>
+          <li>Firebase push notifications for new orders</li>
+          <li>Profile and account management</li>
+          <li>Multi-language support (EN, BN, HI, AR, ES)</li>
+          <li>Dark and light theme support</li>
+        </ul>
+
       </div>
     </section>
   </main>
